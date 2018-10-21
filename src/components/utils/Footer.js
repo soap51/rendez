@@ -1,0 +1,48 @@
+import React from 'react'
+import {View , Text , StyleSheet} from 'react-native'
+
+import FooterClickButton from '../Button/FooterClickButton'
+const style = StyleSheet.create({
+    container : {
+        
+       
+        backgroundColor : "rgb(234,203,238)",
+        display : "flex",
+        padding : 10,
+        flex : 0.13,
+        justifyContent : "space-around",
+        flexDirection : "row"
+    }
+})
+
+class Footer extends React.Component {
+    render(){
+        return (
+            <View style={style.container}>
+                <View style={{flex : 0.7 }}>
+                    <FooterClickButton
+                        iconType="feed"
+                        onPress={()=>console.log("hit")}
+                        titleButton="Feed"
+                    />
+                </View>
+                <View style={{flex : 0.7 , paddingLeft : 5 , paddingRight : 5}}>
+                    <FooterClickButton
+                        iconType="noti"
+                        onPress={()=>console.log("hit")}
+                        titleButton="Notifications"
+                    />
+                </View>
+                <View style={{flex : 0.7}}>
+                    <FooterClickButton
+                        iconType="home"
+                        onPress={()=>console.log("hit")}
+                        titleButton="Home"
+                    />
+                </View>
+            </View>
+        )
+    }
+}
+
+export default Footer
