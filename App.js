@@ -1,21 +1,27 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
+import {NativeRouter , Route , Switch} from 'react-router-native'
+import Page from './src/pages/'
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <NativeRouter>
+        <Switch>
+          <Route exact path="/account" component={Page.AccountSettingPage} />
+          <Route exact path="/board/comment" component={Page.CommentPage} />
+          <Route exact path="/confirm" component={Page.ConfirmPage} />
+          <Route exact path="/createEvent" component={Page.CreateEventPage} />
+          <Route exact path="/event/:eventId" component={Page.EventInformationPage} />
+          <Route exact path="/event" component={Page.EventPage} />
+          <Route exact path="/forgot" component={Page.ForgotPage} />
+          <Route exact path="/login" component={Page.LoginPage} />
+          <Route exact path="/notification" component={Page.NotificationPage} />
+          <Route exact path="/profile" component={Page.ProfilePage} />
+          <Route exact path="/register" component={Page.RegisterPage} />
+          <Route exact path="/verification" component={Page.VerificationForgotPage} />
+        </Switch>
+      </NativeRouter>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
