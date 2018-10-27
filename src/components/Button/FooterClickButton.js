@@ -13,7 +13,7 @@ class ClickButton extends React.Component {
     }
     render(){
         const {ImageButton} = this.state
-        console.log(Font.fontSize)
+   
         return (
             <TouchableOpacity style={style.container} onPress={()=>this.props.onPress()}>
                 <View style={style.subContainer}>
@@ -51,7 +51,7 @@ const style= StyleSheet.create({
         paddingLeft : 20,
         paddingRight : 20,
         display : "flex",
-        flex : 1,
+        flex : 2,
         justifyContent : "center",
         alignContent : "center"
     },
@@ -59,7 +59,7 @@ const style= StyleSheet.create({
         display : "flex",
         justifyContent : "center",
         alignContent : "center",
-       
+        
     },
     
 })

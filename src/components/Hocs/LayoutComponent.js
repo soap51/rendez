@@ -7,7 +7,8 @@ import Footer from '../utils/Footer'
 const style = StyleSheet.create({
     container :{
         width : "100%",
-        height : "100%"
+        height : "100%",
+        display : "flex"
     }
     
 })
@@ -18,12 +19,12 @@ export default function Layout(WrappedComponent ){
          
             return(
                 <View style={style.container}>
-                    <Header {...this.props}/>
-                    <ScrollView>
-                        <WrappedComponent {...this.props}/>
+                    <Header {...this.props} style={{flex : 0.01}}/>
+                    <ScrollView style={{flex : 5}}>
+                        <WrappedComponent {...this.props} />
                     </ScrollView>
                     
-                    <Footer {...this.props}/>
+                    <Footer {...this.props} style={{flex : 0.1}}/>
                 </View>
             )
         }

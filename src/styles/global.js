@@ -1,14 +1,20 @@
 import {PixelRatio , StyleSheet} from 'react-native'
 
 let fontSize = 30
+let fontHeader = 40
+let fontSecondary = 20
+let fontParagraph = 18
 let size = 60
-if(PixelRatio.get() < 2){
-    fontSize = 20
-    size = 10
+if(PixelRatio.get() < 3){
+    fontSize = 12
+    size = 30
 }
 
 export const Font= {
-    fontSize
+    fontSize,
+    fontHeader,
+    fontSecondary,
+    fontParagraph
 } 
 
 

@@ -1,12 +1,12 @@
 import React from 'react'
-import {View , Text , StyleSheet} from 'react-native'
+import {View , Text , StyleSheet , PixelRatio} from 'react-native'
 import {withRouter} from 'react-router-native'
 
 import ClickButton from '../Button/ClickButton'
 import {Font} from '../../styles/global'
 const style = StyleSheet.create({
     container : {
-        flex : 0.09,
+        flex : PixelRatio.get() < 3 ? 0.11 : 0.11,
         backgroundColor : "rgb(234,203,238)",
         display : "flex",
         padding : 10,
