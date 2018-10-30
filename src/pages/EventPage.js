@@ -1,15 +1,34 @@
 import React from 'react'
-import {View , Text , StyleSheet} from 'react-native'
+import {View , Text , StyleSheet , Alert} from 'react-native'
 import EventCard from '../components/Cards/EventCard'
+import axios from 'axios'
+import setAlert from '../utils/setAlert'
+import {DOMAIN} from '../constant/environment'
 class EventPage extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={
+            eventList : []
+        }
+        
+    }
+    componentDidMount(){
+        axios.get(DOMAIN + "")
+            .then(result=>{
+                const eventList = result.eventList
+                this.setState({eventList : eventList})
+            })
+            .catch(err=>{
+                setAlert(this.props.history,400,"Error" , "Something went wrong")
+            })
+    }
     render(){
         return(
             <View style={styles.container}>
-                <EventCard/>
-                <EventCard/>
-                <EventCard/>
-                <EventCard/>
-                <EventCard/>
+                <EventCard
+                    
+                />
+               
                     
             </View>
         )
@@ -17,7 +36,9 @@ class EventPage extends React.Component{
 }
 const styles = StyleSheet.create({
     container : {
-        padding :20
+       
+        
+       
     }
 })
 export default EventPage

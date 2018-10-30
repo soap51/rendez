@@ -24,7 +24,7 @@ class EventCard extends React.Component {
                 <View style={styles.subContainer}>
                     <View style={styles.titleContainer}>
                         <View>
-                            <Image source={EventImage} />
+                            <Image style={{flex : 1}} source={EventImage} /> 
                         </View>
                         <View>
                             <Text style={styles.titleHeader}>

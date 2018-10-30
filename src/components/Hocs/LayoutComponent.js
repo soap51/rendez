@@ -20,8 +20,8 @@ export default function Layout(WrappedComponent ){
             return(
                 <View style={style.container}>
                     <Header {...this.props} style={{flex : 0.01}}/>
-                    <ScrollView style={{flex : 5}}>
-                        <WrappedComponent {...this.props} />
+                    <ScrollView style={{flex : 5 , backgroundColor : "rgb(255,174,201)"}}>
+                        <WrappedComponent {...this.props}  />
                     </ScrollView>
                     
                     <Footer {...this.props} style={{flex : 0.1}}/>

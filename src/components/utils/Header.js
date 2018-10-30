@@ -6,7 +6,7 @@ import ClickButton from '../Button/ClickButton'
 import {Font} from '../../styles/global'
 const style = StyleSheet.create({
     container : {
-        flex : PixelRatio.get() < 3 ? 0.11 : 0.11,
+        flex :  0.11 ,
         backgroundColor : "rgb(234,203,238)",
         display : "flex",
         padding : 10,
@@ -23,22 +23,29 @@ class Header extends React.Component {
     }
     render(){
         const {title} = this.state
+        
         return (
             <View style={style.container}>
                 <View>
                     <ClickButton 
                         iconType="arrow"
-                        onPress={()=> console.log("hit")}
+                        onPress={()=> this.props.history.goBack()}
                     />
                 </View>
-                <View>
-                    <Text style={{fontSize : Font.fontSize}}>{title}</Text>
+                <View style={{display : "flex" , justifyContent : "center" , alignItems : "center"}}>
+                    <Text style={{fontSize : Font.fontHeader , fontWeight : "bold"}}>{title}</Text>
                 </View>
                 <View>
-                    <ClickButton 
-                        iconType="options"
-                        onPress={()=> console.log("hit")}
-                    />
+                    {
+                        title != "Others" ?
+                        <ClickButton 
+                            iconType="options"
+                            onPress={()=> this.props.history.push('/Others')}
+                        />
+                        :
+                        <View></View>
+                    }
+                
                 </View>
             </View>
         )

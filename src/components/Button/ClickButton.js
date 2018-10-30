@@ -12,7 +12,7 @@ class ClickButton extends React.Component {
     }
     render(){
         const {ImageButton} = this.state
-        console.log(this.props.iconType)
+       
         return (
             <TouchableOpacity style={style.container} onPress={()=>this.props.onPress()}>
                 <Icon name={ImageButton} color="#FFFFFF" size={SizePX}/>
