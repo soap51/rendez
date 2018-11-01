@@ -41,7 +41,7 @@ class EventCard extends React.Component {
                         option={feedOption}
                     />
                       <OptionButton
-                        icon="md-build"
+                        icon="ios-settings"
                         title="Setting"
                         isHaveSwitch={false}
                     />

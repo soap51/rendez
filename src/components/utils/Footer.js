@@ -17,19 +17,20 @@ const style = StyleSheet.create({
 
 class Footer extends React.Component {
     render(){
+       
         return (
             <View style={style.container}>
                 <View style={{flex : 0.7 }}>
                     <FooterClickButton
                         iconType="feed"
-                        onPress={()=>console.log("hit")}
+                        onPress={()=>this.props.history.push('/')}
                         titleButton="Feed"
                     />
                 </View>
                 <View style={{flex : 0.7 , paddingLeft : 5 , paddingRight : 5}}>
                     <FooterClickButton
                         iconType="noti"
-                        onPress={()=>console.log("hit")}
+                        onPress={()=>this.props.history.push('/Notifications')}
                         titleButton="Notifications"
                     />
                 </View>

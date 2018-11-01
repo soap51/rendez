@@ -1,30 +1,45 @@
 import React from 'react'
-import {View , Text , StyleSheet , TextInput , Image} from 'react-native'
-import {Font, SizePX} from '../../styles/global'
+import {View , Text , StyleSheet , TextInput , Image , TouchableOpacity} from 'react-native'
+import {Font, SizePX , Circle} from '../../styles/global'
 import EventImage from '../../../assets/imgs/football.jpg'
 import Icon from "react-native-vector-icons/Ionicons";
+import Proptypes from 'prop-types'
+
 class EventCard extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            author : "Poramet Thawinkarn ",
-            title : "Football",
-            location : "Kmitl",
-            icon : "",
-            eventDate : '',
-            eventStartTime : '',
-            eventEndTime : ''
+            author : props.author ? props.author : "",
+            title : props.title ? props.title : "",
+            location : props.location ? props.location : "",
+            icon : props.icon ? props.icon: "",
+            eventDate : props.eventDate ? props.eventDate : new Date(),
+            eventStartTime : props.eventStartTime ? props.eventStartTime : new Date(),
+            eventEndTime : props.eventEndTime ? props.eventEndTime : new Date()
         }
     }
-   
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            author : nextProps.author,
+            title : nextProps.title,
+            location : nextProps.location,
+            icon : nextProps.icon,
+            eventDate : nextProps.eventDate,
+            eventStartTime : nextProps.eventStartTime,
+            eventEndTime : nextProps.eventEndTime
+
+        })
+    }
+ 
     render(){
         const {icon,title , author , location , eventDate,eventEndTime,eventStartTime} = this.state 
+     
         return (
-            <View style={styles.container}>
+            <TouchableOpacity onPress={()=>this.props.enterEventInformation()} style={styles.container}>
                 <View style={styles.subContainer}>
                     <View style={styles.titleContainer}>
                         <View>
-                            <Image style={{flex : 1}} source={EventImage} /> 
+                            <Image style={styles.imageContainer} source={icon} /> 
                         </View>
                         <View>
                             <Text style={styles.titleHeader}>
@@ -46,7 +61,7 @@ class EventCard extends React.Component {
                                 style={styles.formContainer}
                                 autoCorrect={false}
                                 editable={false}
-                                value={"Lorem Imsum"}
+                                value={location}
                             />
                             
                                
@@ -63,7 +78,7 @@ class EventCard extends React.Component {
                                     style={styles.formContainer}
                                     autoCorrect={false}
                                     editable={false}
-                                    value={"Lorem Imsum"}
+                                    value={eventDate}
                                 />
                                 <View>
                                    
@@ -71,7 +86,7 @@ class EventCard extends React.Component {
                                         <View>
                                                 <View style={styles.timeForm}>
                                                     <Text style={styles.timeText}>
-                                                        04:00 PM
+                                                        {/* {eventStartTime} */}
                                                     </Text>
                                                     
                                                     
@@ -83,7 +98,7 @@ class EventCard extends React.Component {
                                             <View>
                                                 <View style={styles.timeForm}>
                                                     <Text style={styles.timeText}>
-                                                        04:00 PM
+                                                       {/* {eventEndTime} */}
                                                     </Text>
                                                    
                                                 </View>
@@ -107,7 +122,7 @@ class EventCard extends React.Component {
                     </View>
                 </View>
                 
-            </View>
+            </TouchableOpacity>
         )
     }
 }
@@ -138,13 +153,19 @@ const styles = StyleSheet.create({
     },
     titleSecondary : {
         fontSize : Font.fontSecondary,
-        color : "white"
+        color : "white",
+        textAlign :"right"
     },
     subContainer : {
         padding : 20
     },
     imageContainer : {
-        
+        display : "flex",
+        justifyContent : "center",
+        alignItems :"center",
+        width : Circle.sizeOfCircle*1.5,
+        height : Circle.sizeOfCircle*1.5,
+        borderRadius : Circle.borderRadius*1.5
     },
     formWithIconContainer :{
         backgroundColor : "rgba(223,188,216,0.3)",
@@ -199,4 +220,16 @@ const styles = StyleSheet.create({
     }
 
 })
+
+EventCard.propTypes = {
+    id : Proptypes.number.isRequired,
+    author :  Proptypes.string.isRequired,
+    title : Proptypes.string.isRequired,
+    location : Proptypes.string.isRequired,
+    icon : Proptypes.string.isRequired,
+    eventDate : Proptypes.string.isRequired,
+    eventStartTime : Proptypes.string.isRequired,
+    eventEndTime : Proptypes.string.isRequired  ,
+    enterEventInformation : Proptypes.func.isRequired
+}
 export default EventCard

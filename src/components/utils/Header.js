@@ -32,9 +32,9 @@ class Header extends React.Component {
                         onPress={()=> this.props.history.goBack()}
                     />
                 </View>
-                <View style={{display : "flex" , justifyContent : "center" , alignItems : "center"}}>
+                {/* <View style={{display : "flex" , justifyContent : "center" , alignItems : "center"}}>
                     <Text style={{fontSize : Font.fontHeader , fontWeight : "bold"}}>{title}</Text>
-                </View>
+                </View> */}
                 <View>
                     {
                         title != "Others" ?

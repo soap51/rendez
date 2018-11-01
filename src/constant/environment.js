@@ -1,1 +1,1 @@
-const DOMAIN = ""
+export const DOMAIN = ""

@@ -6,11 +6,11 @@ import EventInformationPage from './EventInformationPage'
 import EventPage from './EventPage'
 import ForgotPage from './ForgotPage'
 import LoginPage from './LoginPage'
-import NotificationPage from './NotificationPage'
+import OtherPage from './OtherPage'
 import ProfilePage from './ProfilePage'
 import RegisterPage from './RegisterPage'
 import VerificationForgotPage from './VerificationForgotPage'
-
+import NotificationPage from './NotificationPage'
 export default {
     AccountSettingPage,
     CommentPage,
@@ -20,8 +20,9 @@ export default {
     EventPage,
     ForgotPage,
     LoginPage,
-    NotificationPage,
+    OtherPage,
     ProfilePage,
     RegisterPage,
     VerificationForgotPage,
+    NotificationPage
 }
