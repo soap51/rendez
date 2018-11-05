@@ -11,6 +11,7 @@ import ProfilePage from './ProfilePage'
 import RegisterPage from './RegisterPage'
 import VerificationForgotPage from './VerificationForgotPage'
 import NotificationPage from './NotificationPage'
+import HomePage from './HomePage'
 export default {
     AccountSettingPage,
     CommentPage,
@@ -24,5 +25,6 @@ export default {
     ProfilePage,
     RegisterPage,
     VerificationForgotPage,
-    NotificationPage
+    NotificationPage,
+    HomePage
 }

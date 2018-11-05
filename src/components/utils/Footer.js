@@ -37,7 +37,7 @@ class Footer extends React.Component {
                 <View style={{flex : 0.7}}>
                     <FooterClickButton
                         iconType="home"
-                        onPress={()=>console.log("hit")}
+                        onPress={()=>this.props.history.push('/home')}
                         titleButton="Home"
                     />
                 </View>

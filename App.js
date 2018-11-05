@@ -22,6 +22,7 @@ export default class App extends React.Component {
             <Route exact path="/profile" component={LayoutComponent(Page.ProfilePage)} />
             <Route exact path="/register" component={Page.RegisterPage} />
             <Route exact path="/verification" component={Page.VerificationForgotPage} />
+            <Route exact path="/home" component={LayoutComponent(Page.HomePage)} />
           </Switch>
         </BackButton>
       </NativeRouter>

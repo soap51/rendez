@@ -7,6 +7,7 @@ let fontParagraph = 18
 let size = 60
 let sizeOfCircle = 120
 let paddingSize = 20
+let marginSize = 20
 if(PixelRatio.get() < 3){
     fontSize = 12
     size = 30
@@ -24,7 +25,8 @@ export const Font= {
     fontParagraph
 } 
 export const Space ={
-    paddingSize
+    paddingSize,
+    marginSize
 }
 export const Circle ={
     sizeOfCircle,
