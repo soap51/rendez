@@ -1,4 +1,5 @@
 import AuthenticateReducer from './authenticateReducer'
-export default {
+import {combineReducers} from 'redux'
+export default combineReducers({
     AuthenticateReducer
-}
+})
