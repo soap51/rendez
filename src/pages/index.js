@@ -2,6 +2,7 @@ import AccountSettingPage from "./AccountSettingPage";
 import CommentPage from "./CommentPage";
 import ConfirmPage from "./ConfirmPage";
 import CreateEventPage from './CreateEventPage'
+import  BuildingPage from './BuildingPage'
 import EventInformationPage from './EventInformationPage'
 import EventPage from './EventPage'
 import ForgotPage from './ForgotPage'
@@ -17,6 +18,7 @@ export default {
     CommentPage,
     ConfirmPage,
     CreateEventPage,
+    BuildingPage,
     EventInformationPage,
     EventPage,
     ForgotPage,
