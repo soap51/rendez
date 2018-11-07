@@ -11,7 +11,7 @@ class ForgotPage extends React.Component{
                 <View style={{backgroundColor:'rgba(128,0,128,0.8)',height:'100%',width:'100%'}}>
                     <KeyboardAvoidingView behavior="position" enabled>
                         <View style={{display : "flex" , alignItems : "center" ,}}>
-                            <TouchableOpacity style={{marginRight:'auto',marginLeft:5*vw}}>
+                            <TouchableOpacity onPress={()=> this.props.history.goBack()}  style={{marginRight:'auto',marginLeft:5*vw}}>
                                 <View style={{backgroundColor:'rgba(255,255,255,0.26)',height:10*vw,width:15*vw,marginTop:8*vw,
                                 justifyContent:'center',borderRadius:23}}>
                                     <Image source={require('../../assets/icon/leftarrow.png' ) }  

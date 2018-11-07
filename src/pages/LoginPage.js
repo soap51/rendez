@@ -30,6 +30,12 @@ class LoginPage extends React.Component{
 
 
     }
+    async onForgot() {
+        this.props.history.push("/forgot")
+    }
+    async Onregister() {
+        this.props.history.push("/register")
+    }
     async onLogin() {
 
         if (Object.keys({}).length == 0) {
@@ -109,11 +115,11 @@ class LoginPage extends React.Component{
             </View>
             </KeyboardAvoidingView>
             <View style={{flex: 1, flexDirection: 'row',marginLeft:'auto',marginRight:'auto'}}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.onForgot()}>
                     <Text  style={{color:'white',textDecorationLine: 'underline',marginTop:'auto',marginBottom:'20%'}}>Forgot Password?</Text>
                 </TouchableOpacity>
                      <Text style={{marginLeft:'5%'}}></Text>  
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() =>this.Onregister()}>
                     <Text style={{color:'white',textDecorationLine: 'underline',marginTop:'auto',marginBottom:'40%'}}>Register?</Text>
                 </TouchableOpacity>
                 </View>

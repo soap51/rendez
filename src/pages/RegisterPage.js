@@ -10,7 +10,7 @@ class RegisterPage extends React.Component{
             <View style={{backgroundColor:'rgba(128,0,128,0.8)',height:'100%',width:'100%'}}>
             <KeyboardAvoidingView behavior="position" enabled>
             <View style={{display : "flex" , alignItems : "center" ,}}>
-            <TouchableOpacity style={{marginRight:'auto',marginLeft:5*vw}}>
+            <TouchableOpacity onPress={()=> this.props.history.goBack()} style={{marginRight:'auto',marginLeft:5*vw}}>
                                 <View style={{backgroundColor:'rgba(255,255,255,0.26)',height:10*vw,width:15*vw,marginTop:8*vw,
                                 justifyContent:'center',borderRadius:23}}>
                                     <Image source={require('../../assets/icon/leftarrow.png' ) }  
@@ -40,6 +40,7 @@ class RegisterPage extends React.Component{
                 </View>
 
                 <TextInput
+                    secureTextEntry
                     underlineColorAndroid='rgba(255,255,255,1)'
                     style={{height: 10*vw,width:'70%',marginTop:'10%',color:'white'}}
                     placeholder="Password"
@@ -47,6 +48,7 @@ class RegisterPage extends React.Component{
                 />
 
                 <TextInput
+                    secureTextEntry
                     underlineColorAndroid='rgba(255,255,255,1)'
                     style={{height: 10*vw,width:'70%',marginTop:'5%',color:'white'}}
                     placeholder="Re-Password"
