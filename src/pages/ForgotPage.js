@@ -39,7 +39,7 @@ class ForgotPage extends React.Component{
                                      placeholder="Enter your email address"
                                     onChangeText={(text) => this.setState({text})}
                                 />
-
+                           {/* { AlertError(this.props.history , 400 ,"", "")} */}
                                 <TouchableOpacity style={{backgroundColor:'white',width:80*vw,height:6*vw,alignItems:'center',borderRadius:14,marginTop:'5%',marginBottom:5*vw}}>
                                     <Text style={{color:'black',fontWeight:'bold',fontSize:3*vw,marginTop:1*vw}}>
                                     Request reset link

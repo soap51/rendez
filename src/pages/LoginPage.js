@@ -3,6 +3,68 @@ import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 class LoginPage extends React.Component{
+    constructor(props) {
+        super(props)
+        this.state = {
+            loading: true,
+            email: "",
+            password: "",
+            data: {
+                email: "",
+                password: ""
+            },
+            errors: {},
+        }
+    }
+    onChangeText(text, field) {
+
+        if (field == 'email') {
+            this.setState({ [field]: text });
+
+
+        }
+        else if (field == 'password') {
+            this.setState({ [field]: text });
+
+        }
+
+
+    }
+    async onLogin() {
+
+        if (Object.keys({}).length == 0) {
+
+                axios.post({ email: this.state.email, password: this.state.password })
+                .then(result=>{
+                    this.props.loginRequest(response.data)
+                    this.props.history.push("/board")
+
+                })
+                .catch(err=>{
+                    const { email, password } = this.state;
+                console.log(err)
+                if (email == "" || password == "") {
+                    this.setState({ Error: 'Please fill the email or password' });
+                }
+
+                else if (password.length < 8) {
+                    this.setState({ Error: 'Password Must be more than 8 Characters' })
+                }
+                else if (err.response.status == 401) {
+                    alert('Something went wrong ')
+                }
+
+                else if (email != "" || password != "") { this.setState({ Error: 'Username or Password is not correct !' }) }
+
+                })
+
+
+
+            }
+
+        }
+    
+
     render(){
         return(
         
@@ -15,22 +77,23 @@ class LoginPage extends React.Component{
                     and discover new friends.{"\n"}
                     Let's get start!
                 </Text>
-
+                <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: 3 * vw, fontSize: 3.5 * vw, fontWeight: 'bold' }}>{this.state.Error}</Text>
                 <TextInput
                     underlineColorAndroid='rgba(255,255,255,1)'
                     style={{height: 10*vw,width:'70%',marginTop:'10%',color:'white'}}
                     placeholder="Email"
-                    onChangeText={(text) => this.setState({text})}
+                    onChangeText={(text) => this.onChangeText(text, 'email')}
                 />
 
                 <TextInput
+                secureTextEntry
                 underlineColorAndroid='rgba(255,255,255,1)'
-                    style={{height: 10*vw,width:'70%',}}
+                    style={{height: 10*vw,width:'70%',color:'white'}}
                     placeholder="Password"
-                    onChangeText={(text) => this.setState({text})}
+                    onChangeText={(text) => this.onChangeText(text, 'password')}
                 />
 
-                <TouchableOpacity style={{backgroundColor:'white',width:'70%',height:'6%',alignItems:'center',borderRadius:14,marginTop:'5%'}}>
+                <TouchableOpacity onPress={() => this.onLogin()} style={{backgroundColor:'white',width:'70%',height:'6%',alignItems:'center',borderRadius:14,marginTop:'5%'}}>
                     <Text style={{color:'black',fontWeight:'bold',fontSize:4*vw}}>
                         Sign in
                     </Text>
