@@ -1,6 +1,6 @@
 import React from 'react'
 import {View , Text , StyleSheet  , Image , TextInput , Dimensions} from 'react-native'
-import axios from 'axios';
+
 import { DOMAIN } from '../constant/environment';
 import setAlert from '../utils/setAlert'
 import EventImage from '../../assets/imgs/football.jpg'
