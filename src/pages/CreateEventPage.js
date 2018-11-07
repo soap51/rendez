@@ -1,15 +1,23 @@
 import React from 'react'
-import {View , Text } from 'react-native'
+import Ball from '../../assets/imgs/football.jpg'
+import {View , Text ,StyleSheet } from 'react-native'
 class CreateEventPage extends React.Component{
     render(){
         return(
-            <View>
-                <Text>
+            <View style={Styles}>
+                <Text style={Styles}>
                     This is CreateEventPage
                 </Text>
+                
             </View>
         )
     }
 }
+const Styles = StyleSheet.create({
+   
+
+    
+
+})
 
 export default CreateEventPage
