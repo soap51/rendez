@@ -6,10 +6,23 @@ import { Provider } from 'react-redux'
 import store from './store'
 import LayoutComponent from './src/components/Hocs/LayoutComponent'
 import { Permissions, Notifications , Expo } from 'expo';
+import {registerForPushNotificationsAsync} from './src/utils/pushNotification'
 import GuestComponent from './src/components/Hocs/GuestComponent'
 import AuthComponent from './src/components/Hocs/AuthComponent'
 export default class App extends React.Component {
- 
+  constructor(props){
+    super(props)
+    this.state = {
+        noti: []
+    }
+}
+async componentWillMount(){
+    registerForPushNotificationsAsync()
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+  }
+  _handleNotification(notification){
+    this.setState({notification: notification});
+  };
   render() {
     return (
 

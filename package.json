@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "dev" : "exp start"
   },
   "rnpm": {
     "assets": [
@@ -28,6 +29,7 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
+    "exp": "^57.2.1",
     "prop-types": "^15.6.2"
   }
 }
