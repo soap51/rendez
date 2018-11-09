@@ -73,9 +73,9 @@ class CreateEventPage extends React.Component{
                 </View>
 
                 <View style={styles.backtime}>
-                <Icon style={styles.icon1 } name="md-time" size={SizePX} color="#F7E365" />
+                <Icon style={styles.iconlo } name="md-time" size={SizePX} color="#F7E365" />
                 <DatePicker
-                    style={{width: 50*vw,height:20*vw,marginLeft:13*vw,marginTop:-5*vw,backgroundColor:"rgba(255,255,255,0)"}}
+                    style={{width: 50*vw,height:20*vw,marginLeft:15*vw,marginTop:-8*vw,backgroundColor:"white"}}
                     date={this.state.date}
                     mode="date"
                     placeholder="select date"
@@ -85,13 +85,13 @@ class CreateEventPage extends React.Component{
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     customStyles={{
-                    // dateIcon: {
-                    //     position: 'absolute',
-                    //     left: 0,
-                    //     top: 4,
-                    //     marginLeft: 10,
+                     dateIcon: {
+                         position: 'absolute',
+                         left: 0,
+                         top: 4,
+                         marginLeft: 10,
                         
-                    // },
+                     },
                     dateInput: {
                         marginLeft: 50
                     }
@@ -102,7 +102,7 @@ class CreateEventPage extends React.Component{
                 </View>
 
                 <View style={styles.back1}>
-                <Icon style={styles.icon1} name="md-people" size={8*vw} color="#00FFF" />
+                <Icon style={styles.iconlo} name="md-people" size={8*vw} color="#00FFF" />
                 <Text style={{marginLeft:14*vw,marginTop:-7*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",} }>
                 Current:
                 </Text>
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     
     back1 : {
         backgroundColor : "rgba(223,188,216,0.3)",
-        marginTop : Circle.sizeOfCircle*0.3,
+        marginTop : Circle.sizeOfCircle*0.2,
         marginLeft : Circle.sizeOfCircle*0.3,
         marginRight : Circle.sizeOfCircle*0.3,
         borderRadius : 20,
