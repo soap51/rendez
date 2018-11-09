@@ -1,1 +1,1 @@
-export const DOMAIN = ""
+export const DOMAIN = "https://rendez.herokuapp.com/"

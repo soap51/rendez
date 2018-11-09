@@ -8,7 +8,7 @@ export default function AlertError(history,status,title ,description){
                 {text: 'OK', onPress: () => console.log('OK Pressed')},
             ],    
         )
-        history.push('/login')
+        // history.push('/login')
     }
     
 }

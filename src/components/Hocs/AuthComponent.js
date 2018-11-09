@@ -4,17 +4,19 @@ import {connect} from 'react-redux'
 export default function WrappedComponent(ChildComponent){
     class AuthComponent extends React.Component{
         constructor(){
-
+            super()
         }
         render(){
+            console.log("orios",this.props)
             if(this.props.token)    return <ChildComponent />
             else return <Redirect to="/"/>
         }
     } 
     function mapStateToProps(state){
+        console.log(state)
         return {
-            token : state.authenticateReducer.token
+            token : state.AuthenticateReducer.token
         }
     }
-    export default connect(mapStateToProps)(withRouter(AuthComponent))
+    return connect(mapStateToProps)((AuthComponent))
 }
