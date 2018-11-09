@@ -2,13 +2,16 @@ import React from 'react'
 import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView} from 'react-native'
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
+import { loginRequest } from '../actions/authenticateAction'
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router-native'
+import axios from 'axios'
 class LoginPage extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
             loading: true,
-            email: "",
-            password: "",
+            email : "59050230@kmitl.ac.th" , password : "12345",
             data: {
                 email: "",
                 password: ""
@@ -36,40 +39,21 @@ class LoginPage extends React.Component{
     async Onregister() {
         this.props.history.push("/register")
     }
-    async onLogin() {
+     onLogin() {
 
-        if (Object.keys({}).length == 0) {
+     
+                
 
-                axios.post({ email: this.state.email, password: this.state.password })
-                .then(result=>{
-                    this.props.loginRequest(response.data)
-                    this.props.history.push("/board")
-
-                })
-                .catch(err=>{
-                    const { email, password } = this.state;
-                console.log(err)
-                if (email == "" || password == "") {
-                    this.setState({ Error: 'Please fill the email or password' });
-                }
-
-                else if (password.length < 8) {
-                    this.setState({ Error: 'Password Must be more than 8 Characters' })
-                }
-                else if (err.response.status == 401) {
-                    alert('Something went wrong ')
-                }
-
-                else if (email != "" || password != "") { this.setState({ Error: 'Username or Password is not correct !' }) }
-
-                })
+            
+               
+                this.props.loginRequest({email : "59050230@kmitl.ac.th" , password : "12345"})
+                this.props.history.push('/event' )
 
 
+            
 
-            }
-
-        }
-    
+        
+    }
 
     render(){
         return(
@@ -145,4 +129,4 @@ const styles = StyleSheet.create({
     }
     
 })
-export default LoginPage
+export default withRouter(connect(null , {loginRequest})(LoginPage))

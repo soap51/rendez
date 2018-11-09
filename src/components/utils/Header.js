@@ -23,14 +23,19 @@ class Header extends React.Component {
     }
     render(){
         const {title} = this.state
-        
+       
         return (
             <View style={style.container}>
                 <View>
-                    <ClickButton 
-                        iconType="arrow"
-                        onPress={()=> this.props.history.goBack()}
-                    />
+                    { this.props.history.index != 0 ?
+                        <ClickButton 
+                            iconType="arrow"
+                            onPress={()=> this.props.history.goBack()}
+                        />
+                        :
+                        <View></View>
+                    }
+                    
                 </View>
                 {/* <View style={{display : "flex" , justifyContent : "center" , alignItems : "center"}}>
                     <Text style={{fontSize : Font.fontHeader , fontWeight : "bold"}}>{title}</Text>
