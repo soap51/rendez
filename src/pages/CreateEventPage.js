@@ -12,8 +12,9 @@ class CreateEventPage extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            date:"2018-11-7",
+            date:"",
             email: "",
+            time:"",
             
         // data: {
         //     email:""
@@ -32,6 +33,12 @@ class CreateEventPage extends React.Component{
         else if(field == 'detail'){
             this.setState({ [field]: text});
         }
+        else if(field == 'currentseat'){
+            this.setState({ [field]: text});
+        }
+        else if(field == 'Limited Seat'){
+            this.setState({ [field]: text});
+        }
     }
     
     render(){
@@ -40,12 +47,12 @@ class CreateEventPage extends React.Component{
             <View style={styles.background}>
                 
                 <View>
-                <TouchableOpacity onPress={()=>this.props.history.push("/event")} >
+                <TouchableOpacity onPress={()=>this.props.history.push("/account")} >
                 <Text style={styles.Circle}></Text>
                 </TouchableOpacity>
+
                 <View  style={{marginLeft:19*vw,marginTop:-15*vw,marginRight: 7*vw,color : 'white',fontSize: 3*vw}}>
                     <TextInput underlineColorAndroid="rgba(255,255,255,0)" 
-                        // style={{marginLeft:23*vw}}
                         onChangeText={(text) => this.onChangeText(text ,'nameac')}
                         placeholder='                            Fill in the name of activity'>
 
@@ -59,23 +66,22 @@ class CreateEventPage extends React.Component{
                 <Image style={styles.icon1} source={icon} />
                 <Text style={{marginLeft:13*vw,marginTop:-6*vw,marginRight: 6*vw,color:'white',fontWeight:"bold",fontSize:4*vw}}>By</Text>
                 
-                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:18*vw,marginTop:-5*vw,marginRight: 5*vw}}
+                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:18*vw,marginTop:-5*vw,marginRight: 5*vw,color:"white"}}
                  onChangeText={(text) => this.onChangeText(text ,'createby')}>
                    
                 </TextInput>
                 </View>
 
-                <View style={styles.back1}>
+                <View style={styles.backCurrent }>
                 <Icon style={styles.iconlo} name="ios-pin" size={SizePX} color="#F59F9F" /> 
-                <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:-7*vw,marginRight: 5*vw}}>
+                <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:-7*vw,marginRight: 5*vw,color:"white"}}>
                 
                 </TextInput>
                 </View>
-
                 <View style={styles.backtime}>
                 <Icon style={styles.iconlo } name="md-time" size={SizePX} color="#F7E365" />
                 <DatePicker
-                    style={{width: 50*vw,height:20*vw,marginLeft:15*vw,marginTop:-8*vw,backgroundColor:"white"}}
+                    style={{width: 50*vw,height:20*vw,marginLeft:15*vw,marginTop:-8*vw,}}
                     date={this.state.date}
                     mode="date"
                     placeholder="select date"
@@ -93,35 +99,78 @@ class CreateEventPage extends React.Component{
                         
                      },
                     dateInput: {
-                        marginLeft: 50
+                        marginLeft: 50,
+                        backgroundColor:"white",
+                        borderRadius:15
                     }
                     // ... You can check the source to find the other keys.
                     }}
                     onDateChange={(date) => {this.setState({date: date})}}
                 />
+                
+                <DatePicker
+                    style={{width: 35*vw,marginLeft:1*vw,marginTop:-8*vw,}}
+                    date={this.state.time}
+                    mode="time"
+                    color="white"
+                    fontWeight="bold"
+                    placeholder="00.00"
+                    format="HH:mm"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    minuteInterval={10}
+                    showIcon={false}
+                    customStyles={{
+                       dateInput: {
+                           marginLeft: 50,
+                           backgroundColor:"rgb(51,9,64)",
+                           borderRadius:20,
+                           height:8*vw,
+                       }
+                       }}
+                    onDateChange={(time => {this.setState({time: time})})}
+                />
+                <Text style={{marginLeft:4*vw,marginTop:-7*vw,color:"white",fontWeight:"bold"}}>
+                    Start
+                </Text>
                 </View>
 
-                <View style={styles.back1}>
+                <View style={styles.backCurrent}>
                 <Icon style={styles.iconlo} name="md-people" size={8*vw} color="#00FFF" />
                 <Text style={{marginLeft:14*vw,marginTop:-7*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",} }>
                 Current:
                 </Text>
+                <TextInput underlineColorAndroid="transparent" style=
+                    {{marginLeft:30*vw,marginTop:-5*vw,marginRight: 20*vw,color:"white",textAlign:"center",backgroundColor : "rgb(51,9,64)",
+                      borderRadius:20,width:7*vw,height:5*vw}}
+                      onChangeText={(text) => this.onChangeText(text ,'currentseat')}
+                      placeholder='-'>  
+                </TextInput>
+
+                <Text style={{marginLeft:43*vw,marginTop:-5.5*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",} }>
+                Limited Seat:
+                </Text>
+                <TextInput underlineColorAndroid="transparent" style=
+                    {{marginLeft:68*vw,marginTop:-4.8*vw,marginRight: 20*vw,color:"white",textAlign:"center",backgroundColor : "rgb(51,9,64)",
+                      borderRadius:20,width:7*vw,height:5*vw}}
+                      onChangeText={(text) => this.onChangeText(text ,'Limited Seat')}
+                      placeholder='-'>  
+                </TextInput>
                 </View>
 
-                <View style={styles.back1}>
+                <View style={styles.backDetail}>
                 <Iconja style={{marginLeft:2*vw,marginTop:1*vw}} name="pencil" size={10*vw} color="#00FF00" />
                 <Text style={{marginLeft:14*vw,marginTop:-7*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",}}>
                          Detail:
                 </Text>
-                <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw}}
+                <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
                 </View>
 
                 <View style={styles.create}>
                 <TouchableOpacity onPress={()=>this.props.history.push("/event")} >
-                <Text >
-                    
+                <Text style={{color:"white",fontWeight:"bold",textAlign:"center"}}>
                 Create
                 </Text>
                 </TouchableOpacity>
@@ -151,15 +200,24 @@ const styles = StyleSheet.create({
     },
 
     
-    back1 : {
+    backCurrent : {
         backgroundColor : "rgba(223,188,216,0.3)",
         marginTop : Circle.sizeOfCircle*0.2,
         marginLeft : Circle.sizeOfCircle*0.3,
         marginRight : Circle.sizeOfCircle*0.3,
         borderRadius : 20,
+        height: 10*vw
 
         
     },
+    backDetail : {
+        backgroundColor : "rgba(223,188,216,0.3)",
+        marginTop : Circle.sizeOfCircle*0.2,
+        marginLeft : Circle.sizeOfCircle*0.3,
+        marginRight : Circle.sizeOfCircle*0.3,
+        borderRadius : 20,
+    },
+    
     borderInputtext : {
         marginLeft : Circle.sizeOfCircle*0.2,
         marginRight : Circle.sizeOfCircle*0.2,
@@ -191,15 +249,19 @@ const styles = StyleSheet.create({
         marginLeft : Circle.sizeOfCircle*0.3,
         marginRight : Circle.sizeOfCircle*0.3,
         borderRadius : 20,
-        height: 12*vw,
+        height: 23*vw,
         
     },
     create : {
-        backgroundColor : "rgba(255,255,255,0.8)",
+        backgroundColor : "rgba(223,188,216,0.3)",
         marginTop : "4%",
         marginLeft : "auto",
         marginRight : "auto",
         borderRadius : 20,
+        height: 5*vw,
+        width: 15*vw,
+        
+        
     },
     icon1 : {
         width :  Circle.sizeOfCircle*0.5,
