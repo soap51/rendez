@@ -15,6 +15,7 @@ class CreateEventPage extends React.Component{
             date:"",
             email: "",
             time:"",
+            timeend:"",
             
         // data: {
         //     email:""
@@ -42,7 +43,7 @@ class CreateEventPage extends React.Component{
     }
     
     render(){
-        console.warn(this.state.time) 
+        // console.warn(this.state.time) 
         return(
             <View style={styles.background}>
                 
@@ -52,7 +53,8 @@ class CreateEventPage extends React.Component{
                 </TouchableOpacity>
 
                 <View  style={{marginLeft:19*vw,marginTop:-15*vw,marginRight: 7*vw,color : 'white',fontSize: 3*vw}}>
-                    <TextInput underlineColorAndroid="rgba(255,255,255,0)" 
+                    <TextInput style={{color:"white"}}
+                        underlineColorAndroid="transparent" 
                         onChangeText={(text) => this.onChangeText(text ,'nameac')}
                         placeholder='                            Fill in the name of activity'>
 
@@ -79,9 +81,9 @@ class CreateEventPage extends React.Component{
                 </TextInput>
                 </View>
                 <View style={styles.backtime}>
-                <Icon style={styles.iconlo } name="md-time" size={SizePX} color="#F7E365" />
+                
                 <DatePicker
-                    style={{width: 50*vw,height:20*vw,marginLeft:15*vw,marginTop:-8*vw,}}
+                    style={{width: 40*vw,height:20*vw,marginLeft:18*vw,marginTop:1.5*vw,}}
                     date={this.state.date}
                     mode="date"
                     placeholder="select date"
@@ -93,13 +95,13 @@ class CreateEventPage extends React.Component{
                     customStyles={{
                      dateIcon: {
                          position: 'absolute',
-                         left: 0,
-                         top: 4,
-                         marginLeft: 10,
+                         left: 0*vw,
+                         top: 1*vw,
+                         marginLeft: 2*vw,
                         
                      },
                     dateInput: {
-                        marginLeft: 50,
+                        marginLeft: 10*vw,
                         backgroundColor:"white",
                         borderRadius:15
                     }
@@ -107,9 +109,11 @@ class CreateEventPage extends React.Component{
                     }}
                     onDateChange={(date) => {this.setState({date: date})}}
                 />
+                    <Icon style={styles.icontime } name="md-time" size={8*vw} color="#F7E365" />
+                    <View style={{borderBottomWidth:0.5*vw,borderBottomColor:'white',marginTop:-5*vw,marginLeft:15*vw,marginRight:5*vw}}></View>
                 
                 <DatePicker
-                    style={{width: 35*vw,marginLeft:1*vw,marginTop:-8*vw,}}
+                    style={{width: 18*vw,marginLeft:17*vw,marginTop:0*vw,}}
                     date={this.state.time}
                     mode="time"
                     color="white"
@@ -122,16 +126,43 @@ class CreateEventPage extends React.Component{
                     showIcon={false}
                     customStyles={{
                        dateInput: {
-                           marginLeft: 50,
+                           
                            backgroundColor:"rgb(51,9,64)",
                            borderRadius:20,
-                           height:8*vw,
+                           height:6*vw,
+                           color:"white"
                        }
                        }}
                     onDateChange={(time => {this.setState({time: time})})}
                 />
-                <Text style={{marginLeft:4*vw,marginTop:-7*vw,color:"white",fontWeight:"bold"}}>
+                <DatePicker
+                    style={{width: 18*vw,marginLeft:45*vw,marginTop:-9.5*vw,color:"white"}}
+                    date={this.state.timeend}
+                    mode="time"
+                    color="white"
+                    fontWeight="bold"
+                    placeholder="00.00"
+                    format="HH:mm"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    minuteInterval={11}
+                    showIcon={false}
+                    customStyles={{
+                       dateInput: {
+                           
+                           backgroundColor:"rgb(51,9,64)",
+                           borderRadius:20,
+                           height:6*vw,
+                           color:"white"
+                       }
+                       }}
+                    onDateChange={(timeend => {this.setState({timeend: timeend})})}
+                />
+                <Text style={{marginLeft:22*vw,marginTop:-3*vw,color:"white",fontWeight:"bold"}}>
                     Start
+                </Text>
+                <Text style={{marginLeft:51*vw,marginTop:-4.7*vw,color:"white",fontWeight:"bold"}}>
+                    End
                 </Text>
                 </View>
 
@@ -166,6 +197,10 @@ class CreateEventPage extends React.Component{
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
+                <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
+                onChangeText={(text) => this.onChangeText(text ,'detail')}>
+                </TextInput>
+                
                 </View>
 
                 <View style={styles.create}>
@@ -198,8 +233,6 @@ const styles = StyleSheet.create({
 
         
     },
-
-    
     backCurrent : {
         backgroundColor : "rgba(223,188,216,0.3)",
         marginTop : Circle.sizeOfCircle*0.2,
@@ -249,7 +282,7 @@ const styles = StyleSheet.create({
         marginLeft : Circle.sizeOfCircle*0.3,
         marginRight : Circle.sizeOfCircle*0.3,
         borderRadius : 20,
-        height: 23*vw,
+        height: 24.5*vw,
         
     },
     create : {
@@ -278,9 +311,14 @@ const styles = StyleSheet.create({
         borderRadius : Circle.sizeOfCircle*1.8,
         marginLeft : Circle.sizeOfCircle*0.3,
         marginTop : Circle.sizeOfCircle*0.1,
+       
+    },
+    icontime : {
+        marginTop : -12*vw,
+        marginLeft : 4*vw
         
         
-    }
+    },
     
 })
 export default CreateEventPage
