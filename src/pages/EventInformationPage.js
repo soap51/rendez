@@ -1,9 +1,10 @@
 import React from 'react'
-import {View , Text , ScrollView } from 'react-native'
+import {View , Text , ScrollView,StyleSheet,Image } from 'react-native'
 import EventInformationCard from '../components/Cards/EventInformationCard'
 import axios from 'axios'
 import {Font, SizePX , Circle, Space} from '../styles/global'
 import _ from 'lodash'
+import CreateEventPage from '../pages/CreateEventPage'
 class EventInformationPage extends React.Component{
     constructor(props){
         super(props)
@@ -23,7 +24,8 @@ class EventInformationPage extends React.Component{
     render(){
         const {event} = this.state
        
-        const Information = ()=> _.isEmpty(event) ? 
+        const Information = ()=> _.isEmpty(event) ?
+            
             <EventInformationCard
                 {...this.props}
                 id={event.id}
@@ -41,14 +43,23 @@ class EventInformationPage extends React.Component{
             :
             <View style={{display : "flex" , alignItems : "center" , padding : 20}}>  
                 <Text style={{fontSize : Font.fontSecondary }}>Empty Event</Text>
+                <View>
+                <Image style={styles.Circle} source={www}/>
             </View>
+            </View>
+            
             console.log(Information)
         return(
+            
             <ScrollView style={{padding : Space.paddingSize}}>
+           
                 <Information/>
             </ScrollView>
         )
     }
 }
+const styles = StyleSheet.create({
+    
+})
 
 export default EventInformationPage

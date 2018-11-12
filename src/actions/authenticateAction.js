@@ -10,6 +10,7 @@ export function loginRequest(payload){
         axios.post(DOMAIN + "api/user/login" , {email : payload.email , password : payload.password }).then(response=>{
             const data = response.data
             const token = data.token 
+            const _id = data._id
             console.log(response.data)
             AsyncStorage.setItem('token' , token).then(result=>{
                 console.log(result)
@@ -21,7 +22,7 @@ export function loginRequest(payload){
             setAuthorizationHeader(token)
             return dispatch({
                 type : LOGIN_SUCCESS,
-                payload : token
+                payload : {token : token , _id : _id}
             })
         })
         .catch(err=>{
@@ -38,7 +39,7 @@ export function loginSuccess(token){
     setAuthorizationHeader(token)
     return (dispatch) => dispatch({
         type : LOGIN_SUCCESS,
-        payload : token
+        payload : {token : token , _id : _id}
     })
 }
 

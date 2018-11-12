@@ -1,21 +1,46 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Space, Circle, Font , SizePX } from '../styles/global';
-import {View , Text ,StyleSheet,TextInput,Image} from 'react-native'
+import {View , Text ,StyleSheet,TextInput,Image,Alert,ImageBackgrond,Modal,TouchableHighlight,} from 'react-native'
 import { vw, vh } from 'react-native-viewport-units';
 import DatePicker from 'react-native-datepicker'
 import {TouchableOpacity} from 'react-native'
 import icon from '../../assets/imgs/icon.jpg'
 import Icon from "react-native-vector-icons/Ionicons";
 import Iconja from "react-native-vector-icons/EvilIcons";
+import {connect} from 'react-redux'
+import bad from '../../assets/imgs/bad.jpg'
+import Ball from '../../assets/imgs/football.jpg'
+import pingpong from '../../assets/imgs/pingpong.jpg'
+import luxby from '../../assets/imgs/luxby.jpg'
+import bas from '../../assets/imgs/bas.jpg'
+import art from '../../assets/imgs/art.png'
+import ball2 from '../../assets/imgs/ball2.jpg'
+import dic from '../../assets/imgs/dic.jpg'
+import movie from '../../assets/imgs/movie.png'
+import shoes from '../../assets/imgs/shoes.jpg'
+import boling from '../../assets/imgs/boling.jpg'
+import www from '../../assets/imgs/www.jpg'
+import {DOMAIN} from '../constant/environment'
+import axios from 'axios'
+import setAlert from '../utils/setAlert'
 
 class CreateEventPage extends React.Component{
+    setModalVisible(visible) { this.setState({ modalVisible: visible});
+      }//imageSrc
     constructor(props){
         super(props)
         this.state = {
+            visible:www,
             date:"",
             email: "",
             time:"",
             timeend:"",
+            createby:"",
+            modalVisible: false,
+            location:"",
+            detail:"",
+        //   imageSrc : -1,
+          sentimage: [],
             
         // data: {
         //     email:""
@@ -24,6 +49,72 @@ class CreateEventPage extends React.Component{
         }
         
     }
+    onCreate() {
+        console.warn("this")
+        axios.post(DOMAIN + "/user/"+this.props._id+"/event/",
+        {email : this.state.email,date : this.state.date,time : this.state.time,timeend : this.state.timeend,location : this.state.location,detail : this.state.detail})
+            .then(function (response) {
+                console.log(response);
+                this.props.history.push('/')
+            })
+            .catch(function (error){
+                console.warn("this error")
+                console.log(error)
+                if(this.state.createby == ""){
+                    
+                }
+                setAlert(this.props.history , 403 , "ERROR" , "ควย")
+            })
+        }
+
+    componentDidMount() {
+        // setAlert(this.props.history , 400 , "Test" , "ควย")
+        // axios.get(DOMAIN + "")
+        //   .then(res => {
+        //     const sentimage = res.data;
+        //     this.setState({ sentimage });
+        //   })
+        //  .catch(err=>{})
+        
+    }
+    
+      
+      onChangePicture(key) {
+          if(key == 'ball'){
+              this.setState({visible : Ball , modalVisible : !this.state.modalVisible})
+          }
+          else if (key == 'bad'){
+            this.setState({visible : bad , modalVisible : !this.state.modalVisible})
+        }
+        else if (key == 'luxby'){
+            this.setState({visible : luxby , modalVisible : !this.state.modalVisible})
+        }
+        else if (key == 'bas'){
+            this.setState({visible : bas , modalVisible : !this.state.modalVisible})
+        }
+        else if (key == 'art'){
+            this.setState({visible : art , modalVisible : !this.state.modalVisible})
+        }
+        else if (key == 'ball2'){
+            this.setState({visible : ball2 , modalVisible : !this.state.modalVisible})
+        }
+        else if (key == 'dic'){
+            this.setState({visible : dic , modalVisible : !this.state.modalVisible})
+        }
+        else if (key == 'pingpong'){
+            this.setState({visible : pingpong , modalVisible : !this.state.modalVisible})
+        }
+        else if (key == 'movie'){
+            this.setState({visible : movie, modalVisible : !this.state.modalVisible})
+        }
+        else if (key == 'shoes'){
+            this.setState({visible : shoes , modalVisible : !this.state.modalVisible})
+        }
+        else if (key == 'boling'){
+            this.setState({visible : boling , modalVisible : !this.state.modalVisible})
+        }
+         
+      }
     onChangeText(text, field){
         if(field == 'nameac' ) {
             this.setState({ [field]: text});
@@ -40,43 +131,61 @@ class CreateEventPage extends React.Component{
         else if(field == 'Limited Seat'){
             this.setState({ [field]: text});
         }
+        else if(field == 'location'){
+            this.setState({ [field]: text});
+        }
+        else if (timeend < time){
+            (function (error){
+                console.warn("this error")
+                console.log(error)
+                if(this.state.createby == ""){
+                    
+                }
+                setAlert(this.props.history , 403 , "ERROR" , "ควย")
+            })
+        }
     }
     
     render(){
         // console.warn(this.state.time) 
         return(
+        
+            
             <View style={styles.background}>
-                
+          <TouchableHighlight onPress={() => {this.setModalVisible(true); }}>
+         
+          <Image style={styles.Circle} source={this.state.visible}/>
+                </TouchableHighlight> 
                 <View>
-                <TouchableOpacity onPress={()=>this.props.history.push("/account")} >
-                <Text style={styles.Circle}></Text>
-                </TouchableOpacity>
+                    
+                
 
                 <View  style={{marginLeft:19*vw,marginTop:-15*vw,marginRight: 7*vw,color : 'white',fontSize: 3*vw}}>
-                    <TextInput style={{color:"white"}}
+                    <TextInput style={{color:"white",marginLeft:5*vw}}
                         underlineColorAndroid="transparent" 
                         onChangeText={(text) => this.onChangeText(text ,'nameac')}
-                        placeholder='                            Fill in the name of activity'>
+                        placeholder='                   Fill in the name of activity'>
 
                     </TextInput>
                 </View>
-                <View style={{borderBottomWidth:0.5*vw,borderBottomColor:'white',marginLeft:19*vw,marginRight:7*vw}}></View>
+                <View style={{borderBottomWidth:0.5*vw,borderBottomColor:'white',marginLeft:24*vw,marginRight:7*vw,marginTop:-9.5*vw}}></View>
                 </View>
                 
 
                 <View style={styles.back}>
                 <Image style={styles.icon1} source={icon} />
-                <Text style={{marginLeft:13*vw,marginTop:-6*vw,marginRight: 6*vw,color:'white',fontWeight:"bold",fontSize:4*vw}}>By</Text>
-                
-                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:18*vw,marginTop:-5*vw,marginRight: 5*vw,color:"white"}}
-                 onChangeText={(text) => this.onChangeText(text ,'createby')}>
-                   
+                <Text style={{marginLeft:13*vw,marginTop:-6*vw,marginRight: 6*vw,color:'white',fontWeight:"bold",fontSize:4*vw}}>
+                    By
+                </Text>
+                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:19*vw,marginTop:-5*vw,marginRight: 5*vw,color:"white"}}
+                 onChangeText={(text) => this.onChangeText(text ,'createby')}> 
                 </TextInput>
                 </View>
 
                 <View style={styles.backCurrent }>
                 <Icon style={styles.iconlo} name="ios-pin" size={SizePX} color="#F59F9F" /> 
-                <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:-7*vw,marginRight: 5*vw,color:"white"}}>
+                <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:-7*vw,marginRight: 5*vw,color:"white"}}
+                onChangeText={(text) => this.onChangeText(text ,'location')}>
                 
                 </TextInput>
                 </View>
@@ -171,7 +280,7 @@ class CreateEventPage extends React.Component{
                 <Text style={{marginLeft:14*vw,marginTop:-7*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",} }>
                 Current:
                 </Text>
-                <TextInput underlineColorAndroid="transparent" style=
+                <TextInput  keyboardType = 'numeric' maxLength={1} underlineColorAndroid="transparent" style=
                     {{marginLeft:30*vw,marginTop:-5*vw,marginRight: 20*vw,color:"white",textAlign:"center",backgroundColor : "rgb(51,9,64)",
                       borderRadius:20,width:7*vw,height:5*vw}}
                       onChangeText={(text) => this.onChangeText(text ,'currentseat')}
@@ -181,7 +290,7 @@ class CreateEventPage extends React.Component{
                 <Text style={{marginLeft:43*vw,marginTop:-5.5*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",} }>
                 Limited Seat:
                 </Text>
-                <TextInput underlineColorAndroid="transparent" style=
+                <TextInput keyboardType = 'numeric' maxLength={2} underlineColorAndroid="transparent" style=
                     {{marginLeft:68*vw,marginTop:-4.8*vw,marginRight: 20*vw,color:"white",textAlign:"center",backgroundColor : "rgb(51,9,64)",
                       borderRadius:20,width:7*vw,height:5*vw}}
                       onChangeText={(text) => this.onChangeText(text ,'Limited Seat')}
@@ -204,15 +313,122 @@ class CreateEventPage extends React.Component{
                 </View>
 
                 <View style={styles.create}>
-                <TouchableOpacity onPress={()=>this.props.history.push("/event")} >
+                <TouchableOpacity onPress={this.onCreate()} >
                 <Text style={{color:"white",fontWeight:"bold",textAlign:"center"}}>
                 Create
                 </Text>
                 </TouchableOpacity>
-                </View>
+               
                   
+            
+        <Modal 
+          animationType="fade"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            
+          }}>
+        <View style ={styles.background2} >
+          <View style ={styles.background} >
+          <View style={{marginTop: 22}}>
+            <View>
+            <View style ={styles.column1} >
+              <TouchableHighlight onPress={() => {this.onChangePicture('ball'); }}>
+                 <Image style={styles.Image} source={Ball} />
+              </TouchableHighlight>               
+
+            <TouchableOpacity onPress={() => {this.onChangePicture('bad'); }}>
+                <Image style={styles.Image} source={bad} />
+                </TouchableOpacity>
+              
+                <TouchableOpacity onPress={() => {this.onChangePicture('luxby'); }}>
+                <Image style={styles.Image} source={luxby} />
+                </TouchableOpacity>
+                </View>
+
+                <View style ={styles.column1} >
+                <TouchableOpacity onPress={() => {this.onChangePicture('bas'); }}>
+                <Image style={styles.Image} source={bas} />
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => {this.onChangePicture('art'); }}>
+                <Image style={styles.Image} source={art} />
+                </TouchableOpacity>
+                
+                <TouchableOpacity onPress={() => {this.onChangePicture('ball2'); }}>
+                <Image style={styles.Image} source={ball2} />
+                </TouchableOpacity>
+                 
+                </View>
+
+                <View style ={styles.column1} >
+
+                <TouchableOpacity onPress={() => {this.onChangePicture('dic'); }}>
+                 <Image style={styles.Image} source={dic} />
+                </TouchableOpacity>
+
+                 <TouchableOpacity onPress={() => {this.onChangePicture('pingpong'); }}>
+                <Image style={styles.Image} source={pingpong} />
+                 </TouchableOpacity>
+
+                  <TouchableOpacity onPress={() => {this.onChangePicture('movie'); }}>
+                  <Image style={styles.Image} source={movie} />
+                </TouchableOpacity>
+
+                </View>
+
+                 <View style ={styles.column1} >
+
+                  <TouchableOpacity onPress={() => {this.onChangePicture('shoes'); }}>
+                  <Image style={styles.Image} source={shoes} />
+                </TouchableOpacity>
+
+                  <TouchableOpacity onPress={() => {this.onChangePicture('boling'); }}>
+                  <Image style={styles.Image} source={boling} />
+                </TouchableOpacity>
+
+                </View>
+
+                </View>
+                
             </View>
-        )
+            </View>
+            </View>
+        
+        </Modal>
+        {/* <TouchableHighlight onPress={() => {this.setModalVisible(true); }}>
+          {<Text style={styles.Circle}></Text>
+              
+           }
+
+          {/* <Text style={styles.click} > {Clickimgs}</Text> */}
+          {/* <Image source={
+            this.state.imageSrc == -1 ? "" :
+            (this.state.imageSrc == 0 ? ball ) :
+            (this.state.imageSrc == 1 ? bad) : 
+            (this.state.imageSrc == 2 ? luxby) :
+            (this.state.imageSrc == 3 ? bas) :
+            (this.state.imageSrc == 4 ? art) :
+            (this.state.imageSrc == 5 ? ball2) :
+            (this.state.imageSrc == 6 ? dic) :
+            (this.state.imageSrc == 7 ? pingpong) :
+            (this.state.imageSrc == 8 ? movie) :
+            (this.state.imageSrc == 9 ? shoes) :
+            (this.state.imageSrc == 10 ? boling) :
+            
+          } /> */}
+        {/* </TouchableHighlight> */} 
+
+
+
+        
+      </View>
+                </View>
+
+                    
+        
+         )
     }
 }
 const styles = StyleSheet.create({
@@ -221,12 +437,16 @@ const styles = StyleSheet.create({
         borderRadius : 15,
         marginLeft : Circle.sizeOfCircle*0.4,
         marginRight : Circle.sizeOfCircle*0.4,
-        marginTop : Circle.sizeOfCircle*0.3
+        marginTop : Circle.sizeOfCircle*0.3,
+        height: "100%"
            
+    },
+    background2 : {
+        backgroundColor :"rgb(255,174,201)",   
     },
     back : {
         backgroundColor : "rgba(223,188,216,0.3)",
-        marginTop : Circle.sizeOfCircle*0.65,
+        marginTop : Circle.sizeOfCircle*0.2,
         marginLeft : Circle.sizeOfCircle*0.3,
         marginRight : Circle.sizeOfCircle*0.3,
         borderRadius : 20,
@@ -269,12 +489,14 @@ const styles = StyleSheet.create({
         fontWeight : "bold",
     },
     Circle : {
-        backgroundColor : "rgb(255,255,255)",
-        width :  Circle.sizeOfCircle,
-        height :  Circle.sizeOfCircle,
-        borderRadius : Circle.sizeOfCircle*1.8,
+        
+        width :  Circle.sizeOfCircle*1.2,
+        height :  Circle.sizeOfCircle*1.2,
+        borderRadius : Circle.sizeOfCircle*1.9,
         marginLeft : Circle.sizeOfCircle*0.2,
         marginTop : Circle.sizeOfCircle*0.2,
+        borderWidth : Circle.sizeOfCircle*0.07,
+        borderColor : "white",
     },
     backtime : {
         backgroundColor : "rgba(223,188,216,0.3)",
@@ -319,6 +541,53 @@ const styles = StyleSheet.create({
         
         
     },
+   
+
+    click :{
+      backgroundColor :"rgb(255,255,255)",
+       width : Circle.sizeOfCircle*0.6,
+      height : Circle.sizeOfCircle*0.6,
+      borderRadius : Circle.borderRadius*1.5,
+      color : "white" ,
+      fontSize :Circle.sizeOfCircle*0.1*vw,
+      marginLeft : Circle.sizeOfCircle*0.2,
+    
+    },
+
+    column1 : {
+        flexDirection: 'row',
+    },
+     Image : {
+        width : Circle.sizeOfCircle*1.4,
+        height : Circle.sizeOfCircle*1.4,
+        borderWidth : 5,
+        borderColor : "white",
+        borderRadius : Circle.borderRadius*1.5,
+        marginTop : Circle.sizeOfCircle*0.5, 
+        marginLeft :Circle.sizeOfCircle*0.4,
+        marginBottom :Circle.sizeOfCircle*0.5,
+     
+    },
+    Image2 : {
+        width : Circle.sizeOfCircle*0.6,
+        height : Circle.sizeOfCircle*0.6,
+        borderWidth : 5,
+        borderColor : "white",
+        borderRadius : Circle.borderRadius*1.5,
+        marginTop : Circle.sizeOfCircle*0.2, 
+        marginLeft :Circle.sizeOfCircle*0.2,
+        marginBottom :Circle.sizeOfCircle*0.15,
+     
+        
+    },
+    
     
 })
+
+// function mapStateToProps(state){
+//     return {
+//         _id : state.authenticateReducer._id
+//     }
+// }
+// export default connect(mapStateToProps)(CreateEventPage)
 export default CreateEventPage
