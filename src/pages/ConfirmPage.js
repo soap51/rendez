@@ -5,9 +5,20 @@ import smile from '../../assets/imgs/smile.png'
 import { Circle, SizePX, Font} from '../styles/global';
 import OptionButton from '../components/Button/OptionButton';
 
-
 class ConfirmPage extends React.Component{
+    constructor(props){
+        super(props)
+        this.state= {
+            password :""
+         }
+        }
+    onChangeText(text,field){
+     if(field=='password'){
+         this.setState({[field]:text});
+     }
+    }
     render(){
+        console.warn(this.state.password)
         return(
             <ImageBackground source={DFD} style={{width:'100%',height:"100%"}}>
             <View style={styles.back}>
@@ -24,17 +35,15 @@ class ConfirmPage extends React.Component{
                we just you on your E-mail address.
              </Text>
                 <View style = {styles.texti}>
-                <TextInput style={{fontSize : 50,color:"white",flex:0.6,textAlign : 'center', }}></TextInput>
-              
-              
-            </View>
-            <TouchableOpacity onPress={() => this.onConfirmPage()}>
-            <Text style={styles.buttom}>
+                <TextInput  onChangeText={(text) => this.onChangeText(text, 'password')} keyboardType = 'numeric' maxLength={4} style={{fontSize : 50,color:"white",flex:0.6,textAlign : 'center',  }}></TextInput>
+                </View>
+            <TouchableOpacity style={styles.buttom} >
+            <Text style={{fontSize : 30,textAlign : 'center' }}>
                 Verify
             </Text> 
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.onConfirmPage()}>
-            <Text style={styles.resend}>
+            <TouchableOpacity style={styles.resend}>
+            <Text style={{textAlign : 'center',color:"red" }}>
             If you didn't recieve a code! Resend
             </Text>
             </TouchableOpacity>
@@ -53,11 +62,9 @@ const styles = StyleSheet.create({
         backgroundColor :"white",
         marginTop : Circle.sizeOfCircle*0.4,
         marginLeft : Circle.sizeOfCircle*2,
-        fontSize : 30,
         width : Circle.sizeOfCircle*3,
         height : Circle.sizeOfCircle*0.65,
         borderRadius : Circle.sizeOfCircle,
-        textAlign : 'center' 
     },
 
 
@@ -89,10 +96,11 @@ const styles = StyleSheet.create({
          
     },
     resend:{
-
-        textAlign : 'center' ,
         marginTop : Circle.sizeOfCircle*0.4,
-        color : 'red' 
+        color : 'red' ,
+        marginLeft:'auto',
+        marginRight:'auto'
+
     },
    
  
