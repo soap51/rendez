@@ -11,7 +11,7 @@ class LoginPage extends React.Component{
         super(props)
         this.state = {
             loading: true,
-            email : "59050230@kmitl.ac.th" , password : "12345",
+            email : "59050241@kmitl.ac.th" , password : "123456",
             data: {
                 email: "",
                 password: ""
@@ -46,7 +46,7 @@ class LoginPage extends React.Component{
 
             
                
-                this.props.loginRequest({email : "59050230@kmitl.ac.th" , password : "12345"})
+                this.props.loginRequest({email : "59050241@kmitl.ac.th" , password : "123456"})
                 this.props.history.push('/event' )
 
 
@@ -99,12 +99,12 @@ class LoginPage extends React.Component{
             </View>
             </KeyboardAvoidingView>
             <View style={{flex: 1, flexDirection: 'row',marginLeft:'auto',marginRight:'auto'}}>
-                <TouchableOpacity onPress={() => this.onForgot()}>
-                    <Text  style={{color:'white',textDecorationLine: 'underline',marginTop:'auto',marginBottom:'20%'}}>Forgot Password?</Text>
+                <TouchableOpacity onPress={() => this.onForgot()} style={{marginBottom:'5%',marginTop:'auto'}}>
+                    <Text  style={{color:'white',textDecorationLine: 'underline',}}>Forgot Password?</Text>
                 </TouchableOpacity>
                      <Text style={{marginLeft:'5%'}}></Text>  
-                <TouchableOpacity onPress={() =>this.Onregister()}>
-                    <Text style={{color:'white',textDecorationLine: 'underline',marginTop:'auto',marginBottom:'40%'}}>Register?</Text>
+                <TouchableOpacity onPress={() =>this.Onregister()} style={{marginBottom:'5%',marginTop:'auto'}}>
+                    <Text style={{color:'white',textDecorationLine: 'underline',}}>Register?</Text>
                 </TouchableOpacity>
                 </View>
                 </View>
