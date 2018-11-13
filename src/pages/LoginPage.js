@@ -11,27 +11,11 @@ class LoginPage extends React.Component{
         super(props)
         this.state = {
             loading: true,
-            email : "59050241@kmitl.ac.th" , password : "123456",
-            data: {
-                email: "",
-                password: ""
-            },
-            errors: {},
+            email : "" , password : "",
         }
     }
     onChangeText(text, field) {
-
-        if (field == 'email') {
             this.setState({ [field]: text });
-
-
-        }
-        else if (field == 'password') {
-            this.setState({ [field]: text });
-
-        }
-
-
     }
     async onForgot() {
         this.props.history.push("/forgot")
@@ -40,15 +24,9 @@ class LoginPage extends React.Component{
         this.props.history.push("/register")
     }
      onLogin() {
-
-     
+                this.props.loginRequest({email : "59050241@kmitl.ac.th" , password : "12345"})
                 
-
-            
-               
-                this.props.loginRequest({email : "59050241@kmitl.ac.th" , password : "123456"})
-                this.props.history.push('/event' )
-
+                    this.props.history.push('/event' )
 
             
 

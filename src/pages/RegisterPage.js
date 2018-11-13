@@ -16,47 +16,39 @@ class RegisterPage extends React.Component{
             pass: "",
             re_password: "",
             sex: "M",
-            studentCode: ""
-            // errors: {}
+            studentCode: "",
         };
     }
     onChangeText(text,key,){
-        if (key=='fullName'){
             this.setState({[key]:text})
-        }
-        else if (key=='email'){
-            this.setState({[key]:text})
-           
-        }
-        else if (key=='pass'){
-            this.setState({[key]:text})
-        }
-        else if (key=='re_password'){
-            this.setState({[key]:text})
-        }
-
+        
     }
     onRegister(){
         axios.post(DOMAIN + "api/user/register" , {studentCode:this.state.email,fullName : this.state.fullName,email : this.state.email+"@kmitl.ac.th", password :this.state.pass, sex:'M'})
+        
         .then(response=>{
             this.props.history.push('/verification')
             })
             .catch(err=>{
-                const { fullName,email} = this.state;
-                // console.log(err)
-                if (fullName == "" && email != "" && pass != ""&& re_password != "") {
-                    this.setState({ Error: 'Please fill the fullname' });
+                const { fullName,email,pass,re_password} = this.state;
+                console.log(err)
+                console.log(this.state)
+                if (fullName == "" || email == "" || pass == "" || re_password == "") {
+                    this.setState({ Error: 'Please fill in all required fields' });
                 }
-                else{this.setState({ Error: 'fsipfhsif' });}
+                else if (pass != re_password){
+                    this.setState({ Error: 'Password does not match the Re-password' });
+                }
+                else if (err.response.status == 409) {
+                    this.setState({ Error: 'Mail exist' });
+                }
 
-                // else if (password.length < 8) {
+                // else if (pass.length < 8) {
                 //     this.setState({ Error: 'Password Must be more than 8 Characters' })
                 // }
-                // else if (err.response.status == 401) {
-                //     alert('Something went wrong ')
-                // }
 
-                // else if (username != "" || password != "") { this.setState({ Error: 'Username or Password is not correct !' }) }
+
+                else {this.setState({ Error: 'Something went wrong!' });}
             })
         }
     
@@ -79,7 +71,7 @@ class RegisterPage extends React.Component{
                                 </View>
                             </TouchableOpacity>
                 <Text style={{fontSize : 50,color:'white',marginTop:'30%'}}>Register</Text>
-                <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: 3 * vw, fontSize: 3.5 * vw, fontWeight: 'bold' }}>{this.state.Error}</Text>
+                <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: 3 * vw, fontSize: 4 * vw, fontWeight: 'bold' }}>{this.state.Error}</Text>
                 <TextInput
                     underlineColorAndroid='rgba(255,255,255,1)'
                     style={{height: 10*vw,width:'70%',marginTop:'10%',color:'white'}}
@@ -89,6 +81,7 @@ class RegisterPage extends React.Component{
                 
                 <View style={{flex: 1, flexDirection: 'row',marginLeft:'auto',marginTop:'4%',marginRight:'auto'}}>
                     <TextInput
+                        keyboardType='numeric'
                         underlineColorAndroid='rgba(255,255,255,1)'
                         style={{height: 10*vw,width:'47%',color:'white',}}
                         placeholder="Your code of KMITL"

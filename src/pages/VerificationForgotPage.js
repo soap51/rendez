@@ -8,7 +8,7 @@ class VerificationForgotPage extends React.Component{
         return(
             <ImageBackground source={require('../../assets/imgs/dpho4.png' )} style={styles.background}>
             <View style={{backgroundColor:'rgba(128,0,128,0.8)',height:'100%',width:'100%'}}>
-               
+               <Text style={{justifyContent:'center',textAlign:'center'}}>Login success</Text>
             </View>
         </ImageBackground>
         )
