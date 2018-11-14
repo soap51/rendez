@@ -40,6 +40,8 @@ class CreateEventPage extends React.Component{
             location:"",
             detail:"",
             _id:"true",
+            currentseat:"",
+            Limitedseat:"",
         //   imageSrc : -1,
           sentimage: [],
             
@@ -51,25 +53,31 @@ class CreateEventPage extends React.Component{
     }
     onCreate() {
         // console.warn("this")
-        axios.post(DOMAIN + "/user/"+this.props._id+"/event/",
-        {email : this.state.email,date : this.state.date,time : this.state.time,timeend : this.state.timeend,location : this.state.location,detail : this.state.detail})
+        // axios.post(DOMAIN + "/user/"+this.props._id+"/event/",
+        axios.post(DOMAIN + "api/user/event",
+        {email : this.state.email,date : this.state.date,time : this.state.time,timeend : this.state.timeend,location : this.state.location,detail : this.state.detail
+            ,currentseat : this.state.currentseat,Limitedseat : this.state.Limitedseat, createby : this.state.createby,modalVisible : this.state.modalVisible})
 
             .then(response=>{
-                // console.log(response);
+                console.log(response);
                 this.props.history.push('/event')
             })
             .catch(err=>{
-                const {email,date,time,endtime,location,detail} = this.state;
+                const {email,date,time,endtime,location,detail,currentseat,Limitedseat,createby} = this.state;
                 console.log(err)
                 console.log(this.state)
-                if(email == "" || date == "" || time == "" || endtime == "" || location == "" || detail == ""){
+                if(email == "" || date == "" || time == "" || endtime == "" || location == "" || detail == "" || currentseat == "" || Limitedseat == "" || modalVisible == ""){
                     this.setState({Error: 'กรอกให้ครบด้วย'})
                     setAlert(this.props.history , 403 , "ERROR" , "ควย")
                 }
                 else if (timeend < time){
                     this.setState({Error: 'โปรดตั้งค่าเวลาให้เหมาะสม'})
                 }
-                setAlert(this.props.history , 403 , "ERROR" , "ควย")
+                else if (Limitedseat < currentseat){
+                    this.setState({Error: 'โปรดใส่จำนวนคนให้เหมาะสม'})
+                }
+                else {this.setState({Error: 'Something went wrong'})}
+                // setAlert(this.props.history , 403 , "ERROR" , "ควย")
             })
         }
 
@@ -139,18 +147,8 @@ class CreateEventPage extends React.Component{
         }
         else if(field == 'location'){
             this.setState({ [field]: text});
+        }       
         }
-        else if (timeend < time){
-            (function (error){
-                console.warn("this error")
-                console.log(error)
-                if(this.state.createby == ""){
-                    
-                }
-                setAlert(this.props.history , 403 , "ERROR" , "ควย")
-            })
-        }
-    }
     
     render(){
         // console.warn(this.state.time) 
@@ -299,7 +297,7 @@ class CreateEventPage extends React.Component{
                 <TextInput keyboardType = 'numeric' maxLength={2} underlineColorAndroid="transparent" style=
                     {{marginLeft:68*vw,marginTop:-4.8*vw,marginRight: 20*vw,color:"white",textAlign:"center",backgroundColor : "rgb(51,9,64)",
                       borderRadius:20,width:7*vw,height:5*vw}}
-                      onChangeText={(text) => this.onChangeText(text ,'Limited Seat')}
+                      onChangeText={(text) => this.onChangeText(text ,'Limitedseat')}
                       placeholder='-'>  
                 </TextInput>
                 </View>
