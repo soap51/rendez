@@ -39,29 +39,35 @@ class CreateEventPage extends React.Component{
             modalVisible: false,
             location:"",
             detail:"",
+            _id:"true",
         //   imageSrc : -1,
           sentimage: [],
             
         // data: {
         //     email:""
         // }
-
         }
         
     }
     onCreate() {
-        console.warn("this")
+        // console.warn("this")
         axios.post(DOMAIN + "/user/"+this.props._id+"/event/",
         {email : this.state.email,date : this.state.date,time : this.state.time,timeend : this.state.timeend,location : this.state.location,detail : this.state.detail})
-            .then(function (response) {
-                console.log(response);
-                this.props.history.push('/')
+
+            .then(response=>{
+                // console.log(response);
+                this.props.history.push('/event')
             })
-            .catch(function (error){
-                console.warn("this error")
-                console.log(error)
-                if(this.state.createby == ""){
-                    
+            .catch(err=>{
+                const {email,date,time,endtime,location,detail} = this.state;
+                console.log(err)
+                console.log(this.state)
+                if(email == "" || date == "" || time == "" || endtime == "" || location == "" || detail == ""){
+                    this.setState({Error: 'กรอกให้ครบด้วย'})
+                    setAlert(this.props.history , 403 , "ERROR" , "ควย")
+                }
+                else if (timeend < time){
+                    this.setState({Error: 'โปรดตั้งค่าเวลาให้เหมาะสม'})
                 }
                 setAlert(this.props.history , 403 , "ERROR" , "ควย")
             })
@@ -313,7 +319,7 @@ class CreateEventPage extends React.Component{
                 </View>
 
                 <View style={styles.create}>
-                <TouchableOpacity onPress={this.onCreate()} >
+                <TouchableOpacity onPress={() => this.onCreate()} >
                 <Text style={{color:"white",fontWeight:"bold",textAlign:"center"}}>
                 Create
                 </Text>
