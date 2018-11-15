@@ -2,7 +2,7 @@ import React from 'react'
 import {View , Text,StyleSheet,Button,AsyncStorage,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView} from 'react-native'
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
-import { loginRequest } from '../actions/authenticateAction'
+import { loginRequest , loginSuccess} from '../actions/authenticateAction'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-native'
 import {DOMAIN} from '../constant/environment'
@@ -13,7 +13,7 @@ class LoginPage extends React.Component{
         super(props)
         this.state = {
             loading: true,
-            email : "" , password : "",
+            email : "59050231@kmitl.ac.th" , password : "123456",
         }
     }
     onChangeText(text, field) {
@@ -34,6 +34,8 @@ class LoginPage extends React.Component{
             axios.post(DOMAIN + "api/user/login" , {email : this.state.email , password : this.state.password }).then(response=>{
                 const data = response.data
                 const token = data.token 
+                const _id = data._id
+                const confirmationToken = data.confirmationToken
                 console.log(response.data)
                 AsyncStorage.setItem('token' , token).then(result=>{
                     console.log(result)
@@ -42,13 +44,10 @@ class LoginPage extends React.Component{
                     console.log(err)
                 })
                 
-                setAuthorizationHeader(token)
-                return dispatch({
-                    type : LOGIN_SUCCESS,
-                    payload : token
-                })
+                this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken })
             })
             .catch(err=>{
+                console.log(err)
                 if(err.response.status == 401){
                     this.setState({ Error: 'Invalid email or password' });
                 }
@@ -136,4 +135,4 @@ const styles = StyleSheet.create({
     }
     
 })
-export default withRouter(connect(null , {loginRequest})(LoginPage))
+export default withRouter(connect(null , {loginRequest , loginSuccess})(LoginPage))

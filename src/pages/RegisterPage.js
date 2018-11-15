@@ -24,6 +24,7 @@ class RegisterPage extends React.Component{
         
     }
     onRegister(){
+        
         axios.post(DOMAIN + "api/user/register" , {studentCode:this.state.email,fullName : this.state.fullName,email : this.state.email+"@kmitl.ac.th", password :this.state.pass, sex:this.state.language})
         
         .then(response=>{

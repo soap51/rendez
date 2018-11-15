@@ -32,18 +32,17 @@ class CreateEventPage extends React.Component{
         this.state = {
             visible:www,
             date:"",
-            email: "",
             time:"",
             timeend:"",
             createby:"",
             modalVisible: false,
             location:"",
             detail:"",
-            _id:"true",
             currentseat:"",
             Limitedseat:"",
+            nameac:"",
+            key:0,
         //   imageSrc : -1,
-          sentimage: [],
             
         // data: {
         //     email:""
@@ -52,25 +51,27 @@ class CreateEventPage extends React.Component{
         
     }
     onCreate() {
-        console.warn("this")
         // axios.post(DOMAIN + "/user/"+this.props._id+"/event/",
+        console.log(this.state)
         axios.post(DOMAIN + "api/event",
-        {email : this.state.email,date : this.state.date,time : this.state.time,timeend : this.state.timeend,location : this.state.location,detail : this.state.detail
-            ,currentseat : this.state.currentseat,Limitedseat : this.state.Limitedseat, createby : this.state.createby,modalVisible : this.state.modalVisible})
+        {eventDate : this.state.date,startTime : this.state.time,
+            endTime : this.state.timeend,place : this.state.location,
+            detail : this.state.detail
+            ,currentSeat : this.state.currentseat,totalSeat : this.state.Limitedseat, author : this.state.createby,iconType : this.state.key , eventName : this.state.nameac})
 
             .then(response=>{
                 console.log(response);
                 this.props.history.push('/event')
             })
             .catch(err=>{
-                const {email,date,time,endtime,location,detail,currentseat,Limitedseat,createby} = this.state;
+                const {date,time,endtime,location,detail,currentseat,Limitedseat,nameac,key} = this.state;
                 console.log(err.response)
                 console.log(this.state)
-                if(email == "" || date == "" || time == "" || endtime == "" || location == "" || detail == "" || currentseat == "" || Limitedseat == "" || modalVisible == ""){
-                    this.setState({Error: 'กรอกให้ครบด้วย'})
-                    setAlert(this.props.history , 403 , "ERROR" , "ควย")
-                }
-                else if (timeend < time){
+                // if(date == "" || time == "" || endtime == "" || location == "" || detail == "" || currentseat == "" || Limitedseat == "" || key == "" || nameac == ""){
+                //     this.setState({Error: 'กรอกให้ครบด้วย'})
+                //     setAlert(this.props.history , 403 , "ERROR" , "ควย")
+                // }
+                 if (timeend < time){
                     this.setState({Error: 'โปรดตั้งค่าเวลาให้เหมาะสม'})
                 }
                 else if (Limitedseat < currentseat){
@@ -94,41 +95,43 @@ class CreateEventPage extends React.Component{
     
       
       onChangePicture(key) {
-          if(key == 'ball'){
-              this.setState({visible : Ball , modalVisible : !this.state.modalVisible})
+          if(key == 1){
+              this.setState({visible : Ball , modalVisible : !this.state.modalVisible,key :1})
           }
-          else if (key == 'bad'){
-            this.setState({visible : bad , modalVisible : !this.state.modalVisible})
+          else if (key == 2){
+            this.setState({visible : bad , modalVisible : !this.state.modalVisible,key :2})
         }
-        else if (key == 'luxby'){
-            this.setState({visible : luxby , modalVisible : !this.state.modalVisible})
+        else if (key == 3){
+            this.setState({visible : luxby , modalVisible : !this.state.modalVisible,key :3})
         }
-        else if (key == 'bas'){
-            this.setState({visible : bas , modalVisible : !this.state.modalVisible})
+        else if (key == 4){
+            this.setState({visible : bas , modalVisible : !this.state.modalVisible,key :4})
         }
-        else if (key == 'art'){
-            this.setState({visible : art , modalVisible : !this.state.modalVisible})
+        else if (key == 5){
+            this.setState({visible : art , modalVisible : !this.state.modalVisible,key :5})
         }
-        else if (key == 'ball2'){
-            this.setState({visible : ball2 , modalVisible : !this.state.modalVisible})
+        else if (key == 6){
+            this.setState({visible : ball2 , modalVisible : !this.state.modalVisible,key :6})
         }
-        else if (key == 'dic'){
-            this.setState({visible : dic , modalVisible : !this.state.modalVisible})
+        else if (key == 7){
+            this.setState({visible : dic , modalVisible : !this.state.modalVisible,key :7})
         }
-        else if (key == 'pingpong'){
-            this.setState({visible : pingpong , modalVisible : !this.state.modalVisible})
+        else if (key == 8){
+            this.setState({visible : pingpong , modalVisible : !this.state.modalVisible,key :8})
         }
-        else if (key == 'movie'){
-            this.setState({visible : movie, modalVisible : !this.state.modalVisible})
+        else if (key == 9){
+            this.setState({visible : movie, modalVisible : !this.state.modalVisible,key :9})
         }
-        else if (key == 'shoes'){
-            this.setState({visible : shoes , modalVisible : !this.state.modalVisible})
+        else if (key == 10){
+            this.setState({visible : shoes , modalVisible : !this.state.modalVisible,key :10})
         }
-        else if (key == 'boling'){
-            this.setState({visible : boling , modalVisible : !this.state.modalVisible})
+        else if (key == 11){
+            this.setState({visible : boling , modalVisible : !this.state.modalVisible,key :11})
         }
-         
+        // console.log(this.state.key)
+        // console.warn('if '+this.state.key)
       }
+      
     onChangeText(text, field){
         if(field == 'nameac' ) {
             this.setState({ [field]: text});
@@ -142,7 +145,7 @@ class CreateEventPage extends React.Component{
         else if(field == 'currentseat'){
             this.setState({ [field]: text});
         }
-        else if(field == 'Limited Seat'){
+        else if(field == 'Limitedseat'){
             this.setState({ [field]: text});
         }
         else if(field == 'location'){
@@ -163,7 +166,7 @@ class CreateEventPage extends React.Component{
                 <View>
                     
                 
-
+                <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: 3 * vw, fontSize: 3.5 * vw, fontWeight: 'bold' }}>{this.state.Error}</Text>
                 <View  style={{marginLeft:19*vw,marginTop:-15*vw,marginRight: 7*vw,color : 'white',fontSize: 3*vw}}>
                     <TextInput style={{color:"white",marginLeft:5*vw}}
                         underlineColorAndroid="transparent" 
@@ -338,29 +341,29 @@ class CreateEventPage extends React.Component{
           <View style={{marginTop: 22}}>
             <View>
             <View style ={styles.column1} >
-              <TouchableHighlight onPress={() => {this.onChangePicture('ball'); }}>
+              <TouchableHighlight onPress={() => {this.onChangePicture(1); }}>
                  <Image style={styles.Image} source={Ball} />
               </TouchableHighlight>               
 
-            <TouchableOpacity onPress={() => {this.onChangePicture('bad'); }}>
+            <TouchableOpacity onPress={() => {this.onChangePicture(2); }}>
                 <Image style={styles.Image} source={bad} />
                 </TouchableOpacity>
               
-                <TouchableOpacity onPress={() => {this.onChangePicture('luxby'); }}>
+                <TouchableOpacity onPress={() => {this.onChangePicture(3); }}>
                 <Image style={styles.Image} source={luxby} />
                 </TouchableOpacity>
                 </View>
 
                 <View style ={styles.column1} >
-                <TouchableOpacity onPress={() => {this.onChangePicture('bas'); }}>
+                <TouchableOpacity onPress={() => {this.onChangePicture(4); }}>
                 <Image style={styles.Image} source={bas} />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => {this.onChangePicture('art'); }}>
+                <TouchableOpacity onPress={() => {this.onChangePicture(5); }}>
                 <Image style={styles.Image} source={art} />
                 </TouchableOpacity>
                 
-                <TouchableOpacity onPress={() => {this.onChangePicture('ball2'); }}>
+                <TouchableOpacity onPress={() => {this.onChangePicture(6); }}>
                 <Image style={styles.Image} source={ball2} />
                 </TouchableOpacity>
                  
@@ -368,15 +371,15 @@ class CreateEventPage extends React.Component{
 
                 <View style ={styles.column1} >
 
-                <TouchableOpacity onPress={() => {this.onChangePicture('dic'); }}>
+                <TouchableOpacity onPress={() => {this.onChangePicture(7); }}>
                  <Image style={styles.Image} source={dic} />
                 </TouchableOpacity>
 
-                 <TouchableOpacity onPress={() => {this.onChangePicture('pingpong'); }}>
+                 <TouchableOpacity onPress={() => {this.onChangePicture(8); }}>
                 <Image style={styles.Image} source={pingpong} />
                  </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => {this.onChangePicture('movie'); }}>
+                  <TouchableOpacity onPress={() => {this.onChangePicture(9); }}>
                   <Image style={styles.Image} source={movie} />
                 </TouchableOpacity>
 
@@ -384,11 +387,11 @@ class CreateEventPage extends React.Component{
 
                  <View style ={styles.column1} >
 
-                  <TouchableOpacity onPress={() => {this.onChangePicture('shoes'); }}>
+                  <TouchableOpacity onPress={() => {this.onChangePicture(10); }}>
                   <Image style={styles.Image} source={shoes} />
                 </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => {this.onChangePicture('boling'); }}>
+                  <TouchableOpacity onPress={() => {this.onChangePicture(11); }}>
                   <Image style={styles.Image} source={boling} />
                 </TouchableOpacity>
 

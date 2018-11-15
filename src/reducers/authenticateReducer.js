@@ -1,7 +1,8 @@
 import {LOGIN_SUCCESS  , LOGIN_FAIL} from '../constant/actionTypes'
 const initialState = {
     token : "",
-    _id : ""
+    _id : "",
+    confirmationToken : false,
 }
 export default function reducer(state=initialState , action){
   
@@ -11,7 +12,8 @@ export default function reducer(state=initialState , action){
             return {
                 ...state,
                 token : action.payload.token,
-                _id : action.payload._id
+                _id : action.payload._id,
+                confirmationToken : action.payload.confirmationToken
             }
         case LOGIN_FAIL :
             return initialState 

@@ -8,7 +8,7 @@ export default function WrappedComponent(ChildComponent){
            super(props) 
         }
         render(){
-            console.log(this.props)
+            if(this.props.confirmationToken == false) return <Redirect to="/confirm"/>
             if(!_.isEmpty(this.props.token) )    return <Redirect to="/event" />
             else return <ChildComponent />
         }
@@ -16,7 +16,8 @@ export default function WrappedComponent(ChildComponent){
     function mapStateToProps(state){
         console.log(state)
         return {
-            token : state.AuthenticateReducer.token
+            token : state.AuthenticateReducer.token,
+            confirmationToken : state.AuthenticateReducer.confirmationToken
         }
     }
     return (connect(mapStateToProps)(withRouter(GuestComponent)))
