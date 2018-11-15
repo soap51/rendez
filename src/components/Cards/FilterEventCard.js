@@ -18,68 +18,69 @@ class FilterEventCard extends React.Component {
         return(
             
               
-           <View style = {{ borderRadius : 0,
+           <View style = {{ 
            
-            width : 100*vw,
-            marginLeft : 0*vw,
+            width : 120*vw,
+            marginLeft : -1*vw,
+            marginTop : -6*vw,
        
            }}> 
          
         <View style={{
                 borderRadius : 10,
-                borderWidth : 2.8*vw,
+                borderWidth : 1.8*vw,
                 borderColor : "#F59191",
-                width : 30*vw,
+                width : 34*vw,
+                height : 14*vw,
                 display : "flex",
                 flexDirection : "row",
-                marginLeft : 0*vw,
+                marginLeft : 0.7*vw,
                 justifyContent : "space-around",
                 backgroundColor : "white",
                 marginBottom :0*vw,
                 marginTop : 5*vw
             }}>
-            <View style = {{flexDirection : "column", width : 27*vw}}>
-              <Text style = {{textAlign : "center",width : 30*vw,fontWeight :"bold",
+            <View style = {{flexDirection : "column", width : 32*vw,borderWidth : 1*vw,borderColor : "#F59191",}}>
+              <Text style = {{textAlign : "center",width : 30*vw,fontWeight :"bold",marginTop : -2*vw,
             backgroundColor :"#F59191",}}>
             CURRENT
         </Text>  
-        <View style = {{ flexDirection : "row",}}>
+        <View style = {{ flexDirection : "row",  flex : 1,height : 5*vw}}>
                 <TouchableOpacity onPress={()=>this.props._onChangeActivity(0)} style={typeActivity == 0? {
                     flex : 1,
-                   
                     justifyContent : "center",
                     alignItems :"center",
                     borderColor : "#F59191",
-                    borderRadius : 1*vw,
                     backgroundColor : "#FFE4E4",
-                    borderWidth : 1*vw
+                    borderWidth : 0.1*vw,
+                    height : 6*vw,
                 } : {
                     flex : 1,
                     justifyContent : "center",
                     alignItems :"center"
                 }}>
-                    <Text style={{
-                        fontSize : Font.fontParagraph / 1.5,
+                    <Text style={{  flex : 1,
+                        fontSize : Font.fontParagraph / 1.6,
                         fontWeight : "bold"
-                    }}>Joined</Text>
+                    }}>My Activity</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>this.props._onChangeActivity(1)} style={typeActivity == 1? {
                     flex : 1,
                     justifyContent : "center",
                     alignItems :"center",
                     borderColor : "#F59191",
-                    borderRadius : 1*vw,
                     backgroundColor : "#FFE4E4",
-                    borderWidth : 1*vw
+                    borderWidth : 0.1*vw,
+                    height : 6*vw,
                 } : {
                     flex : 1,
                     justifyContent : "center",
                     alignItems :"center"
                 }}>
-                    <Text style={{
-                        fontSize : Font.fontParagraph / 1.5,
+                    <Text style={{  flex : 1,
+                        fontSize : Font.fontParagraph / 1.6,
                         fontWeight : "bold"
-                    }}>My Activity</Text>
+                    }}>Joined</Text>
                 </TouchableOpacity>
                 </View>
                 </View>
@@ -87,59 +88,60 @@ class FilterEventCard extends React.Component {
            
                 
         <View style={{
-            borderRadius : 3*vw,
-            width : 30*vw,
-            borderWidth : 2.8*vw,
+            borderRadius : 10,
+            width : 34*vw,
+            height : 14*vw,
+            borderWidth : 1.8*vw,
             borderColor : "rgb(173,173,173)",
-            marginLeft : 35*vw,
+            marginLeft : 36*vw,
             display : "flex",
             flexDirection : "row",
             justifyContent : "space-around",
             backgroundColor : "white",
-            marginBottom :10*vw,
-            marginTop : -18.2*vw,
+            marginBottom :3*vw,
+            marginTop : -14*vw,
         }}>
-         <View style = {{flexDirection : "column", width : 27*vw}}>
-              <Text style = {{textAlign : "center",width : 30*vw,fontWeight :"bold",
+         <View style = {{flexDirection : "column", width : 32*vw,borderWidth : 1*vw,borderColor :  "rgb(173,173,173)",}}>
+              <Text style = {{textAlign : "center",width : 30*vw,fontWeight :"bold",marginTop : -2*vw,
             backgroundColor : "rgb(173,173,173)",}}>
             HISTORY
         </Text>  
-        <View style = {{ flexDirection : "row",}}>
+        <View style = {{ flexDirection : "row",  flex : 1,}}>
             <TouchableOpacity onPress={()=>this.props._onChangeActivity(2)} style={typeActivity == 2? {
                 flex : 1,
                 justifyContent : "center",
                 alignItems :"center",
                 borderColor :  "rgb(173,173,173)",
-                borderRadius : 3,
                 backgroundColor :  "rgb(223,219,218)",
-                borderWidth : 1*vw
+                borderWidth : 0.1*vw,
+                height : 6*vw,
             } : {
                 flex : 1,
                 justifyContent : "center",
                 alignItems :"center"
             }}>
-                <Text style={{
-                    fontSize : Font.fontParagraph / 1.5,
-                    fontWeight : "bold"
-                }}>Joined</Text>
+                <Text style={{  flex : 1,
+                    fontSize : Font.fontParagraph / 1.6,
+                    fontWeight : "bold",
+                }}>My Activity</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.props._onChangeActivity(3)} style={typeActivity == 3? {
                 flex : 1,
                 justifyContent : "center",
                 alignItems :"center",
                 borderColor :  "rgb(173,173,173)",
-                borderRadius : 3,
-                backgroundColor :  "rgb(173,173,173)",
-                borderWidth : 1*vw
+                backgroundColor :  "rgb(223,219,218)",
+                borderWidth : 0.1*vw,
+                height : 6*vw,
             } : {
                 flex : 1,
                 justifyContent : "center",
                 alignItems :"center"
             }}>
-                <Text style={{
-                    fontSize : Font.fontParagraph / 1.5,
+                <Text style={{  flex : 1,
+                    fontSize : Font.fontParagraph / 1.6,
                     fontWeight : "bold"
-                }}>My Activity</Text>
+                }}>Joined</Text>
             </TouchableOpacity>
              
             </View>
