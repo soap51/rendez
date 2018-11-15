@@ -15,15 +15,19 @@ class FilterEventCard extends React.Component {
     render(){
         const {typeActivity} = this.state
         return(
-            <View style={{
-                borderRadius : 5,
+            
+              
+            
+        <View style={{
+                borderRadius : 7,
                 borderWidth : 3,
                 borderColor : "#F59191",
               
                 display : "flex",
                 flexDirection : "row",
                 justifyContent : "space-around",
-                backgroundColor : "white"
+                backgroundColor : "white",
+                marginBottom :0
             }}>
                 <TouchableOpacity onPress={()=>this.props._onChangeActivity(0)} style={typeActivity == 0? {
                     flex : 1,
@@ -62,6 +66,7 @@ class FilterEventCard extends React.Component {
                     }}>My Activity</Text>
                 </TouchableOpacity>
             </View>
+           
         )
     }
 }
