@@ -91,47 +91,25 @@ class HomePage extends React.Component{
                 
                 textAlign : "center,"
             }}>
-            <View style = {{textAlign : "center",flexDirection : "row",display : "flex",marginLeft : Circle.sizeOfCircle*(0.07)}}>
+           
             <View style={{
-                borderRadius : 5,
-                borderWidth : 3,
-                borderColor : "#F59191",
-                width : Circle.sizeOfCircle*2.2,
-                display : "flex",
+                // borderRadius : 5,
+                // borderWidth : 3,
+                // borderColor : "#F59191",
+                 width : Circle.sizeOfCircle*4.2,
+                // display : "flex",
                 flexDirection : "column",
-                justifyContent : "space-around",
-                backgroundColor : "#F59191",
-                marginBottom :0
+                // justifyContent : "space-around",
+                // backgroundColor : "#F59191",
+                // marginBottom :0
             }}>
-           <Text style = {{textAlign : "center"}}>
-            CURRENT
-        </Text>  
+           
                         <FilterEventCard 
                             typeActivity={typeActivity}
                             _onChangeActivity={(id)=>this._onChangeActivity(id)}
                         />
                         </View>
-                        <View style={{
-                borderRadius : 5,
-                borderWidth : 3,
-                borderColor : "#F59191",
-                width : Circle.sizeOfCircle*2.2,
-                display : "flex",
-                flexDirection : "column",
-                justifyContent : "space-around",
-                backgroundColor : "#F59191",
-                marginBottom :0,
-                marginLeft : 5
-            }}>
-           <Text style = {{textAlign : "center"}}>
-           HISTORY
-        </Text>  
-                         <FilterEventCard 
-                            typeActivity2={typeActivity2}
-                            _onChangeActivity2={(id)=>this._onChangeActivity2(id)}
-                        />
-                        </View>
-                        </View>
+                      
                         </View>
                     
                     <View>

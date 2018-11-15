@@ -52,9 +52,9 @@ class CreateEventPage extends React.Component{
         
     }
     onCreate() {
-        // console.warn("this")
+        console.warn("this")
         // axios.post(DOMAIN + "/user/"+this.props._id+"/event/",
-        axios.post(DOMAIN + "api/user/event",
+        axios.post(DOMAIN + "api/event",
         {email : this.state.email,date : this.state.date,time : this.state.time,timeend : this.state.timeend,location : this.state.location,detail : this.state.detail
             ,currentseat : this.state.currentseat,Limitedseat : this.state.Limitedseat, createby : this.state.createby,modalVisible : this.state.modalVisible})
 
@@ -64,7 +64,7 @@ class CreateEventPage extends React.Component{
             })
             .catch(err=>{
                 const {email,date,time,endtime,location,detail,currentseat,Limitedseat,createby} = this.state;
-                console.log(err)
+                console.log(err.response)
                 console.log(this.state)
                 if(email == "" || date == "" || time == "" || endtime == "" || location == "" || detail == "" || currentseat == "" || Limitedseat == "" || modalVisible == ""){
                     this.setState({Error: 'กรอกให้ครบด้วย'})
