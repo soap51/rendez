@@ -304,7 +304,7 @@ class CreateEventPage extends React.Component{
 
                 <View style={styles.backDetail}>
                 <Iconja style={{marginLeft:2*vw,marginTop:1*vw}} name="pencil" size={10*vw} color="#00FF00" />
-                <Text style={{marginLeft:14*vw,marginTop:-7*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",}}>
+                <Text style={{ marginLeft:14*vw,marginTop:-7*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",}}>
                          Detail:
                 </Text>
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
