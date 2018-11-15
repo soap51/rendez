@@ -1,11 +1,13 @@
 import React from 'react'
-import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView} from 'react-native'
+import {View , Text,StyleSheet,Button,AsyncStorage,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView} from 'react-native'
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { loginRequest } from '../actions/authenticateAction'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-native'
+import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
+import setAuthorizationHeader from '../utils/setAuthorizationHeader'
 class LoginPage extends React.Component{
     constructor(props) {
         super(props)
@@ -24,11 +26,38 @@ class LoginPage extends React.Component{
         this.props.history.push("/register")
     }
      onLogin() {
-                this.props.loginRequest({email : "59050241@kmitl.ac.th" , password : "12345"})
+         const {email,password} = this.state;
+         if(email == "" || password == ""){
+            this.setState({ Error: 'Please fill email or password' });
+         }
+         else{
+            axios.post(DOMAIN + "api/user/login" , {email : this.state.email , password : this.state.password }).then(response=>{
+                const data = response.data
+                const token = data.token 
+                console.log(response.data)
+                AsyncStorage.setItem('token' , token).then(result=>{
+                    console.log(result)
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
                 
-                    this.props.history.push('/event' )
-
-            
+                setAuthorizationHeader(token)
+                return dispatch({
+                    type : LOGIN_SUCCESS,
+                    payload : token
+                })
+            })
+            .catch(err=>{
+                if(err.response.status == 401){
+                    this.setState({ Error: 'Invalid email or password' });
+                }
+                else if(err.response.status == 500){
+                    this.setState({ Error: 'Something went wrong( Error:500 )' });
+                }
+                else(this.setState({ Error: 'Something went wrong' }));
+            })
+         }
 
         
     }

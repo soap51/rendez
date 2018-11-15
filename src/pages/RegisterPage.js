@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView,Image, } from 'react-native'
+import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView,Image,Picker, } from 'react-native'
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { LinearGradient } from 'expo';
@@ -15,7 +15,7 @@ class RegisterPage extends React.Component{
             email: "",
             pass: "",
             re_password: "",
-            sex: "M",
+            language: "",
             studentCode: "",
         };
     }
@@ -24,7 +24,7 @@ class RegisterPage extends React.Component{
         
     }
     onRegister(){
-        axios.post(DOMAIN + "api/user/register" , {studentCode:this.state.email,fullName : this.state.fullName,email : this.state.email+"@kmitl.ac.th", password :this.state.pass, sex:'M'})
+        axios.post(DOMAIN + "api/user/register" , {studentCode:this.state.email,fullName : this.state.fullName,email : this.state.email+"@kmitl.ac.th", password :this.state.pass, sex:this.state.language})
         
         .then(response=>{
             this.props.history.push('/verification')
@@ -70,7 +70,7 @@ class RegisterPage extends React.Component{
                                     /> 
                                 </View>
                             </TouchableOpacity>
-                <Text style={{fontSize : 50,color:'white',marginTop:'30%'}}>Register</Text>
+                <Text style={{fontSize : 50,color:'white',marginTop:'10%'}}>Register</Text>
                 <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: 3 * vw, fontSize: 4 * vw, fontWeight: 'bold' }}>{this.state.Error}</Text>
                 <TextInput
                     underlineColorAndroid='rgba(255,255,255,1)'
@@ -78,8 +78,31 @@ class RegisterPage extends React.Component{
                     placeholder="Full Name"
                     onChangeText={(text) => this.onChangeText(text, 'fullName')}
                 />
+
+
+                 <View style={{flex: 1, flexDirection: 'row',marginLeft:'auto',marginTop:'4%',marginRight:'auto'}}>
+                    <TextInput
+                        keyboardType='numeric'
+                        underlineColorAndroid='rgba(255,255,255,1)'
+                        style={{height: 10*vw,width:'32%',color:'white',}}
+                        placeholder="Age"
+                        onChangeText={(text) => this.onChangeText(text, 'email')}
+                    />
+                    <Text style={{color:'white',fontSize:4*vw,marginTop:2*vw,marginBottom:-7*vw}}>Sex :</Text>
+                    <Picker
+                        mode="dropdown"
+                        selectedValue={this.state.language}
+                        style={{ height: 10*vw, width: 30*vw ,marginTop:-2*vw,color:'white',backgroundColor: 'green'}}
+                        onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}>
+                        <Picker.Item label="Male" value="M" />
+                        <Picker.Item label="Female" value="F" />
+                    </Picker>
+                    
+                </View>
+
                 
-                <View style={{flex: 1, flexDirection: 'row',marginLeft:'auto',marginTop:'4%',marginRight:'auto'}}>
+                
+                <View style={{flex: 1, flexDirection: 'row',marginLeft:'auto',marginTop:'15%',marginRight:'auto'}}>
                     <TextInput
                         keyboardType='numeric'
                         underlineColorAndroid='rgba(255,255,255,1)'
