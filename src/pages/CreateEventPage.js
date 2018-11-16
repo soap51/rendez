@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Space, Circle, Font , SizePX } from '../styles/global';
 import {View , Text ,StyleSheet,TextInput,Image,Alert,ImageBackgrond,Modal,TouchableHighlight,} from 'react-native'
-
+import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import DatePicker from 'react-native-datepicker'
 import {TouchableOpacity} from 'react-native'
 import icon from '../../assets/imgs/icon.jpg'
