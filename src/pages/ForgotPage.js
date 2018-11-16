@@ -3,13 +3,8 @@ import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { LinearGradient } from 'expo';
-<<<<<<< HEAD
 import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
-=======
-import axios from 'axios';
-import {DOMAIN} from '../constant/environment'
->>>>>>> 1c261a87606cc16421913adda6c3e63ad3159ecb
 class ForgotPage extends React.Component{
     constructor(props) {
         super(props)
@@ -25,12 +20,9 @@ class ForgotPage extends React.Component{
             this.setState({ Error: 'Please fill email' })
         }
         else{
+            console.log(this.state)
             axios.post(DOMAIN + "api/user/forgot" , {email : this.state.email}).then(response=>{
-<<<<<<< HEAD
-                this.props.history.push('/verification')
-=======
-                this.props.history.push("/forgot")
->>>>>>> 1c261a87606cc16421913adda6c3e63ad3159ecb
+
             })
             .catch(err=>{
                 console.log(err)
@@ -45,7 +37,6 @@ class ForgotPage extends React.Component{
         }
     }
     render(){
-        console.warn(this.state.email)
         return(
             
             <ImageBackground source={require('../../assets/imgs/dpho4.png' )} style={styles.background}>
