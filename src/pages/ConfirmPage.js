@@ -36,8 +36,8 @@ class ConfirmPage extends React.Component{
                 const {password} = this.state
                 console.log(err.response)
                 console.log(this.state)
-                if(err.response.status == 401) {
-                    this.setState({Error: 'Not found'});
+                if(err.response.status == 404) {
+                    this.setState({Error: 'incorrect'});
                 }
                 else{this.setState({Error: 'Not found'});}
 
@@ -58,7 +58,7 @@ class ConfirmPage extends React.Component{
             <View style={styles.pink}>
                 <Image style ={styles.imgs} source = {smile}/>
             </View>
-            <Text style={{color:'red',marginLeft:'auto',marginRight:'auto',marginTop:3*vw,fontsize:4*vw,fontWeight:'bold'}}>{this.state.Error}</Text>
+            <Text style={{color:'red',marginLeft:'auto',marginRight:'auto',marginTop:3*vw,fontsize:5*vw,fontWeight:'bold'}}>{this.state.Error}</Text>
              <Text style={{color: "white",fontSize : Circle.sizeOfCircle*0.5,
              marginTop : Circle.sizeOfCircle*0.3,textAlign : 'center'} }>
                Enter the verification code 
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return {
-        confirmationToken : state.authenticateReducer.confirmationToken
+        confirmationToken : state.AuthenticateReducer.confirmationToken
     }
 }
 export default connect(mapStateToProps)(ConfirmPage)

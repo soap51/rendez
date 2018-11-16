@@ -3,13 +3,8 @@ import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { LinearGradient } from 'expo';
-<<<<<<< HEAD
-import {DOMAIN} from '../constant/environment'
-import axios from 'axios'
-=======
 import axios from 'axios';
 import {DOMAIN} from '../constant/environment'
->>>>>>> 1c261a87606cc16421913adda6c3e63ad3159ecb
 class ForgotPage extends React.Component{
     constructor(props) {
         super(props)
@@ -26,11 +21,7 @@ class ForgotPage extends React.Component{
         }
         else{
             axios.post(DOMAIN + "api/user/forgot" , {email : this.state.email}).then(response=>{
-<<<<<<< HEAD
-                this.props.history.push('/verification')
-=======
-                this.props.history.push("/forgot")
->>>>>>> 1c261a87606cc16421913adda6c3e63ad3159ecb
+                this.props.history.push('/login')
             })
             .catch(err=>{
                 console.log(err)
