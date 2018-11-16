@@ -8,7 +8,8 @@ export default function WrappedComponent(ChildComponent){
            super(props) 
         }
         render(){
-            if(this.props.confirmationToken == false) return <Redirect to="/confirm"/>
+            
+      
             if(!_.isEmpty(this.props.token) )    return <Redirect to="/event" />
             else return <ChildComponent />
         }

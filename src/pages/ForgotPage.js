@@ -58,14 +58,14 @@ class ForgotPage extends React.Component{
                                 <Text style={{fontSize:4.5*vw,fontWeight:'bold',marginTop:'10%',}}>
                                     Did you forget your password?
                                 </Text>
-                                <Text style={{fontSize:2.5*vw,marginTop:'2%',}}>
+                                <Text style={{fontSize:2.5*vw,marginTop:'2%',textAlign : "center"}}>
                                     Enter your email address you're using for your account below{"\n"}
                                     and we will send you a password reset link.
                                 </Text>
 
                                 <TextInput
                                     underlineColorAndroid='rgba(0,0,0,0)'
-                                     style={{marginLeft:'5%',marginRight:'5%',height: 6*vw,width:80*vw,marginTop:'5%',color:'black',backgroundColor:'white',borderRadius:50,}}
+                                     style={{textAlign : "center",marginLeft:'5%',marginRight:'5%',height: 6*vw,width:80*vw,marginTop:'5%',color:'black',backgroundColor:'white',borderRadius:50,}}
                                      placeholder="Enter your email address"
                                     onChangeText={(text) => this.setState({ email: text })}
                                 />

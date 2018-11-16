@@ -22,7 +22,7 @@ export default class App extends React.Component {
               <Route exact path="/confirm" component={LayoutComponent(Page.ConfirmPage)} />
               <Route exact path="/CreateEventPage" component={LayoutComponent(Page.CreateEventPage)} />
               <Route exact path="/event/:eventId" component={LayoutComponent(Page.EventInformationPage)} />
-              <Route exact path="/baba" component={LayoutComponent(Page.EventPage)} />
+              <Route exact path="/event" component={LayoutComponent(Page.EventPage)} />
               <Route exact path="/forgot" component={(Page.ForgotPage)} />
               <Route exact path="/" component={(Page.LoginPage)} />
               <Route exact path="/Others" component={LayoutComponent(Page.OtherPage)} />

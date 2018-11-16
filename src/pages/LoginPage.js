@@ -13,7 +13,7 @@ class LoginPage extends React.Component{
         super(props)
         this.state = {
             loading: true,
-            email : "59050231@kmitl.ac.th" , password : "123456",
+            email : "59050254@kmitl.ac.th" , password : "123456",
         }
     }
     onChangeText(text, field) {
@@ -21,6 +21,7 @@ class LoginPage extends React.Component{
     }
     async onForgot() {
         this.props.history.push("/forgot")
+        
     }
     async Onregister() {
         this.props.history.push("/register")
@@ -45,6 +46,7 @@ class LoginPage extends React.Component{
                 })
                 
                 this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken })
+                this.props.history.push('/event')
             })
             .catch(err=>{
                 console.log(err)
