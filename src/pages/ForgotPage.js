@@ -21,7 +21,7 @@ class ForgotPage extends React.Component{
         }
         else{
             axios.post(DOMAIN + "api/user/forgot" , {email : this.state.email}).then(response=>{
-                this.props.history.push("/forgot")
+                this.props.history.push("/login")
             })
             .catch(err=>{
                 console.log(err)

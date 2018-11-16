@@ -7,6 +7,7 @@ import EventPage from './EventPage'
 import LetgoPage from './LetgoPage'
 import LoginPage from './LoginPage'
 import OtherPage from './OtherPage'
+import ForgotPage from './ForgotPage'
 import ProfilePage from './ProfilePage'
 import RegisterPage from './RegisterPage'
 import VerificationForgotPage from './VerificationForgotPage'
@@ -17,6 +18,7 @@ export default {
     CommentPage,
     ConfirmPage,
     CreateEventPage,
+    ForgotPage,
     EventInformationPage,
     EventPage,
     LetgoPage,
