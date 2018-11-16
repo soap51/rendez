@@ -4,7 +4,37 @@ import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { LinearGradient } from 'expo';
 class ForgotPage extends React.Component{
+    constructor(props) {
+        super(props)
+        this.state = {
+            loading: true,
+            email : "" ,
+        }
+    }
+
+    Onrequest(){
+        const {email} = this.state;
+        if(email==""){
+            this.setState({ Error: 'Please fill email' })
+        }
+        else{
+            axios.post(DOMAIN + "api/user/forgot" , {email : this.state.email}).then(response=>{
+
+            })
+            .catch(err=>{
+                console.log(err)
+                if(err.response.status == 401){
+                    this.setState({ Error: 'Invalid email or password' });
+                }
+                else if(err.response.status == 500){
+                    this.setState({ Error: 'Something went wrong( Error:500 )' });
+                }
+                else(this.setState({ Error: 'Something went wrong' }));
+            })
+        }
+    }
     render(){
+        console.warn(this.state.email)
         return(
             
             <ImageBackground source={require('../../assets/imgs/dpho4.png' )} style={styles.background}>
@@ -24,11 +54,11 @@ class ForgotPage extends React.Component{
 
                             <LinearGradient
                                 colors={['#F6CECE', '#FB9696', '#FF6060']}
-                                style={{alignItems:'center',borderRadius:5,marginTop:40*vw,position:'relative'}}>
+                                style={{alignItems:'center',borderRadius:5,marginTop:40*vw,position:'relative',}}>
                                 <Text style={{fontSize:4.5*vw,fontWeight:'bold',marginTop:'10%',}}>
                                     Did you forget your password?
                                 </Text>
-                                <Text style={{fontSize:2.5*vw,marginTop:'2%'}}>
+                                <Text style={{fontSize:2.5*vw,marginTop:'2%',}}>
                                     Enter your email address you're using for your account below{"\n"}
                                     and we will send you a password reset link.
                                 </Text>
@@ -37,10 +67,10 @@ class ForgotPage extends React.Component{
                                     underlineColorAndroid='rgba(0,0,0,0)'
                                      style={{marginLeft:'5%',marginRight:'5%',height: 6*vw,width:80*vw,marginTop:'5%',color:'black',backgroundColor:'white',borderRadius:50,}}
                                      placeholder="Enter your email address"
-                                    onChangeText={(text) => this.setState({text})}
+                                    onChangeText={(text) => this.setState({ email: text })}
                                 />
                            {/* { AlertError(this.props.history , 400 ,"", "")} */}
-                                <TouchableOpacity style={{backgroundColor:'white',width:80*vw,height:6*vw,alignItems:'center',borderRadius:14,marginTop:'5%',marginBottom:5*vw}}>
+                                <TouchableOpacity onPress={() => this.Onrequest()} style={{backgroundColor:'white',width:80*vw,height:6*vw,alignItems:'center',borderRadius:14,marginTop:'5%',marginBottom:5*vw}}>
                                     <Text style={{color:'black',fontWeight:'bold',fontSize:3*vw,marginTop:1*vw}}>
                                     Request reset link
                                     </Text>
