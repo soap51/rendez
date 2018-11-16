@@ -20,19 +20,11 @@ export default class App extends React.Component {
               <Route exact path="/account" component={LayoutComponent(Page.AccountSettingPage)} />
               <Route exact path="/event/:eventId/comment" component={LayoutComponent(Page.CommentPage)} />
               <Route exact path="/confirm" component={LayoutComponent(Page.ConfirmPage)} />
-<<<<<<< HEAD
               <Route exact path="/" component={LayoutComponent(Page.CreateEventPage)} />
               <Route exact path="/event/:eventId" component={LayoutComponent(Page.EventInformationPage)} />
               <Route exact path="/baba" component={LayoutComponent(Page.EventPage)} />
               <Route exact path="/forgot" component={(Page.ForgotPage)} />
               <Route exact path="/login" component={(Page.LoginPage)} />
-=======
-              <Route exact path="/createevent" component={LayoutComponent(Page.CreateEventPage)} />
-              <Route exact path="/event/:eventId" component={LayoutComponent(Page.EventInformationPage)} />
-              <Route exact path="/event" component={AuthComponent(LayoutComponent(Page.EventPage))} />
-              <Route exact path="/" component={(Page.ForgotPage)} />
-              <Route exact path="/login" component={GuestComponent(Page.LoginPage)} />
->>>>>>> 479b4ce70b705a12342091a0deffafb99a6be80b
               <Route exact path="/Others" component={LayoutComponent(Page.OtherPage)} />
               <Route exact path="/Notifications" component={LayoutComponent(Page.NotificationPage)}/>
               <Route exact path="/profile" component={LayoutComponent(Page.ProfilePage)} />

@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-import Ball from '../../assets/imgs/football.jpg'
-import {View , Text ,StyleSheet } from 'react-native'
-=======
 import React, {Component} from 'react'
 import { Space, Circle, Font , SizePX } from '../styles/global';
 import {View , Text ,StyleSheet,TextInput,Image,Alert,ImageBackgrond,Modal,TouchableHighlight,} from 'react-native'
@@ -29,7 +24,6 @@ import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
 import setAlert from '../utils/setAlert'
 
->>>>>>> 479b4ce70b705a12342091a0deffafb99a6be80b
 class CreateEventPage extends React.Component{
     setModalVisible(visible) { this.setState({ modalVisible: visible});
       }//imageSrc
@@ -162,12 +156,6 @@ class CreateEventPage extends React.Component{
     render(){
         // console.warn(this.state.time) 
         return(
-<<<<<<< HEAD
-            <View style={Styles}>
-                <Text style={Styles}>
-                    This is CreateEventPage
-                </Text>
-=======
         
             
             <View style={styles.background}>
@@ -410,7 +398,6 @@ class CreateEventPage extends React.Component{
                 </View>
 
                 </View>
->>>>>>> 479b4ce70b705a12342091a0deffafb99a6be80b
                 
             </View>
             </View>
@@ -451,13 +438,6 @@ class CreateEventPage extends React.Component{
          )
     }
 }
-<<<<<<< HEAD
-const Styles = StyleSheet.create({
-   
-
-    
-
-=======
 const styles = StyleSheet.create({
     background : {
         backgroundColor : "rgb(51,9,64)",
@@ -609,7 +589,6 @@ const styles = StyleSheet.create({
     },
     
     
->>>>>>> 479b4ce70b705a12342091a0deffafb99a6be80b
 })
 
 // function mapStateToProps(state){

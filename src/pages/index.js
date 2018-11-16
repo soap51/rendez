@@ -4,7 +4,7 @@ import ConfirmPage from "./ConfirmPage";
 import CreateEventPage from './CreateEventPage'
 import EventInformationPage from './EventInformationPage'
 import EventPage from './EventPage'
-import ForgotPage from './ForgotPage'
+import LetgoPage from './LetgoPage'
 import LoginPage from './LoginPage'
 import OtherPage from './OtherPage'
 import ProfilePage from './ProfilePage'
@@ -19,7 +19,7 @@ export default {
     CreateEventPage,
     EventInformationPage,
     EventPage,
-    ForgotPage,
+    LetgoPage,
     LoginPage,
     OtherPage,
     ProfilePage,
