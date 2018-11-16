@@ -5,7 +5,7 @@ import smile from '../../assets/imgs/smile.png'
 import { Circle, SizePX, Font} from '../styles/global';
 import OptionButton from '../components/Button/OptionButton';
 import axios from 'axios';
-import DOMAIN from '../constant/environment'
+import {DOMAIN} from '../constant/environment'
 import { vw, vh } from 'react-native-viewport-units';
 import {Redirect} from 'react-router-native'
 import {connect} from 'react-redux'
@@ -27,7 +27,8 @@ class ConfirmPage extends React.Component{
             this.setState({Error: 'please enter your password'});
         }
         else{
-            axios.post("https://rendez.herokuapp.com/"+"api/user/verify",{otp:this.state.password , _id : "5beebbd881905f3a38ff61f3"})
+            console.log('hit ' , this.props._id)
+            axios.post(DOMAIN+"api/user/verify",{otp:this.state.password , _id : this.props._id})
             .then(response=>{
                 console.log(response.data)
                 this.props.history.push('/LetgoPage')
@@ -138,6 +139,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return {
+        _id : state.AuthenticateReducer._id,
         confirmationToken : state.AuthenticateReducer.confirmationToken
     }
 }

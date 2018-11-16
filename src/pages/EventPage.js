@@ -28,7 +28,7 @@ class EventPage extends React.Component{
     }
     
     render(){
-        if(this.props.confirmationToken == false) return <Redirect to="/verification" />
+        if(this.props.confirmationToken == false) return <Redirect to="/confirm" />
         const {eventList} = this.state
         let Events =()=> _.isEmpty(eventList) ? eventList.map(data=>{
             <EventCard
