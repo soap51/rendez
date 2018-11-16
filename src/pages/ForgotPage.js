@@ -3,8 +3,8 @@ import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { LinearGradient } from 'expo';
-import axios from 'axios';
 import {DOMAIN} from '../constant/environment'
+import axios from 'axios'
 class ForgotPage extends React.Component{
     constructor(props) {
         super(props)
@@ -20,8 +20,8 @@ class ForgotPage extends React.Component{
             this.setState({ Error: 'Please fill email' })
         }
         else{
+            console.log(this.state)
             axios.post(DOMAIN + "api/user/forgot" , {email : this.state.email}).then(response=>{
-                this.props.history.push("/login")
             })
             .catch(err=>{
                 console.log(err)
@@ -36,7 +36,6 @@ class ForgotPage extends React.Component{
         }
     }
     render(){
-        console.warn(this.state.email)
         return(
             
             <ImageBackground source={require('../../assets/imgs/dpho4.png' )} style={styles.background}>
@@ -60,14 +59,14 @@ class ForgotPage extends React.Component{
                                 <Text style={{fontSize:4.5*vw,fontWeight:'bold',marginTop:'10%',}}>
                                     Did you forget your password?
                                 </Text>
-                                <Text style={{fontSize:2.5*vw,marginTop:'2%',}}>
+                                <Text style={{fontSize:2.5*vw,marginTop:'2%',textAlign : "center"}}>
                                     Enter your email address you're using for your account below{"\n"}
                                     and we will send you a password reset link.
                                 </Text>
 
                                 <TextInput
                                     underlineColorAndroid='rgba(0,0,0,0)'
-                                     style={{marginLeft:'5%',marginRight:'5%',height: 6*vw,width:80*vw,marginTop:'5%',color:'black',backgroundColor:'white',borderRadius:50,}}
+                                     style={{textAlign : "center",marginLeft:'5%',marginRight:'5%',height: 6*vw,width:80*vw,marginTop:'5%',color:'black',backgroundColor:'white',borderRadius:50,}}
                                      placeholder="Enter your email address"
                                     onChangeText={(text) => this.setState({ email: text })}
                                 />

@@ -21,6 +21,7 @@ class LoginPage extends React.Component{
     }
     async onForgot() {
         this.props.history.push("/forgot")
+        
     }
     async Onregister() {
         this.props.history.push("/register")
@@ -45,6 +46,7 @@ class LoginPage extends React.Component{
                 })
                 
                 this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken })
+                this.props.history.push('/event')
             })
             .catch(err=>{
                 console.log(err)

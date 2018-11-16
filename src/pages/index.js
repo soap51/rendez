@@ -5,6 +5,7 @@ import CreateEventPage from './CreateEventPage'
 import EventInformationPage from './EventInformationPage'
 import EventPage from './EventPage'
 import LetgoPage from './LetgoPage'
+import ForgotPage from './ForgotPage'
 import LoginPage from './LoginPage'
 import OtherPage from './OtherPage'
 import ForgotPage from './ForgotPage'
@@ -26,6 +27,7 @@ export default {
     OtherPage,
     ProfilePage,
     RegisterPage,
+    ForgotPage,
     VerificationForgotPage,
     NotificationPage,
     HomePage
