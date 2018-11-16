@@ -64,6 +64,7 @@ class LoginPage extends React.Component{
     }
 
     render(){
+        
         return(
         
         // <ImageBackground source={require('../../assets/imgs/dpho4.png' )} style={styles.background}>

@@ -6,6 +6,8 @@ import setAlert from '../utils/setAlert'
 import {DOMAIN} from '../constant/environment'
 import { Space  ,Font} from '../styles/global';
 import _ from 'lodash'
+import {Redirect} from 'react-router-native'
+import {connect} from 'react-redux'
 class EventPage extends React.Component{
     constructor(props){
         super(props)
@@ -26,6 +28,7 @@ class EventPage extends React.Component{
     }
     
     render(){
+        if(this.props.confirmationToken == false) return <Redirect to="/verification" />
         const {eventList} = this.state
         let Events =()=> _.isEmpty(eventList) ? eventList.map(data=>{
             <EventCard
@@ -72,4 +75,9 @@ const styles = StyleSheet.create({
        
     }
 })
-export default EventPage
+function mapStateToProps(state){
+    return {
+        confirmationToken : state.AuthenticateReducer.confirmationToken
+    }
+}
+export default connect(mapStateToProps)(EventPage)

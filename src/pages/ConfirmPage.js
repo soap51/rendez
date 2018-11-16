@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return {
-        confirmationToken : state.authenticateReducer.confirmationToken
+        confirmationToken : state.AuthenticateReducer.confirmationToken
     }
 }
 export default connect(mapStateToProps)(ConfirmPage)

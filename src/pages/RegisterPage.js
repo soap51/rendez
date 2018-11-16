@@ -17,6 +17,7 @@ class RegisterPage extends React.Component{
             re_password: "",
             language: "",
             studentCode: "",
+            Age:""
         };
     }
     onChangeText(text,key,){
@@ -25,10 +26,11 @@ class RegisterPage extends React.Component{
     }
     onRegister(){
         
-        axios.post(DOMAIN + "api/user/register" , {studentCode:this.state.email,fullName : this.state.fullName,email : this.state.email+"@kmitl.ac.th", password :this.state.pass, sex:this.state.language})
+        axios.post(DOMAIN + "api/user/register" , {age:this.state.Age,studentCode:this.state.email,fullName : this.state.fullName,email : this.state.email+"@kmitl.ac.th", password :this.state.pass, sex:this.state.language})
         
         .then(response=>{
-            this.props.history.push('/login')
+            console.log('Test')
+            this.props.history.push('/')
             })
             .catch(err=>{
                 const { fullName,email,pass,re_password} = this.state;
@@ -87,7 +89,7 @@ class RegisterPage extends React.Component{
                         underlineColorAndroid='rgba(255,255,255,1)'
                         style={{height: 10*vw,width:'32%',color:'white',}}
                         placeholder="Age"
-                        onChangeText={(text) => this.onChangeText(text, 'email')}
+                        onChangeText={(text) => this.onChangeText(text, 'Age')}
                     />
                     <Text style={{color:'white',fontSize:4*vw,marginTop:2*vw,marginBottom:-7*vw}}>Sex :</Text>
                     <Picker
