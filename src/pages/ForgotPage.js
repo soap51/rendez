@@ -3,8 +3,13 @@ import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { LinearGradient } from 'expo';
+<<<<<<< HEAD
 import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
+=======
+import axios from 'axios';
+import {DOMAIN} from '../constant/environment'
+>>>>>>> 1c261a87606cc16421913adda6c3e63ad3159ecb
 class ForgotPage extends React.Component{
     constructor(props) {
         super(props)
@@ -21,12 +26,16 @@ class ForgotPage extends React.Component{
         }
         else{
             axios.post(DOMAIN + "api/user/forgot" , {email : this.state.email}).then(response=>{
+<<<<<<< HEAD
                 this.props.history.push('/verification')
+=======
+                this.props.history.push("/forgot")
+>>>>>>> 1c261a87606cc16421913adda6c3e63ad3159ecb
             })
             .catch(err=>{
                 console.log(err)
                 if(err.response.status == 401){
-                    this.setState({ Error: 'Invalid email or password' });
+                    this.setState({ Error: 'User not found' });
                 }
                 else if(err.response.status == 500){
                     this.setState({ Error: 'Something went wrong( Error:500 )' });
@@ -53,7 +62,7 @@ class ForgotPage extends React.Component{
                                 </View>
                             </TouchableOpacity>
                             <Text style={{fontSize : 7.5*vw,color:'white',marginTop:'15%',fontWeight:'bold'}}>Forgot Password?</Text>
-
+                            <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: 3 * vw, fontSize: 4 * vw, fontWeight: 'bold'}}>{this.state.Error}</Text>
                             <LinearGradient
                                 colors={['#F6CECE', '#FB9696', '#FF6060']}
                                 style={{alignItems:'center',borderRadius:5,marginTop:40*vw,position:'relative',}}>
@@ -78,7 +87,7 @@ class ForgotPage extends React.Component{
                                     </Text>
                                 </TouchableOpacity>
                                 </LinearGradient>
-                                <ImageBackground source={require('../../assets/imgs/Group96.png' )} style={{height:40*vw,width:40*vw,position:'absolute',marginTop:'50%'}}></ImageBackground> 
+                                <ImageBackground source={require('../../assets/imgs/Group96.png' )} style={{height:40*vw,width:40*vw,position:'absolute',marginTop:'55%'}}></ImageBackground> 
                         </View>
                     </KeyboardAvoidingView>
                 </View>

@@ -23,6 +23,7 @@ import www from '../../assets/imgs/www.jpg'
 import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
 import setAlert from '../utils/setAlert'
+import moment, { months } from 'moment'
 
 class CreateEventPage extends React.Component{
     setModalVisible(visible) { this.setState({ modalVisible: visible});
@@ -52,12 +53,21 @@ class CreateEventPage extends React.Component{
     }
     onCreate() {
         // axios.post(DOMAIN + "/user/"+this.props._id+"/event/",
-        console.log(this.state)
+      
+        const time = this.state.time.split(":")
+        const timeend = this.state.timeend.split(":")
+        
+        startTime = moment(time[0] + ":" + time[1], 'HH:mm')._d
+        endTime = moment(timeend[0] + ":" + timeend[1] , 'HH:mm')._d
+        console.log( {   userID : "5beebbd881905f3a38ff61f3"/* this.props._id */, eventDate : new Date(this.state.date),startTime : startTime,
+        endTime : endTime,place : this.state.location,
+        detail : this.state.detail
+        ,currentSeat : this.state.currentseat,totalSeat : this.state.Limitedseat, author : this.state.createby,iconType : this.state.key , eventName : this.state.nameac})
         axios.post(DOMAIN + "api/event",
-        {eventDate : this.state.date,startTime : this.state.time,
-            endTime : this.state.timeend,place : this.state.location,
+        {   userID : "5beebbd881905f3a38ff61f3"/* this.props._id */ , author : "5beebbd881905f3a38ff61f3"/* this.props._id */, eventDate : new Date(this.state.date),startTime : startTime,
+            endTime : endTime,place : this.state.location,
             detail : this.state.detail
-            ,currentSeat : this.state.currentseat,totalSeat : this.state.Limitedseat, author : this.state.createby,iconType : this.state.key , eventName : this.state.nameac})
+            ,currentSeat : this.state.currentseat,totalSeat : this.state.Limitedseat, /*author : this.state.createby,*/iconType : this.state.key , eventName : this.state.nameac})
 
             .then(response=>{
                 console.log(response);
