@@ -22,6 +22,7 @@
     "react-native-datepicker": "^1.7.2",
     "react-native-form-validator": "^0.2.0",
     "react-native-vector-icons": "^6.0.2",
+    "react-native-viewport": "0.0.2",
     "react-native-viewport-units": "0.0.5",
     "react-redux": "^5.1.0",
     "react-router-native": "^4.3.0",
