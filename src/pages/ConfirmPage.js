@@ -4,12 +4,15 @@ import DFD from '../../assets/icon/DSD.png'
 import smile from '../../assets/imgs/smile.png'
 import { Circle, SizePX, Font} from '../styles/global';
 import OptionButton from '../components/Button/OptionButton';
+import axios from 'axios';
+import DOMAIN from '../constant/environment'
 
 class ConfirmPage extends React.Component{
     constructor(props){
         super(props)
         this.state= {
-            password :""
+            password :"",
+            Error : ""
          }
         }
     onChangeText(text,field){
@@ -17,8 +20,31 @@ class ConfirmPage extends React.Component{
          this.setState({[field]:text});
      }
     }
+    onPass(){
+        if(this.state.password == ""){
+            this.setState({Error: 'please enter your password'});
+        }
+        else{
+            axios.post("https://rendez.herokuapp.com/"+"api/user/verify",{otp:this.state.password , _id : "5beebbd881905f3a38ff61f3"})
+            .then(response=>{
+                console.log(response.data)
+                this.props.history.push('/LetgoPage')
+            })
+            .catch(err=>{
+                const {password} = this.state
+                console.log(err.response)
+                console.log(this.state)
+                if(err.response.status == 401) {
+                    this.setState({Error: 'Not found'});
+                }
+                else{this.setState({Error: 'Not found'});}
+
+            })
+        }
+    }
+     
+         
     render(){
-        console.warn(this.state.password)
         return(
             <ImageBackground source={DFD} style={{width:'100%',height:"100%"}}>
             <View style={styles.back}>
@@ -29,6 +55,7 @@ class ConfirmPage extends React.Component{
             <View style={styles.pink}>
                 <Image style ={styles.imgs} source = {smile}/>
             </View>
+            <Text style={{color:'red',marginLeft:'auto',marginRight:'auto',marginTop:3,fontsize:4,fontWeight:'bold'}}>{this.state.Error}</Text>
              <Text style={{color: "white",fontSize : Circle.sizeOfCircle*0.5,
              marginTop : Circle.sizeOfCircle*0.3,textAlign : 'center'} }>
                Enter the verification code 
@@ -37,14 +64,14 @@ class ConfirmPage extends React.Component{
                 <View style = {styles.texti}>
                 <TextInput  onChangeText={(text) => this.onChangeText(text, 'password')} keyboardType = 'numeric' maxLength={4} style={{fontSize : 50,color:"white",flex:0.6,textAlign : 'center',  }}></TextInput>
                 </View>
-            <TouchableOpacity style={styles.buttom} >
+            <TouchableOpacity style={styles.buttom}  onPress={()=>this.onPass()} >
             <Text style={{fontSize : 30,textAlign : 'center' }}>
                 Verify
             </Text> 
             </TouchableOpacity>
             <TouchableOpacity style={styles.resend}>
             <Text style={{textAlign : 'center',color:"red" }}>
-            If you didn't recieve a code! Resend
+                If you did not recieve a code! Resend
             </Text>
             </TouchableOpacity>
             </KeyboardAvoidingView> 
