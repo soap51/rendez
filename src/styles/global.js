@@ -1,5 +1,8 @@
 import {PixelRatio , StyleSheet} from 'react-native'
 
+import { vw, vh } from 'react-native-viewport-units';
+
+
 let fontSize = 30
 let fontHeader = 40
 let fontSecondary = 20
@@ -11,7 +14,7 @@ let marginSize = 20
 if(PixelRatio.get() < 3){
     fontSize = 12
     size = 30
-    sizeOfCircle = 60
+    sizeOfCircle = 15*vw
     
 }
 if(PixelRatio.get()> 3){
@@ -30,7 +33,7 @@ export const Space ={
 }
 export const Circle ={
     sizeOfCircle,
-    borderRadius : sizeOfCircle/2
+    borderRadius : (sizeOfCircle*vw)/2
 }
 
 

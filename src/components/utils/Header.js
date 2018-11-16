@@ -23,10 +23,13 @@ class Header extends React.Component {
     }
     render(){
         const {title} = this.state
-       
+        console.log(this.props.history)
         return (
             <View style={style.container}>
                 <View>
+                    {this.props.history.location.pathname != "/event" ?
+                    <View>
+                   
                     { this.props.history.index != 0 ?
                         <ClickButton 
                             iconType="arrow"
@@ -35,7 +38,12 @@ class Header extends React.Component {
                         :
                         <View></View>
                     }
-                    
+                    </View>
+                        :  <ClickButton 
+                              
+                                onPress={()=> this.props.history.push('/createevent')}
+                            />
+                    }
                 </View>
                 {/* <View style={{display : "flex" , justifyContent : "center" , alignItems : "center"}}>
                     <Text style={{fontSize : Font.fontHeader , fontWeight : "bold"}}>{title}</Text>

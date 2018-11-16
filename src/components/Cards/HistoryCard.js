@@ -9,12 +9,13 @@ class HistoryCard extends React.Component {
             <View style={{
                 flexDirection : "row",
                 backgroundColor : "rgba(255,255,255,0.3)",
-                marginLeft : Space.marginSize,
+                marginLeft : Space.marginSize*(0),
                 marginRight : Space.marginSize,
                 borderRadius : 8,
                 marginBottom : Space.marginSize,
                 padding : Space.paddingSize/4,
-                display : "flex"
+                display : "flex",
+                width : Circle.sizeOfCircle*4.7,
             }}>
                 <View style={{  
                     flex : 0.3,

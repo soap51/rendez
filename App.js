@@ -5,25 +5,14 @@ import Page from './src/pages/'
 import { Provider } from 'react-redux'
 import store from './store'
 import LayoutComponent from './src/components/Hocs/LayoutComponent'
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications , Expo } from 'expo';
+import GuestComponent from './src/components/Hocs/GuestComponent'
+import AuthComponent from './src/components/Hocs/AuthComponent'
 export default class App extends React.Component {
-  _test(){
-    Permissions.getAsync(
-      Permissions.NOTIFICATIONS
-    ).then(status=>{
-      console.log(status)
-    }).catch(err=>{
-      console.log(err)
-    })
-    Expo.Notifications.getExpoPushTokenAsync()
-    .then(token=>console.log(token))
-    .catch(err=>{
-      console.log(err)
-    })
-  
-  }
+ 
   render() {
     return (
+
       <Provider store={store}>
         <NativeRouter>
           <BackButton>
@@ -31,21 +20,30 @@ export default class App extends React.Component {
               <Route exact path="/account" component={LayoutComponent(Page.AccountSettingPage)} />
               <Route exact path="/event/:eventId/comment" component={LayoutComponent(Page.CommentPage)} />
               <Route exact path="/confirm" component={LayoutComponent(Page.ConfirmPage)} />
+<<<<<<< HEAD
               <Route exact path="/" component={LayoutComponent(Page.CreateEventPage)} />
               <Route exact path="/event/:eventId" component={LayoutComponent(Page.EventInformationPage)} />
               <Route exact path="/baba" component={LayoutComponent(Page.EventPage)} />
               <Route exact path="/forgot" component={(Page.ForgotPage)} />
               <Route exact path="/login" component={(Page.LoginPage)} />
+=======
+              <Route exact path="/createevent" component={LayoutComponent(Page.CreateEventPage)} />
+              <Route exact path="/event/:eventId" component={LayoutComponent(Page.EventInformationPage)} />
+              <Route exact path="/event" component={AuthComponent(LayoutComponent(Page.EventPage))} />
+              <Route exact path="/" component={(Page.ForgotPage)} />
+              <Route exact path="/login" component={GuestComponent(Page.LoginPage)} />
+>>>>>>> 479b4ce70b705a12342091a0deffafb99a6be80b
               <Route exact path="/Others" component={LayoutComponent(Page.OtherPage)} />
               <Route exact path="/Notifications" component={LayoutComponent(Page.NotificationPage)}/>
               <Route exact path="/profile" component={LayoutComponent(Page.ProfilePage)} />
               <Route exact path="/register" component={Page.RegisterPage} />
               <Route exact path="/verification" component={Page.VerificationForgotPage} />
-              <Route exact path="/home" component={LayoutComponent(Page.HomePage)} />
+              <Route exact path="/Home" component={LayoutComponent(Page.HomePage)} />
             </Switch>
           </BackButton>
         </NativeRouter>
       </Provider>
+
     );
   }
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import {View , Text , StyleSheet , TextInput , Image , Switch , Button } from 'react-native'
 import {Font, SizePX , Circle , Space} from '../../styles/global'
 import OptionButton from '../Button/OptionButton'
-
+import { vw, vh } from 'react-native-viewport-units';
 
 import Icon from "react-native-vector-icons/Ionicons";
 class EventCard extends React.Component {
@@ -40,13 +40,8 @@ class EventCard extends React.Component {
                         onValueChange={()=>this.onFeedChange()}
                         option={feedOption}
                     />
-                      <OptionButton
-                        icon="ios-settings"
-                        title="Setting"
-                        isHaveSwitch={false}
-                    />
                 </View>
-                <View style={styles.subContainer}>
+                <View style={styles.logout}>
                     <OptionButton
                         icon="ios-log-out"
                         title="Logout"
@@ -70,12 +65,18 @@ const styles = StyleSheet.create({
         borderWidth : 1,
         borderColor : "black",
         borderRadius : 15,
-        marginBottom : 20,
-        backgroundColor : "rgb(51,9,64)"
+        marginBottom : 20*vw,
+        backgroundColor : "rgb(51,9,64)",
+        marginRight: 2*vw,
+        marginLeft: 2*vw
     },
     subContainer : {
         padding : Space.paddingSize
     },
+    logout : {
+        padding : Space.paddingSize,
+        marginTop :24*vw
+    }
    
 
 })

@@ -8,6 +8,9 @@ import JoinOption from '../Switch/JoinOption'
 import axios from 'axios'
 import { DOMAIN } from '../../constant/environment';
 import setAlert from '../../utils/setAlert'
+import www from '../../../assets/imgs/www.jpg'
+import { vw, vh } from 'react-native-viewport-units';
+
 class EventInformationCard extends React.Component {
     constructor(props){
         super(props)
@@ -53,6 +56,7 @@ class EventInformationCard extends React.Component {
         const {icon,title , author , location , eventDate,eventEndTime,eventStartTime , joined} = this.state 
         
         return (
+           
             <View style={styles.container}>
                 <View style={styles.subContainer}>
                     <View style={styles.titleContainer}>
@@ -63,9 +67,15 @@ class EventInformationCard extends React.Component {
                             <Text style={styles.titleHeader}>
                                 {title.substring(0 , 20)}
                             </Text>
+                            
+                            <View style={styles.column}>
+                             <Image style={styles.Circle} source={www}/>
+                            
                             <Text style={styles.titleSecondary}>
                                 By {author.substring(0 , 25)}
                             </Text>
+                            </View>
+                            
                         </View>
                     </View>
                     <View>
@@ -215,9 +225,13 @@ class EventInformationCard extends React.Component {
                                         SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG
                                     </Text>
                                 </View>
+
                             </View>
                            
                         </View>
+                        <View>
+                             <Image style={styles.Circle} source={www}/>
+                             </View>
                         <View style={{
                             display : "flex",
                             flexDirection : "row",
@@ -251,6 +265,26 @@ class EventInformationCard extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    Circle : {
+        
+        width :  Circle.sizeOfCircle*1.2,
+        height :  Circle.sizeOfCircle*1.2,
+        borderRadius : Circle.sizeOfCircle*1.9,
+        marginLeft : Circle.sizeOfCircle*(-5),
+        marginBottom : Circle.sizeOfCircle*0.7,
+        marginTop : Circle.sizeOfCircle*(-0.1),
+        borderWidth : Circle.sizeOfCircle*0.07,
+        borderColor : "white",
+    },
+    column : {
+        
+    },
+    titleSecondary : {
+        fontSize : Font.fontSecondary,
+        marginLeft : Circle.sizeOfCircle*(-0.1),
+        marginTop : Circle.sizeOfCircle*(-1.3),
+        color : "white"
+    },
     container : {
         display : 'flex',
         
@@ -274,10 +308,7 @@ const styles = StyleSheet.create({
         textAlign : 'right',
         
     },
-    titleSecondary : {
-        fontSize : Font.fontSecondary,
-        color : "white"
-    },
+   
     subContainer : {
         padding : Space.paddingSize
     },
