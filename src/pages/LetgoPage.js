@@ -9,7 +9,7 @@ class LetgoPage extends React.Component{
         return(
             <ImageBackground source={DFD} style={{width:'100%',height:"100%"}}>
             <View style={{justifyContent:'center',alignItems:'center' , backgroundColor :"rgba(51,9,64,0.8)" ,flex : 1, }}>
-            <TouchableOpacity onPress={()=>this.props.history.push("/home")} >
+            <TouchableOpacity onPress={()=>this.props.history.push("/Login")} >
             <Image style ={styles.imgs} source = {tudpai}/>
                 </TouchableOpacity>
              <Text style={{color: "white",fontSize : 45,marginTop : "30%"} }>

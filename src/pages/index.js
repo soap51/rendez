@@ -4,11 +4,10 @@ import ConfirmPage from "./ConfirmPage";
 import CreateEventPage from './CreateEventPage'
 import EventInformationPage from './EventInformationPage'
 import EventPage from './EventPage'
-import LetgoPage from './LetgoPage'
 import ForgotPage from './ForgotPage'
 import LoginPage from './LoginPage'
 import OtherPage from './OtherPage'
-
+import LetgoPage from './LetgoPage'
 import ProfilePage from './ProfilePage'
 import RegisterPage from './RegisterPage'
 import VerificationForgotPage from './VerificationForgotPage'
@@ -29,5 +28,6 @@ export default {
     RegisterPage,
     VerificationForgotPage,
     NotificationPage,
-    HomePage
+    HomePage,
+    LetgoPage,
 }

@@ -19,7 +19,7 @@ export default class App extends React.Component {
             <Switch>
               <Route exact path="/account" component={LayoutComponent(Page.AccountSettingPage)} />
               <Route exact path="/event/:eventId/comment" component={LayoutComponent(Page.CommentPage)} />
-              <Route exact path="/confirm" component={(Page.ConfirmPage)} />
+              <Route exact path="/ConfirmPage" component={(Page.ConfirmPage)} />
               <Route exact path="/createevent" component={LayoutComponent(Page.CreateEventPage)} />
               <Route exact path="/event/:eventId" component={LayoutComponent(Page.EventInformationPage)} />
               <Route exact path="/event" component={AuthComponent(LayoutComponent(Page.EventPage))} />
@@ -31,6 +31,7 @@ export default class App extends React.Component {
               <Route exact path="/register" component={Page.RegisterPage} />
               <Route exact path="/verification" component={Page.VerificationForgotPage} />
               <Route exact path="/Home" component={LayoutComponent(Page.HomePage)} />
+              <Route exact path="/LetgoPage"component={Page.LetgoPage} />
             </Switch>
           </BackButton>
         </NativeRouter>
