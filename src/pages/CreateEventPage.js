@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Space, Circle, Font , SizePX } from '../styles/global';
 import {View , Text ,StyleSheet,TextInput,Image,Alert,ImageBackgrond,Modal,TouchableHighlight,} from 'react-native'
-import { vw, vh } from 'react-native-viewport-units';
+import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import DatePicker from 'react-native-datepicker'
 import {TouchableOpacity} from 'react-native'
 import icon from '../../assets/imgs/icon.jpg'
@@ -23,6 +23,7 @@ import www from '../../assets/imgs/www.jpg'
 import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
 import setAlert from '../utils/setAlert'
+import moment, { months } from 'moment'
 
 class CreateEventPage extends React.Component{
     setModalVisible(visible) { this.setState({ modalVisible: visible});
@@ -32,18 +33,17 @@ class CreateEventPage extends React.Component{
         this.state = {
             visible:www,
             date:"",
-            email: "",
             time:"",
             timeend:"",
             createby:"",
             modalVisible: false,
             location:"",
             detail:"",
-            _id:"true",
             currentseat:"",
             Limitedseat:"",
+            nameac:"",
+            key:0,
         //   imageSrc : -1,
-          sentimage: [],
             
         // data: {
         //     email:""
@@ -52,25 +52,36 @@ class CreateEventPage extends React.Component{
         
     }
     onCreate() {
-        console.warn("this")
         // axios.post(DOMAIN + "/user/"+this.props._id+"/event/",
+      
+        const time = this.state.time.split(":")
+        const timeend = this.state.timeend.split(":")
+        
+        startTime = moment(time[0] + ":" + time[1], 'HH:mm')._d
+        endTime = moment(timeend[0] + ":" + timeend[1] , 'HH:mm')._d
+        console.log( {   userID : this.props._id, author : this.props._id, eventDate : new Date(this.state.date),startTime : startTime,
+            endTime : endTime,place : this.state.location,
+            detail : this.state.detail
+            ,currentSeat : this.state.currentseat,totalSeat : this.state.Limitedseat, /*author : this.state.createby,*/iconType : this.state.key , eventName : this.state.nameac})
         axios.post(DOMAIN + "api/event",
-        {email : this.state.email,date : this.state.date,time : this.state.time,timeend : this.state.timeend,location : this.state.location,detail : this.state.detail
-            ,currentseat : this.state.currentseat,Limitedseat : this.state.Limitedseat, createby : this.state.createby,modalVisible : this.state.modalVisible})
+        {   userID : this.props._id, author : this.props._id, eventDate : new Date(this.state.date),startTime : startTime,
+            endTime : endTime,place : this.state.location,
+            detail : this.state.detail
+            ,currentSeat : this.state.currentseat,totalSeat : this.state.Limitedseat, /*author : this.state.createby,*/iconType : this.state.key , eventName : this.state.nameac})
 
             .then(response=>{
                 console.log(response);
                 this.props.history.push('/event')
             })
             .catch(err=>{
-                const {email,date,time,endtime,location,detail,currentseat,Limitedseat,createby} = this.state;
+                const {date,time,endtime,location,detail,currentseat,Limitedseat,nameac,key} = this.state;
                 console.log(err.response)
                 console.log(this.state)
-                if(email == "" || date == "" || time == "" || endtime == "" || location == "" || detail == "" || currentseat == "" || Limitedseat == "" || modalVisible == ""){
-                    this.setState({Error: 'กรอกให้ครบด้วย'})
-                    setAlert(this.props.history , 403 , "ERROR" , "ควย")
-                }
-                else if (timeend < time){
+                // if(date == "" || time == "" || endtime == "" || location == "" || detail == "" || currentseat == "" || Limitedseat == "" || key == "" || nameac == ""){
+                //     this.setState({Error: 'กรอกให้ครบด้วย'})
+                //     setAlert(this.props.history , 403 , "ERROR" , "ควย")
+                // }
+                 if (timeend < time){
                     this.setState({Error: 'โปรดตั้งค่าเวลาให้เหมาะสม'})
                 }
                 else if (Limitedseat < currentseat){
@@ -94,41 +105,43 @@ class CreateEventPage extends React.Component{
     
       
       onChangePicture(key) {
-          if(key == 'ball'){
-              this.setState({visible : Ball , modalVisible : !this.state.modalVisible})
+          if(key == 1){
+              this.setState({visible : Ball , modalVisible : !this.state.modalVisible,key :1})
           }
-          else if (key == 'bad'){
-            this.setState({visible : bad , modalVisible : !this.state.modalVisible})
+          else if (key == 2){
+            this.setState({visible : bad , modalVisible : !this.state.modalVisible,key :2})
         }
-        else if (key == 'luxby'){
-            this.setState({visible : luxby , modalVisible : !this.state.modalVisible})
+        else if (key == 3){
+            this.setState({visible : luxby , modalVisible : !this.state.modalVisible,key :3})
         }
-        else if (key == 'bas'){
-            this.setState({visible : bas , modalVisible : !this.state.modalVisible})
+        else if (key == 4){
+            this.setState({visible : bas , modalVisible : !this.state.modalVisible,key :4})
         }
-        else if (key == 'art'){
-            this.setState({visible : art , modalVisible : !this.state.modalVisible})
+        else if (key == 5){
+            this.setState({visible : art , modalVisible : !this.state.modalVisible,key :5})
         }
-        else if (key == 'ball2'){
-            this.setState({visible : ball2 , modalVisible : !this.state.modalVisible})
+        else if (key == 6){
+            this.setState({visible : ball2 , modalVisible : !this.state.modalVisible,key :6})
         }
-        else if (key == 'dic'){
-            this.setState({visible : dic , modalVisible : !this.state.modalVisible})
+        else if (key == 7){
+            this.setState({visible : dic , modalVisible : !this.state.modalVisible,key :7})
         }
-        else if (key == 'pingpong'){
-            this.setState({visible : pingpong , modalVisible : !this.state.modalVisible})
+        else if (key == 8){
+            this.setState({visible : pingpong , modalVisible : !this.state.modalVisible,key :8})
         }
-        else if (key == 'movie'){
-            this.setState({visible : movie, modalVisible : !this.state.modalVisible})
+        else if (key == 9){
+            this.setState({visible : movie, modalVisible : !this.state.modalVisible,key :9})
         }
-        else if (key == 'shoes'){
-            this.setState({visible : shoes , modalVisible : !this.state.modalVisible})
+        else if (key == 10){
+            this.setState({visible : shoes , modalVisible : !this.state.modalVisible,key :10})
         }
-        else if (key == 'boling'){
-            this.setState({visible : boling , modalVisible : !this.state.modalVisible})
+        else if (key == 11){
+            this.setState({visible : boling , modalVisible : !this.state.modalVisible,key :11})
         }
-         
+        // console.log(this.state.key)
+        // console.warn('if '+this.state.key)
       }
+      
     onChangeText(text, field){
         if(field == 'nameac' ) {
             this.setState({ [field]: text});
@@ -142,7 +155,7 @@ class CreateEventPage extends React.Component{
         else if(field == 'currentseat'){
             this.setState({ [field]: text});
         }
-        else if(field == 'Limited Seat'){
+        else if(field == 'Limitedseat'){
             this.setState({ [field]: text});
         }
         else if(field == 'location'){
@@ -153,7 +166,6 @@ class CreateEventPage extends React.Component{
     render(){
         // console.warn(this.state.time) 
         return(
-        
             
             <View style={styles.background}>
           <TouchableHighlight onPress={() => {this.setModalVisible(true); }}>
@@ -163,12 +175,13 @@ class CreateEventPage extends React.Component{
                 <View>
                     
                 
-
+                <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: -3 * vw, fontSize: 3.5 * vw, fontWeight: 'bold' }}>{this.state.Error}</Text> 
                 <View  style={{marginLeft:19*vw,marginTop:-15*vw,marginRight: 7*vw,color : 'white',fontSize: 3*vw}}>
-                    <TextInput style={{color:"white",marginLeft:5*vw}}
+                    <TextInput style={{color:"white",marginLeft:5*vw,textAlign:"right"}}
+                        autoCorrect={false}
                         underlineColorAndroid="transparent" 
                         onChangeText={(text) => this.onChangeText(text ,'nameac')}
-                        placeholder='                   Fill in the name of activity'>
+                        placeholder='Fill in the name of activity'>
 
                     </TextInput>
                 </View>
@@ -179,9 +192,11 @@ class CreateEventPage extends React.Component{
                 <View style={styles.back}>
                 <Image style={styles.icon1} source={icon} />
                 <Text style={{marginLeft:13*vw,marginTop:-6*vw,marginRight: 6*vw,color:'white',fontWeight:"bold",fontSize:4*vw}}>
+                
                     By
                 </Text>
-                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:19*vw,marginTop:-5*vw,marginRight: 5*vw,color:"white"}}
+                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:19*vw,marginTop:-6*vw,marginRight: 5*vw,color:"white"}}
+                 autoCorrect={false}
                  onChangeText={(text) => this.onChangeText(text ,'createby')}> 
                 </TextInput>
                 </View>
@@ -189,6 +204,7 @@ class CreateEventPage extends React.Component{
                 <View style={styles.backCurrent }>
                 <Icon style={styles.iconlo} name="ios-pin" size={SizePX} color="#F59F9F" /> 
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:-7*vw,marginRight: 5*vw,color:"white"}}
+                autoCorrect={false}
                 onChangeText={(text) => this.onChangeText(text ,'location')}>
                 
                 </TextInput>
@@ -308,9 +324,11 @@ class CreateEventPage extends React.Component{
                          Detail:
                 </Text>
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
+                autoCorrect={false} multiline={true}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
+                autoCorrect={false}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
                 
@@ -338,29 +356,29 @@ class CreateEventPage extends React.Component{
           <View style={{marginTop: 22}}>
             <View>
             <View style ={styles.column1} >
-              <TouchableHighlight onPress={() => {this.onChangePicture('ball'); }}>
+              <TouchableHighlight onPress={() => {this.onChangePicture(1); }}>
                  <Image style={styles.Image} source={Ball} />
               </TouchableHighlight>               
 
-            <TouchableOpacity onPress={() => {this.onChangePicture('bad'); }}>
+            <TouchableOpacity onPress={() => {this.onChangePicture(2); }}>
                 <Image style={styles.Image} source={bad} />
                 </TouchableOpacity>
               
-                <TouchableOpacity onPress={() => {this.onChangePicture('luxby'); }}>
+                <TouchableOpacity onPress={() => {this.onChangePicture(3); }}>
                 <Image style={styles.Image} source={luxby} />
                 </TouchableOpacity>
                 </View>
 
                 <View style ={styles.column1} >
-                <TouchableOpacity onPress={() => {this.onChangePicture('bas'); }}>
+                <TouchableOpacity onPress={() => {this.onChangePicture(4); }}>
                 <Image style={styles.Image} source={bas} />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => {this.onChangePicture('art'); }}>
+                <TouchableOpacity onPress={() => {this.onChangePicture(5); }}>
                 <Image style={styles.Image} source={art} />
                 </TouchableOpacity>
                 
-                <TouchableOpacity onPress={() => {this.onChangePicture('ball2'); }}>
+                <TouchableOpacity onPress={() => {this.onChangePicture(6); }}>
                 <Image style={styles.Image} source={ball2} />
                 </TouchableOpacity>
                  
@@ -368,15 +386,15 @@ class CreateEventPage extends React.Component{
 
                 <View style ={styles.column1} >
 
-                <TouchableOpacity onPress={() => {this.onChangePicture('dic'); }}>
+                <TouchableOpacity onPress={() => {this.onChangePicture(7); }}>
                  <Image style={styles.Image} source={dic} />
                 </TouchableOpacity>
 
-                 <TouchableOpacity onPress={() => {this.onChangePicture('pingpong'); }}>
+                 <TouchableOpacity onPress={() => {this.onChangePicture(8); }}>
                 <Image style={styles.Image} source={pingpong} />
                  </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => {this.onChangePicture('movie'); }}>
+                  <TouchableOpacity onPress={() => {this.onChangePicture(9); }}>
                   <Image style={styles.Image} source={movie} />
                 </TouchableOpacity>
 
@@ -384,11 +402,11 @@ class CreateEventPage extends React.Component{
 
                  <View style ={styles.column1} >
 
-                  <TouchableOpacity onPress={() => {this.onChangePicture('shoes'); }}>
+                  <TouchableOpacity onPress={() => {this.onChangePicture(10); }}>
                   <Image style={styles.Image} source={shoes} />
                 </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => {this.onChangePicture('boling'); }}>
+                  <TouchableOpacity onPress={() => {this.onChangePicture(11); }}>
                   <Image style={styles.Image} source={boling} />
                 </TouchableOpacity>
 
@@ -454,7 +472,7 @@ const styles = StyleSheet.create({
         marginLeft : Circle.sizeOfCircle*0.3,
         marginRight : Circle.sizeOfCircle*0.3,
         borderRadius : 20,
-
+        height: 10*vw
         
     },
     backCurrent : {
@@ -588,10 +606,9 @@ const styles = StyleSheet.create({
     
 })
 
-// function mapStateToProps(state){
-//     return {
-//         _id : state.authenticateReducer._id
-//     }
-// }
-// export default connect(mapStateToProps)(CreateEventPage)
-export default CreateEventPage
+function mapStateToProps(state){
+    return {
+        _id : state.AuthenticateReducer._id
+    }
+}
+export default connect(mapStateToProps)(CreateEventPage)

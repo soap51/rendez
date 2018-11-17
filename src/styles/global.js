@@ -1,5 +1,7 @@
 import {PixelRatio , StyleSheet} from 'react-native'
+
 import { vw, vh } from 'react-native-viewport-units';
+
 
 let fontSize = 30
 let fontHeader = 40

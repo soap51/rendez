@@ -1,37 +1,23 @@
 import React from 'react'
-import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView} from 'react-native'
+import {View , Text,StyleSheet,Button,AsyncStorage,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView} from 'react-native'
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
-import { loginRequest } from '../actions/authenticateAction'
+import { loginRequest , loginSuccess} from '../actions/authenticateAction'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-native'
+import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
+import setAuthorizationHeader from '../utils/setAuthorizationHeader'
 class LoginPage extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
             loading: true,
-            email : "59050230@kmitl.ac.th" , password : "12345",
-            data: {
-                email: "",
-                password: ""
-            },
-            errors: {},
+            email : "59050231@kmitl.ac.th" , password : "123456",
         }
     }
     onChangeText(text, field) {
-
-        if (field == 'email') {
             this.setState({ [field]: text });
-
-
-        }
-        else if (field == 'password') {
-            this.setState({ [field]: text });
-
-        }
-
-
     }
     async onForgot() {
         this.props.history.push("/forgot")
@@ -40,17 +26,37 @@ class LoginPage extends React.Component{
         this.props.history.push("/register")
     }
      onLogin() {
-
-     
+         const {email,password} = this.state;
+         if(email == "" || password == ""){
+            this.setState({ Error: 'Please fill email or password' });
+         }
+         else{
+            axios.post(DOMAIN + "api/user/login" , {email : this.state.email , password : this.state.password }).then(response=>{
+                const data = response.data
+                const token = data.token 
+                const _id = data._id
+                const confirmationToken = data.confirmationToken
+                console.log(response.data)
+                AsyncStorage.setItem('token' , token).then(result=>{
+                    console.log(result)
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
                 
-
-            
-               
-                this.props.loginRequest({email : "59050230@kmitl.ac.th" , password : "12345"})
-                this.props.history.push('/event' )
-
-
-            
+                this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken })
+            })
+            .catch(err=>{
+                console.log(err)
+                if(err.response.status == 401){
+                    this.setState({ Error: 'Invalid email or password' });
+                }
+                else if(err.response.status == 500){
+                    this.setState({ Error: 'Something went wrong( Error:500 )' });
+                }
+                else(this.setState({ Error: 'Something went wrong' }));
+            })
+         }
 
         
     }
@@ -99,12 +105,12 @@ class LoginPage extends React.Component{
             </View>
             </KeyboardAvoidingView>
             <View style={{flex: 1, flexDirection: 'row',marginLeft:'auto',marginRight:'auto'}}>
-                <TouchableOpacity onPress={() => this.onForgot()}>
-                    <Text  style={{color:'white',textDecorationLine: 'underline',marginTop:'auto',marginBottom:'20%'}}>Forgot Password?</Text>
+                <TouchableOpacity onPress={() => this.onForgot()} style={{marginBottom:'5%',marginTop:'auto'}}>
+                    <Text  style={{color:'white',textDecorationLine: 'underline',}}>Forgot Password?</Text>
                 </TouchableOpacity>
                      <Text style={{marginLeft:'5%'}}></Text>  
-                <TouchableOpacity onPress={() =>this.Onregister()}>
-                    <Text style={{color:'white',textDecorationLine: 'underline',marginTop:'auto',marginBottom:'40%'}}>Register?</Text>
+                <TouchableOpacity onPress={() =>this.Onregister()} style={{marginBottom:'5%',marginTop:'auto'}}>
+                    <Text style={{color:'white',textDecorationLine: 'underline',}}>Register?</Text>
                 </TouchableOpacity>
                 </View>
                 </View>
@@ -129,4 +135,4 @@ const styles = StyleSheet.create({
     }
     
 })
-export default withRouter(connect(null , {loginRequest})(LoginPage))
+export default withRouter(connect(null , {loginRequest , loginSuccess})(LoginPage))

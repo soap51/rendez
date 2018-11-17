@@ -35,11 +35,11 @@ export function loginRequest(payload){
     }
 }
 
-export function loginSuccess(token){
-    setAuthorizationHeader(token)
+export function loginSuccess(payload){
+    setAuthorizationHeader(payload.token)
     return (dispatch) => dispatch({
         type : LOGIN_SUCCESS,
-        payload : {token : token , _id : _id}
+        payload : {token : payload.token , _id : payload._id , confirmationToken : payload.confirmationToken}
     })
 }
 
