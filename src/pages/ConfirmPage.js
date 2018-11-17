@@ -27,7 +27,7 @@ class ConfirmPage extends React.Component{
             this.setState({Error: 'please enter your password'});
         }
         else{
-            console.log('hit ' , this.props._id)
+            console.log( this.props._id)
             axios.post(DOMAIN+"api/user/verify",{otp:this.state.password , _id : this.props._id})
             .then(response=>{
                 console.log(response.data)
@@ -44,6 +44,14 @@ class ConfirmPage extends React.Component{
 
             })
         }
+    }
+    onPush(){
+        console.log( this.props._id)
+        axios.post(DOMAIN+"api/user/verify",{otp:this.state.password , _id : this.props._id})
+        .then(response=>{
+            console.log(response.data)
+            this.props.history.push('/LetgoPage')
+        })
     }
      
          
@@ -74,7 +82,7 @@ class ConfirmPage extends React.Component{
                 Verify
             </Text> 
             </TouchableOpacity>
-            <TouchableOpacity style={styles.resend}>
+            <TouchableOpacity style={styles.resend}  onPress={()=>this.onPush()} >
             <Text style={{textAlign : 'center',color:"red" }}>
                 If you did not recieve a code! Resend
             </Text>
