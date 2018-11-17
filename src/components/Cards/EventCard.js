@@ -4,7 +4,20 @@ import {Font, SizePX , Circle} from '../../styles/global'
 import EventImage from '../../../assets/imgs/football.jpg'
 import Icon from "react-native-vector-icons/Ionicons";
 import Proptypes from 'prop-types'
-
+import moment from 'moment'
+import bad from '../../../assets/imgs/bad.jpg'
+import Ball from '../../../assets/imgs/football.jpg'
+import pingpong from '../../../assets/imgs/pingpong.jpg'
+import luxby from '../../../assets/imgs/luxby.jpg'
+import bas from '../../../assets/imgs/bas.jpg'
+import art from '../../../assets/imgs/art.png'
+import ball2 from '../../../assets/imgs/ball2.jpg'
+import dic from '../../../assets/imgs/dic.jpg'
+import movie from '../../../assets/imgs/movie.png'
+import shoes from '../../../assets/imgs/shoes.jpg'
+import boling from '../../../assets/imgs/boling.jpg'
+import www from '../../../assets/imgs/www.jpg'
+import { vw, vh } from 'react-native-viewport-units';
 class EventCard extends React.Component {
     constructor(props){
         super(props)
@@ -30,23 +43,56 @@ class EventCard extends React.Component {
 
         })
     }
- 
+   
     render(){
         const {icon,title , author , location , eventDate,eventEndTime,eventStartTime} = this.state 
-     
+        let iconType = 0
+        if(icon == 1){
+            iconType = Ball
+        }
+        else if (icon == 2){
+            iconType = bad
+        }
+        else if (icon == 3){
+            iconType = luxby
+        }
+        else if (icon == 4){
+            iconType = bas
+        }
+        else if (icon == 5){
+            iconType = art
+        }
+        else if (icon == 6){
+            iconType = ball2
+        }
+        else if (icon == 7){
+            iconType = dic
+        }
+        else if (icon == 8){
+            iconType = pingpong
+        }
+        else if (icon == 9){
+            iconType = movie
+        }
+        else if (icon == 10){
+            iconType = shoes
+        }
+        else if (icon == 11){
+            iconType = boling
+        }
         return (
             <TouchableOpacity onPress={()=>this.props.enterEventInformation()} style={styles.container}>
                 <View style={styles.subContainer}>
                     <View style={styles.titleContainer}>
                         <View>
-                            <Image style={styles.imageContainer} source={icon} /> 
+                            <Image style={styles.imageContainer} source={iconType} /> 
                         </View>
                         <View>
                             <Text style={styles.titleHeader}>
-                                {title.substring(0 , 20)}
+                                {title.substring(0 , 15)}
                             </Text>
                             <Text style={styles.titleSecondary}>
-                                By {author.substring(0 , 25)}
+                                By {author ? author.fullName.substring(0 , 25) : ""}
                             </Text>
                         </View>
                     </View>
@@ -78,7 +124,7 @@ class EventCard extends React.Component {
                                     style={styles.formContainer}
                                     autoCorrect={false}
                                     editable={false}
-                                    value={eventDate}
+                                    value={moment(eventDate).format('Do MMMM')}
                                 />
                                 <View>
                                    
@@ -86,7 +132,7 @@ class EventCard extends React.Component {
                                         <View>
                                                 <View style={styles.timeForm}>
                                                     <Text style={styles.timeText}>
-                                                        {/* {eventStartTime} */}
+                                                        {moment(eventStartTime).format('LT')}
                                                     </Text>
                                                     
                                                     
@@ -98,7 +144,8 @@ class EventCard extends React.Component {
                                             <View>
                                                 <View style={styles.timeForm}>
                                                     <Text style={styles.timeText}>
-                                                       {/* {eventEndTime} */}
+                                                        {moment(eventEndTime).format('LT')}
+                                                      
                                                     </Text>
                                                    
                                                 </View>
@@ -146,7 +193,7 @@ const styles = StyleSheet.create({
 
     },
     titleHeader : {
-        fontSize : Font.fontHeader,
+        fontSize : Font.fontHeader*0.2*vw,
         color : 'white',
         textAlign : 'right',
         

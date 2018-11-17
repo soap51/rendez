@@ -17,51 +17,45 @@ class EventPage extends React.Component{
         
     }
     componentDidMount(){
-        // axios.get(DOMAIN + "")
-        //     .then(result=>{
-        //         const eventList = result.eventList
-        //         this.setState({eventList : eventList})
-        //     })
-        //     .catch(err=>{
-        //         setAlert(this.props.history,400,"Error" , "Something went wrong")
-        //     })
+        console.log(DOMAIN + "api/event")
+        axios.get(DOMAIN + "api/event")
+            .then(result=>{
+                const data = result.data
+                const eventList = data.event
+                this.setState({eventList : eventList})
+            })
+            .catch(err=>{
+                console.log(err.response)
+                setAlert(this.props.history,400,"Error" , "Something went wrong")
+            })
     }
     
     render(){
         if(this.props.confirmationToken == false) return <Redirect to="/confirm" />
         const {eventList} = this.state
-        let Events =()=> _.isEmpty(eventList) ? eventList.map(data=>{
+        console.log(eventList) 
+    
+        let Events = eventList && eventList.length != 0 ? eventList.map(data=>
             <EventCard
-                id={data.id}
-                title={data.title}
-                enterEventInformation={()=>this.props.history.push("/event/" + data.id)}
+                id={data._id}
+                title={data.eventName}
+                enterEventInformation={()=>this.props.history.push("/event/" + data._id)}
                 author={data.author}
-                location={data.location}
-                icon={data.icon}
-                eventStart={data.eventStart}
-                eventStartTime={data.eventStartTime}
-                eventEndTime={data.eventEndTime}
+                location={data.place}
+                icon={data.iconType}
+                eventDate={data.eventDate}
+                eventStartTime={data.startTime}
+                eventEndTime={data.endTime}
             />
-        })
+        )
         :
         <View style={{display : "flex" , alignItems : "center" , padding : 20}}>  
             <Text style={{fontSize : Font.fontSecondary }}>You doesn't have any event</Text>
         </View>
-        
+        console.log(Events)
         return(
             <View style={styles.container}>
-                <EventCard
-                  id={"data.id"}
-                  title={"data.title"}
-                  enterEventInformation={()=>this.props.history.push("/event/" + 1)}
-                  author={"data.author"}
-                  location={"data.location"}
-                  icon={"data.icon"}
-                  eventStart={"data.eventStart"}
-                  eventStartTime={"data.eventStartTime"}
-                  eventEndTime={"data.eventEndTime"}
-                
-            />
+                {Events}
                
                     
             </View>
