@@ -59,12 +59,12 @@ class CreateEventPage extends React.Component{
         
         startTime = moment(time[0] + ":" + time[1], 'HH:mm')._d
         endTime = moment(timeend[0] + ":" + timeend[1] , 'HH:mm')._d
-        console.log( {   userID : "5beebbd881905f3a38ff61f3"/* this.props._id */, eventDate : new Date(this.state.date),startTime : startTime,
-        endTime : endTime,place : this.state.location,
-        detail : this.state.detail
-        ,currentSeat : this.state.currentseat,totalSeat : this.state.Limitedseat, author : this.state.createby,iconType : this.state.key , eventName : this.state.nameac})
+        console.log( {   userID : this.props._id, author : this.props._id, eventDate : new Date(this.state.date),startTime : startTime,
+            endTime : endTime,place : this.state.location,
+            detail : this.state.detail
+            ,currentSeat : this.state.currentseat,totalSeat : this.state.Limitedseat, /*author : this.state.createby,*/iconType : this.state.key , eventName : this.state.nameac})
         axios.post(DOMAIN + "api/event",
-        {   userID : "5beebbd881905f3a38ff61f3"/* this.props._id */ , author : "5beebbd881905f3a38ff61f3"/* this.props._id */, eventDate : new Date(this.state.date),startTime : startTime,
+        {   userID : this.props._id, author : this.props._id, eventDate : new Date(this.state.date),startTime : startTime,
             endTime : endTime,place : this.state.location,
             detail : this.state.detail
             ,currentSeat : this.state.currentseat,totalSeat : this.state.Limitedseat, /*author : this.state.createby,*/iconType : this.state.key , eventName : this.state.nameac})
@@ -166,7 +166,6 @@ class CreateEventPage extends React.Component{
     render(){
         // console.warn(this.state.time) 
         return(
-        
             
             <View style={styles.background}>
           <TouchableHighlight onPress={() => {this.setModalVisible(true); }}>
@@ -176,12 +175,13 @@ class CreateEventPage extends React.Component{
                 <View>
                     
                 
-                <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: 3 * vw, fontSize: 3.5 * vw, fontWeight: 'bold' }}>{this.state.Error}</Text>
+                <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: -3 * vw, fontSize: 3.5 * vw, fontWeight: 'bold' }}>{this.state.Error}</Text> 
                 <View  style={{marginLeft:19*vw,marginTop:-15*vw,marginRight: 7*vw,color : 'white',fontSize: 3*vw}}>
-                    <TextInput style={{color:"white",marginLeft:5*vw}}
+                    <TextInput style={{color:"white",marginLeft:5*vw,textAlign:"right"}}
+                        autoCorrect={false}
                         underlineColorAndroid="transparent" 
                         onChangeText={(text) => this.onChangeText(text ,'nameac')}
-                        placeholder='                   Fill in the name of activity'>
+                        placeholder='Fill in the name of activity'>
 
                     </TextInput>
                 </View>
@@ -192,9 +192,11 @@ class CreateEventPage extends React.Component{
                 <View style={styles.back}>
                 <Image style={styles.icon1} source={icon} />
                 <Text style={{marginLeft:13*vw,marginTop:-6*vw,marginRight: 6*vw,color:'white',fontWeight:"bold",fontSize:4*vw}}>
+                
                     By
                 </Text>
-                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:19*vw,marginTop:-5*vw,marginRight: 5*vw,color:"white"}}
+                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:19*vw,marginTop:-6*vw,marginRight: 5*vw,color:"white"}}
+                 autoCorrect={false}
                  onChangeText={(text) => this.onChangeText(text ,'createby')}> 
                 </TextInput>
                 </View>
@@ -202,6 +204,7 @@ class CreateEventPage extends React.Component{
                 <View style={styles.backCurrent }>
                 <Icon style={styles.iconlo} name="ios-pin" size={SizePX} color="#F59F9F" /> 
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:-7*vw,marginRight: 5*vw,color:"white"}}
+                autoCorrect={false}
                 onChangeText={(text) => this.onChangeText(text ,'location')}>
                 
                 </TextInput>
@@ -321,9 +324,11 @@ class CreateEventPage extends React.Component{
                          Detail:
                 </Text>
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
+                autoCorrect={false} multiline={true}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
+                autoCorrect={false}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
                 
@@ -467,7 +472,7 @@ const styles = StyleSheet.create({
         marginLeft : Circle.sizeOfCircle*0.3,
         marginRight : Circle.sizeOfCircle*0.3,
         borderRadius : 20,
-
+        height: 10*vw
         
     },
     backCurrent : {
@@ -601,10 +606,9 @@ const styles = StyleSheet.create({
     
 })
 
-// function mapStateToProps(state){
-//     return {
-//         _id : state.authenticateReducer._id
-//     }
-// }
-// export default connect(mapStateToProps)(CreateEventPage)
-export default CreateEventPage
+function mapStateToProps(state){
+    return {
+        _id : state.AuthenticateReducer._id
+    }
+}
+export default connect(mapStateToProps)(CreateEventPage)
