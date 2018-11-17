@@ -24,13 +24,13 @@ export default class App extends React.Component {
               <Route exact path="/event/:eventId" component={LayoutComponent(Page.EventInformationPage)} />
               <Route exact path="/event" component={AuthComponent(LayoutComponent(Page.EventPage))} />
               <Route exact path="/forgot" component={(Page.ForgotPage)} />
-              <Route exact path="/" component={GuestComponent(Page.LoginPage)} />
+              <Route exact path="/fb" component={GuestComponent(Page.LoginPage)} />
               <Route exact path="/Others" component={LayoutComponent(Page.OtherPage)} />
               <Route exact path="/Notifications" component={LayoutComponent(Page.NotificationPage)}/>
               <Route exact path="/profile" component={LayoutComponent(Page.ProfilePage)} />
               <Route exact path="/register" component={Page.RegisterPage} />
               <Route exact path="/verification" component={Page.VerificationForgotPage} />
-              <Route exact path="/Home" component={LayoutComponent(Page.HomePage)} />
+              <Route exact path="/" component={LayoutComponent(Page.HomePage)} />
             </Switch>
           </BackButton>
         </NativeRouter>

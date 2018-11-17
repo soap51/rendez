@@ -29,18 +29,18 @@ class FilterEventCard extends React.Component {
                 borderRadius : 10,
                 borderWidth : 2.8*vw,
                 borderColor : "#F59191",
-                width : 30*vw,
+                width : 70*vw,
                 display : "flex",
                 flexDirection : "row",
                 marginLeft : 0*vw,
                 justifyContent : "space-around",
                 backgroundColor : "white",
-                marginBottom :0*vw,
+                marginBottom :2*vw,
                 marginTop : 5*vw
             }}>
-            <View style = {{flexDirection : "column", width : 27*vw}}>
-              <Text style = {{textAlign : "center",width : 30*vw,fontWeight :"bold",
-            backgroundColor :"#F59191",}}>
+            <View style = {{flexDirection : "column", width : 65*vw}}>
+              <Text style = {{textAlign : "center",width : 70*vw,fontWeight :"bold",
+            backgroundColor :"#F59191",fontSize :4*vw,marginTop : -1*vw}}>
             CURRENT
         </Text>  
         <View style = {{ flexDirection : "row",}}>
@@ -59,7 +59,7 @@ class FilterEventCard extends React.Component {
                     alignItems :"center"
                 }}>
                     <Text style={{
-                        fontSize : Font.fontParagraph / 1.5,
+                        fontSize : Font.fontParagraph / 1.2,
                         fontWeight : "bold"
                     }}>Joined</Text>
                 </TouchableOpacity>
@@ -77,7 +77,7 @@ class FilterEventCard extends React.Component {
                     alignItems :"center"
                 }}>
                     <Text style={{
-                        fontSize : Font.fontParagraph / 1.5,
+                        fontSize : Font.fontParagraph / 1.2,
                         fontWeight : "bold"
                     }}>My Activity</Text>
                 </TouchableOpacity>
@@ -86,65 +86,7 @@ class FilterEventCard extends React.Component {
             </View>
            
                 
-        <View style={{
-            borderRadius : 3*vw,
-            width : 30*vw,
-            borderWidth : 2.8*vw,
-            borderColor : "rgb(173,173,173)",
-            marginLeft : 35*vw,
-            display : "flex",
-            flexDirection : "row",
-            justifyContent : "space-around",
-            backgroundColor : "white",
-            marginBottom :10*vw,
-            marginTop : -18.2*vw,
-        }}>
-         <View style = {{flexDirection : "column", width : 27*vw}}>
-              <Text style = {{textAlign : "center",width : 30*vw,fontWeight :"bold",
-            backgroundColor : "rgb(173,173,173)",}}>
-            HISTORY
-        </Text>  
-        <View style = {{ flexDirection : "row",}}>
-            <TouchableOpacity onPress={()=>this.props._onChangeActivity(2)} style={typeActivity == 2? {
-                flex : 1,
-                justifyContent : "center",
-                alignItems :"center",
-                borderColor :  "rgb(173,173,173)",
-                borderRadius : 3,
-                backgroundColor :  "rgb(223,219,218)",
-                borderWidth : 1*vw
-            } : {
-                flex : 1,
-                justifyContent : "center",
-                alignItems :"center"
-            }}>
-                <Text style={{
-                    fontSize : Font.fontParagraph / 1.5,
-                    fontWeight : "bold"
-                }}>Joined</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>this.props._onChangeActivity(3)} style={typeActivity == 3? {
-                flex : 1,
-                justifyContent : "center",
-                alignItems :"center",
-                borderColor :  "rgb(173,173,173)",
-                borderRadius : 3,
-                backgroundColor :  "rgb(173,173,173)",
-                borderWidth : 1*vw
-            } : {
-                flex : 1,
-                justifyContent : "center",
-                alignItems :"center"
-            }}>
-                <Text style={{
-                    fontSize : Font.fontParagraph / 1.5,
-                    fontWeight : "bold"
-                }}>My Activity</Text>
-            </TouchableOpacity>
-             
-            </View>
-        </View>
-            </View>
+        
         </View>
        
         )
