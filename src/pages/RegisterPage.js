@@ -15,7 +15,7 @@ class RegisterPage extends React.Component{
             email: "",
             pass: "",
             re_password: "",
-            language: "",
+            language: "M",
             studentCode: "",
             Age:""
         };
