@@ -27,6 +27,7 @@ class LoginPage extends React.Component{
         this.props.history.push("/register")
     }
      onLogin() {
+         console.log('Test')
          const {email,password} = this.state;
          if(email == "" || password == ""){
             this.setState({ Error: 'Please fill email or password' });
