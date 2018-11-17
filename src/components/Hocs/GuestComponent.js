@@ -8,7 +8,7 @@ export default function WrappedComponent(ChildComponent){
            super(props) 
         }
         render(){
-           
+         
             if(!_.isEmpty(this.props.token) )    return <Redirect to="/event" />
             else return <ChildComponent />
         }

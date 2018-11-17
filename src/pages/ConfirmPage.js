@@ -56,6 +56,7 @@ class ConfirmPage extends React.Component{
      
          
     render(){
+       
         if(this.props.confirmationToken == true) return <Redirect to="/event" />
         return(
             <ImageBackground source={DFD} style={{width:'100%',height:"100%"}}>

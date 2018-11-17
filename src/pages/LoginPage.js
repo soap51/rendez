@@ -27,6 +27,7 @@ class LoginPage extends React.Component{
         this.props.history.push("/register")
     }
      onLogin() {
+         console.log('Test')
          const {email,password} = this.state;
          if(email == "" || password == ""){
             this.setState({ Error: 'Please fill email or password' });
@@ -42,14 +43,14 @@ class LoginPage extends React.Component{
                     console.log(result)
                 })
                 .catch(err=>{
-                    console.log(err)
+                    console.log(err.response)
                 })
                 
                 this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken })
                 this.props.history.push('/event')
             })
             .catch(err=>{
-                console.log(err)
+                console.log(err.response)
                 if(err.response.status == 401){
                     this.setState({ Error: 'Invalid email or password' });
                 }
