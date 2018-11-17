@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS  , LOGIN_FAIL ,LOGOUT_SUCCESS} from '../constant/actionTypes'
+import {LOGIN_SUCCESS  , LOGIN_FAIL ,LOGOUT_SUCCESS , VERIFY_SUCCESS} from '../constant/actionTypes'
 import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
 import { AsyncStorage } from "react-native"
@@ -48,4 +48,11 @@ export function logout(token){
     return (dispatch) => dispatch({
         type : LOGOUT_SUCCESS,
     })
+}
+
+export function verifySuccess(confirmationToken){
+    return (dispatch)=>dispatch({
+        type : VERIFY_SUCCESS,
+        payload : confirmationToken
+    })    
 }

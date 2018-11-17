@@ -5,6 +5,7 @@ import smile from '../../assets/imgs/smile.png'
 import { Circle, SizePX, Font} from '../styles/global';
 import OptionButton from '../components/Button/OptionButton';
 import axios from 'axios';
+import {verifySuccess} from '../actions/authenticateAction'
 import {DOMAIN} from '../constant/environment'
 import { vw, vh } from 'react-native-viewport-units';
 import {Redirect} from 'react-router-native'
@@ -30,12 +31,15 @@ class ConfirmPage extends React.Component{
             console.log( this.props._id)
             axios.post(DOMAIN+"api/user/verify",{otp:this.state.password , _id : this.props._id})
             .then(response=>{
-                console.log(response.data)
+                const data = response.data
+                const confirmationToken = data.confirmationToken
+                console.log(response)
+                this.props.verifySuccess(confirmationToken)
                 this.props.history.push('/LetgoPage')
             })
             .catch(err=>{
                 const {password} = this.state
-                console.log(err.response)
+                console.log(err)
                 console.log(this.state)
                 if(err.response.status == 404) {
                     this.setState({Error: 'incorrect'});
@@ -47,10 +51,13 @@ class ConfirmPage extends React.Component{
     }
     onPush(){
         console.log( this.props._id)
-        axios.post(DOMAIN+"api/user/verify",{otp:this.state.password , _id : this.props._id})
+        axios.post(DOMAIN+"api/user/resend",{ _id : this.props._id})
         .then(response=>{
             console.log(response.data)
-            this.props.history.push('/LetgoPage')
+            
+        })
+        .catch(err=>{
+            console.log(err.response)
         })
     }
      
@@ -152,7 +159,7 @@ function mapStateToProps(state){
         confirmationToken : state.AuthenticateReducer.confirmationToken
     }
 }
-export default connect(mapStateToProps)(ConfirmPage)
+export default connect(mapStateToProps , {verifySuccess})(ConfirmPage)
 
 
 

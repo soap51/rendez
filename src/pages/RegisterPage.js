@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView,Image,Picker, } from 'react-native'
+import {View, AsyncStorage , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView,Image,Picker, } from 'react-native'
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { LinearGradient } from 'expo';
@@ -17,7 +17,8 @@ class RegisterPage extends React.Component{
             re_password: "",
             language: "M",
             studentCode: "",
-            Age:""
+            Age:"",
+            Error : ""
         };
     }
     onChangeText(text,key,){
@@ -30,7 +31,33 @@ class RegisterPage extends React.Component{
         
         .then(response=>{
             console.log('Test')
-            this.props.history.push('/')
+            axios.post(DOMAIN + "api/user/login" , {email : this.state.email+"@kmitl.ac.th" , password : this.state.pass }).then(response=>{
+                const data = response.data
+                const token = data.token 
+                const _id = data._id
+                const confirmationToken = data.confirmationToken
+                console.log(response.data)
+                AsyncStorage.setItem('token' , token).then(result=>{
+                    console.log(result)
+                })
+                .catch(err=>{
+                    console.log(err.response)
+                })
+                
+                this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken })
+                console.log("Register Success")
+                this.props.history.push('/confirm')
+            })
+            .catch(err=>{
+                console.log(err.response)
+                if(err.response.status == 401){
+                    this.setState({ Error: 'Invalid email or password' });
+                }
+                else if(err.response.status == 500){
+                    this.setState({ Error: 'Something went wrong( Error:500 )' });
+                }
+                else(this.setState({ Error: 'Something went wrong' }));
+            })
             })
             .catch(err=>{
                 const { fullName,email,pass,re_password} = this.state;
