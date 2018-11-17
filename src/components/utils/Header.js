@@ -41,7 +41,7 @@ class Header extends React.Component {
                     </View>
                         :  <ClickButton 
                               
-                                onPress={()=> this.props.history.push('/createevent')}
+                                onPress={()=> this.props.history.push('/CreateEventPage')}
                             />
                     }
                 </View>
