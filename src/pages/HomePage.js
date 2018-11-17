@@ -14,16 +14,11 @@ class HomePage extends React.Component{
             author : '',
             email : '',
             typeActivity : 0,
-            typeActivity2 : 0
         }
     }
     _onChangeActivity(typeActivity){
         this.setState({typeActivity})
     }
-    _onChangeActivity2(typeActivity2){
-        this.setState({typeActivity2})
-    }
-    
     render(){
         const {age , author , email , typeActivity,typeActivity2} = this.state 
         const {width , height} = Dimensions.get('window')
@@ -87,30 +82,12 @@ class HomePage extends React.Component{
                     <View style={{
                         margin : Space.marginSize
                     }}>
-                    <View style={{
-                
-                textAlign : "center,"
-            }}>
-           
-            <View style={{
-                // borderRadius : 5,
-                // borderWidth : 3,
-                // borderColor : "#F59191",
-                 width : Circle.sizeOfCircle*4.2,
-                // display : "flex",
-                flexDirection : "column",
-                // justifyContent : "space-around",
-                // backgroundColor : "#F59191",
-                // marginBottom :0
-            }}>
-           
+                    
                         <FilterEventCard 
                             typeActivity={typeActivity}
                             _onChangeActivity={(id)=>this._onChangeActivity(id)}
                         />
-                        </View>
-                      
-                        </View>
+                        
                     
                     <View>
                         <HistoryCard 

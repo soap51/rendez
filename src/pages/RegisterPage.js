@@ -15,7 +15,7 @@ class RegisterPage extends React.Component{
             email: "",
             pass: "",
             re_password: "",
-            language: "M",
+            language: "",
             studentCode: "",
             Age:""
         };
@@ -33,8 +33,8 @@ class RegisterPage extends React.Component{
             this.props.history.push('/')
             })
             .catch(err=>{
-                const { fullName,email,pass,re_password} = this.state;
-                console.log(err.response)
+                const { fullName,email,pass,re_password,language} = this.state;
+                console.log(err)
                 console.log(this.state)
                 if (fullName == "" || email == "" || pass == "" || re_password == "") {
                     this.setState({ Error: 'Please fill in all required fields' });
@@ -45,13 +45,19 @@ class RegisterPage extends React.Component{
                 else if (err.response.status == 409) {
                     this.setState({ Error: 'Mail exist' });
                 }
+                else if (language == 0){
+                    this.setState({ Error: 'Please select sex' });
+                }
+                else if(err.response.status == 500){
+                    this.setState({ Error: 'Something went wrong( Error:500 )' });
+                }
 
                 // else if (pass.length < 8) {
                 //     this.setState({ Error: 'Password Must be more than 8 Characters' })
                 // }
 
 
-                else {this.setState({ Error: 'Something went wrong!' });}
+                else {this.setState({ Error: 'Something went wrong' });}
             })
         }
     
@@ -97,6 +103,7 @@ class RegisterPage extends React.Component{
                         selectedValue={this.state.language}
                         style={{ height: 10*vw, width: 30*vw ,marginTop:-2*vw,color:'white',backgroundColor: 'green'}}
                         onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}>
+                        <Picker.Item label="Select" value= {0} />
                         <Picker.Item label="Male" value="M" />
                         <Picker.Item label="Female" value="F" />
                     </Picker>
