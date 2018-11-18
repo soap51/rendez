@@ -10,7 +10,7 @@ import { DOMAIN } from '../../constant/environment';
 import setAlert from '../../utils/setAlert'
 import www from '../../../assets/imgs/www.jpg'
 import { vw, vh } from 'react-native-viewport-units';
-
+import moment from 'moment'
 class EventInformationCard extends React.Component {
     constructor(props){
         super(props)
@@ -26,7 +26,8 @@ class EventInformationCard extends React.Component {
             currentSeat : props.currentSeat ? props.currentSeat : 0,
             limitedSeat : props.limitedSeat ? props.limitedSeat  : 0,
             detail : props.detail ? props.detail : "",
-            joined : props.joined ? true : false
+            joined : props.joined ? true : false,
+            
         }
     }
     componentWillReceiveProps(nextProps){
@@ -38,7 +39,10 @@ class EventInformationCard extends React.Component {
             icon : nextProps.icon,
             eventDate : nextProps.eventDate,
             eventStartTime : nextProps.eventStartTime,
-            eventEndTime : nextProps.eventEndTime
+            eventEndTime : nextProps.eventEndTime,
+            currentSeat : nextProps.currentSeat,
+            limitedSeat : nextProps.limitedSeat,
+            detail : nextProps.detail
 
         })
     }
@@ -53,8 +57,8 @@ class EventInformationCard extends React.Component {
      
     }
     render(){
-        const {icon,title , author , location , eventDate,eventEndTime,eventStartTime , joined} = this.state 
-        
+        const { icon,title , author , location , eventDate,eventEndTime,eventStartTime , detail, joined , currentSeat , limitedSeat} = this.state 
+  
         return (
            
             <View style={styles.container}>
@@ -71,8 +75,14 @@ class EventInformationCard extends React.Component {
                             <View style={styles.column}>
                              <Image style={styles.Circle} source={www}/>
                             
-                            <Text style={styles.titleSecondary}>
-                                By {author.substring(0 , 25)}
+                            <Text style={{
+                                 fontSize : Font.fontSecondary,
+                                 marginLeft : Circle.sizeOfCircle*(-0.1),
+                                 marginTop : Circle.sizeOfCircle*(-1.3),
+                                 color : "white",
+                                 textAlign : "right"
+                            }}>
+                                By {author ? author.fullName.substring(0 , 25) : ""}
                             </Text>
                             </View>
                             
@@ -101,14 +111,14 @@ class EventInformationCard extends React.Component {
                                     style={styles.formContainer}
                                     autoCorrect={false}
                                     editable={false}
-                                    value={eventDate}
+                                    value={moment(eventDate).format('Do MMMM')}
                                 />
                                 <View>
                                     <View style={styles.timeContainer}>
                                         <View>
                                             <View style={styles.timeForm}>
                                                 <Text style={styles.timeText}>
-                                                    {/* {eventStartTime} */}
+                                                {moment(eventStartTime).format('LT')}
                                                 </Text>
                                             </View>
                                             <Text style={styles.timeText}>Start</Text>
@@ -116,7 +126,7 @@ class EventInformationCard extends React.Component {
                                         <View>
                                             <View style={styles.timeForm}>
                                                 <Text style={styles.timeText}>
-                                                    {/* {eventEndTime} */}
+                                                {moment(eventEndTime).format('LT')}
                                                 </Text>
                                             </View>
                                             <Text style={styles.timeText}>End</Text>
@@ -146,7 +156,7 @@ class EventInformationCard extends React.Component {
                                         style={styles.textInput}
                                         autoCorrect={false}
                                         editable={false}
-                                        value={"5"}
+                                        value={""+currentSeat}
                                     />
                                 </View>
                                
@@ -159,7 +169,7 @@ class EventInformationCard extends React.Component {
                                         style={styles.textInput}
                                         autoCorrect={false}
                                         editable={false}
-                                        value={"100"}
+                                        value={""+limitedSeat}
                                     />
                                 </View>
                                
@@ -222,7 +232,7 @@ class EventInformationCard extends React.Component {
                                     <Text style={{
                                         color : "white"
                                     }}>
-                                        SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG
+                                        {detail}
                                     </Text>
                                 </View>
 

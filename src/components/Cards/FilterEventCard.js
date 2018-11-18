@@ -53,14 +53,15 @@ class FilterEventCard extends React.Component {
                     borderColor : "#F59191",
                     backgroundColor : "#FFE4E4",
                     borderWidth : 2*vw,
-                    width : 5*vw
+                    width : 5*vw,
+                    height : 10*vw,
                 } : {
                     flex : 1,
                     justifyContent : "center",
                     alignItems :"center"
                 }}>
                     <Text style={{
-                        fontSize : Font.fontParagraph / 4*vw,
+                        fontSize : (Font.fontParagraph /5)*vw,
                         fontWeight : "bold"
                     }}>My Activity</Text>
                 </TouchableOpacity>
@@ -78,7 +79,7 @@ class FilterEventCard extends React.Component {
                     alignItems :"center"
                 }}>
                     <Text style={{
-                        fontSize : Font.fontParagraph / 4*vw,
+                        fontSize : (Font.fontParagraph /5)*vw,
                         fontWeight : "bold"
                     }}>Joined</Text>
                 </TouchableOpacity>

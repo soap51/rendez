@@ -61,7 +61,7 @@ class RegisterPage extends React.Component{
             })
             .catch(err=>{
                 const { fullName,email,pass,re_password,language} = this.state;
-                console.log(err)
+                console.log(err.response )
                 console.log(this.state)
                 if (fullName == "" || email == "" || pass == "" || re_password == "") {
                     this.setState({ Error: 'Please fill in all required fields' });

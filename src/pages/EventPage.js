@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text , StyleSheet , Alert} from 'react-native'
+import {View , Text , StyleSheet , Alert , ActivityIndicator} from 'react-native'
 import EventCard from '../components/Cards/EventCard'
 import axios from 'axios'
 import setAlert from '../utils/setAlert'
@@ -12,17 +12,20 @@ class EventPage extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            eventList : []
+            eventList : [],
+            loading : true
         }
-        
+      
     }
+  
     componentDidMount(){
-        console.log(DOMAIN + "api/event")
+      
         axios.get(DOMAIN + "api/event")
             .then(result=>{
                 const data = result.data
                 const eventList = data.event
-                this.setState({eventList : eventList})
+                this.setState({eventList : eventList , loading : false})
+                
             })
             .catch(err=>{
                 console.log(err.response)
@@ -31,9 +34,10 @@ class EventPage extends React.Component{
     }
     
     render(){
+        if(this.state.loading) return <ActivityIndicator style={{justifyContent : "center" , alignItems : "center"}} size="large" color="#0000ff" />
         if(this.props.confirmationToken == false) return <Redirect to="/confirm" />
         const {eventList} = this.state
-        console.log(eventList) 
+       
     
         let Events = eventList && eventList.length != 0 ? eventList.map(data=>
             <EventCard

@@ -13,7 +13,7 @@ class LoginPage extends React.Component{
         super(props)
         this.state = {
             loading: true,
-            email : "59050254@kmitl.ac.th" , password : "123456",
+            email : "59050254@kmitl.ac.th" , password : "1234",
         }
     }
     onChangeText(text, field) {
