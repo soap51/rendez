@@ -13,7 +13,9 @@ export default function reducer(state=initialState , action){
                 ...state,
                 token : action.payload.token,
                 _id : action.payload._id,
-                confirmationToken : action.payload.confirmationToken
+                confirmationToken : action.payload.confirmationToken,
+                myJoinEvent : action.payload.myJoinEvent,
+                myCreateEvent : action.payload.myCreateEvent
             }
         case VERIFY_SUCCESS : 
             console.log("payload : " , action.payload)

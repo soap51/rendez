@@ -39,7 +39,7 @@ export function loginSuccess(payload){
     setAuthorizationHeader(payload.token)
     return (dispatch) => dispatch({
         type : LOGIN_SUCCESS,
-        payload : {token : payload.token , _id : payload._id , confirmationToken : payload.confirmationToken}
+        payload : {token : payload.token , _id : payload._id , confirmationToken : payload.confirmationToken , myJoinEvent : payload.myJoinEvent , myCreateEvent : payload.myCreateEvent}
     })
 }
 

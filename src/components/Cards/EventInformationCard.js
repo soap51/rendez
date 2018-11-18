@@ -11,6 +11,7 @@ import setAlert from '../../utils/setAlert'
 import www from '../../../assets/imgs/www.jpg'
 import { vw, vh } from 'react-native-viewport-units';
 import moment from 'moment'
+import {connect} from 'react-redux'
 class EventInformationCard extends React.Component {
     constructor(props){
         super(props)
@@ -47,13 +48,13 @@ class EventInformationCard extends React.Component {
         })
     }
     handleJoinEvent(){
-        // axios.put(DOMAIN + "" , {id : this.state.id})
-        //     .then(result=>{
-        //         this.setState({joined : !this.state.joined})
-        //     })
-        //     .catch(err=>{
-        //         setAlert()
-        //     })
+        axios.patch(DOMAIN + "api/event/" + this.props.id , {userID : this.props._id})
+            .then(result=>{
+                this.setState({joined : !this.state.joined})
+            })
+            .catch(err=>{
+                setAlert()
+            })
      
     }
     render(){
@@ -253,6 +254,7 @@ class EventInformationCard extends React.Component {
                                 joined={joined}
                                 handleJoinEvent={()=>this.handleJoinEvent()}
                             />
+                            
                             <TouchableOpacity onPress={()=>this.props.history.push('/event/'+this.props.id+'/comment')} style={{
                                 paddingTop :  Space.paddingSize/5,
                                 paddingLeft :  Space.paddingSize/1.8,
@@ -425,4 +427,9 @@ EventInformationCard.propTypes = {
     limitedSeat : Proptypes.number.isRequired,
     detail : Proptypes.string
 }
-export default EventInformationCard
+function mapStateToProps(state){
+    return {
+        _id : state.AuthenticateReducer._id
+    }
+}
+export default connect(mapStateToProps)(EventInformationCard)

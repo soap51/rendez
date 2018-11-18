@@ -38,6 +38,8 @@ class LoginPage extends React.Component{
                 const token = data.token 
                 const _id = data._id
                 const confirmationToken = data.confirmationToken
+                const myCreateEvent = data.myCreateEvent
+                const myJoinEvent = data.myJoinEvent
                 console.log(response.data)
                 AsyncStorage.setItem('token' , token).then(result=>{
                     console.log(result)
@@ -46,7 +48,7 @@ class LoginPage extends React.Component{
                     console.log(err.response)
                 })
                 
-                this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken })
+                this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken , myCreateEvent , myJoinEvent })
                 this.props.history.push('/event')
             })
             .catch(err=>{

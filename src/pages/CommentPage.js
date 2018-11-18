@@ -30,13 +30,13 @@ class CommentPage extends React.Component{
      
         axios.post(DOMAIN + "api/event/" + this.props.match.params.eventId + "/comment" , {eventID : this.props.match.params.eventId , detail : this.state.comment})
             .then(result=>{
-                console.log("Add SUccess")
+                
                 axios.post(DOMAIN + "api/event/" + this.props.match.params.eventId + "/comment/" +  this.props.match.params.eventId , {eventID : this.props.match.params.eventId})
                     .then( newComment =>{
-                        console.log("Fetch Success")
+                      
                         const data = newComment.data
                         const commentList = data.comment.reverse()
-                        console.log(commentList)
+                      
                         this.setState({commentList  , comment : "" , loading : false})
                     })
                     .catch(err=>{
@@ -73,7 +73,7 @@ class CommentPage extends React.Component{
             />
         ) :
         <View><Text></Text></View>
-        console.log(comments)
+     
         return(
             <View style={styles.container} >
                 <View style={{
