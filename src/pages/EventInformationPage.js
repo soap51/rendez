@@ -6,6 +6,7 @@ import {Font, SizePX , Circle, Space} from '../styles/global'
 import _ from 'lodash'
 import CreateEventPage from '../pages/CreateEventPage'
 import { DOMAIN } from '../constant/environment';
+import setAlert from '../utils/setAlert'
 class EventInformationPage extends React.Component{
     constructor(props){
         super(props)
@@ -23,8 +24,18 @@ class EventInformationPage extends React.Component{
                 this.setState({event : data , loading : false})
             })
             .catch(err=>{
-                
+                setAlert(this.props.history , 400 , "Network Error" , "Application can't fetch data")
             })
+    }
+    _fetchAPI(){
+        axios.get(DOMAIN + "api/event/" + this.props.match.params.eventId)
+        .then(result=>{
+            const data = result.data
+            this.setState({event : data , loading : false})
+        })
+        .catch(err=>{
+            setAlert(this.props.history , 400 , "Network Error" , "Application can't fetch data")
+        })
     }
     render(){
         const {event , loading} = this.state
@@ -44,6 +55,7 @@ class EventInformationPage extends React.Component{
                 currentSeat={event.currentSeat}
                 limitedSeat={event.totalSeat}
                 detail={event.detail}
+                _fetchAPI={()=>this._fetchAPI()}
             />
             :
             <View style={{display : "flex" , alignItems : "center" , padding : 20}}>  

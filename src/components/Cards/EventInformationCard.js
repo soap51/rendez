@@ -12,6 +12,7 @@ import www from '../../../assets/imgs/www.jpg'
 import { vw, vh } from 'react-native-viewport-units';
 import moment from 'moment'
 import {connect} from 'react-redux'
+import {joinSuccess , unjoinSuccess} from '../../actions/authenticateAction'
 class EventInformationCard extends React.Component {
     constructor(props){
         super(props)
@@ -27,11 +28,14 @@ class EventInformationCard extends React.Component {
             currentSeat : props.currentSeat ? props.currentSeat : 0,
             limitedSeat : props.limitedSeat ? props.limitedSeat  : 0,
             detail : props.detail ? props.detail : "",
-            joined : props.joined ? true : false,
+            joined : props.myJoinEvent.includes(this.props.id) ? true : false,
+            loading : false
             
         }
     }
+    
     componentWillReceiveProps(nextProps){
+        console.log(nextProps)
         this.setState({
             id : nextProps.id,
             author : nextProps.author,
@@ -43,23 +47,46 @@ class EventInformationCard extends React.Component {
             eventEndTime : nextProps.eventEndTime,
             currentSeat : nextProps.currentSeat,
             limitedSeat : nextProps.limitedSeat,
-            detail : nextProps.detail
-
+            detail : nextProps.detail,
+        
         })
     }
     handleJoinEvent(){
+        this.setState({loading : true})
         axios.patch(DOMAIN + "api/event/" + this.props.id , {userID : this.props._id})
             .then(result=>{
-                this.setState({joined : !this.state.joined})
+                this.setState({joined : !this.state.joined })
+                
+                const data = result.data
+                const myJoinEvent = data.user.myJoinEvent
+                this.props.joinSuccess(myJoinEvent)
+                this.setState({loading :false})
+                this.props._fetchAPI()
             })
             .catch(err=>{
+                console.log(err.response)
                 setAlert()
             })
      
     }
+    unJoinEvent(){
+        this.setState({loading : true})
+        axios.post(DOMAIN+ "api/event/unjoin" , {eventID : this.props.id , userID : this.props._id})
+            .then(result=>{
+                this.setState({joined : !this.state.joined , currentSeat : this.state.currentSeat - 1})
+               
+                this.props.unjoinSuccess(this.props.id)
+                this.setState({loading :false})
+                this.props._fetchAPI()
+            })
+            .catch(err=>{
+                console.log(err.response)
+                setAlert()
+            })
+    }
     render(){
-        const { icon,title , author , location , eventDate,eventEndTime,eventStartTime , detail, joined , currentSeat , limitedSeat} = this.state 
-  
+        const {loading, icon,title , author , location , eventDate,eventEndTime,eventStartTime , detail, joined , currentSeat , limitedSeat} = this.state 
+      
         return (
            
             <View style={styles.container}>
@@ -240,9 +267,11 @@ class EventInformationCard extends React.Component {
                             </View>
                            
                         </View>
+                   
                         <View>
                              <Image style={styles.Circle} source={www}/>
                              </View>
+                            
                         <View style={{
                             display : "flex",
                             flexDirection : "row",
@@ -250,24 +279,39 @@ class EventInformationCard extends React.Component {
                             alignItems : "center",
                             marginTop : 20
                         }}>
-                            <JoinOption 
-                                joined={joined}
-                                handleJoinEvent={()=>this.handleJoinEvent()}
-                            />
-                            
-                            <TouchableOpacity onPress={()=>this.props.history.push('/event/'+this.props.id+'/comment')} style={{
-                                paddingTop :  Space.paddingSize/5,
-                                paddingLeft :  Space.paddingSize/1.8,
-                                paddingRight :  Space.paddingSize/1.8,
-                                paddingBottom :  Space.paddingSize/5,
-                                borderWidth : 2,
-                                backgroundColor : '#4FF554',
-                                borderColor :"white",
-                                borderRadius : 17,
-                            
-                            }}>
+                            {
+                                joined ?
+                                <JoinOption 
+                                    joined={joined}
+                                    handleJoinEvent={()=> this.unJoinEvent()}
+                                />
+                                :
+                                <JoinOption 
+                                    joined={joined}
+                                    handleJoinEvent={()=> this.handleJoinEvent()}
+                                />
+                            }
+                           
+                            {
+                                joined ? 
+                                <TouchableOpacity onPress={()=>this.props.history.push('/event/'+this.props.id+'/comment')} style={{
+                                    paddingTop :  Space.paddingSize/5,
+                                    paddingLeft :  Space.paddingSize/1.8,
+                                    paddingRight :  Space.paddingSize/1.8,
+                                    paddingBottom :  Space.paddingSize/5,
+                                    borderWidth : 2,
+                                    backgroundColor : '#4FF554',
+                                    borderColor :"white",
+                                    borderRadius : 17,
+                                
+                                }}>
                                 <Icon style={styles.iconText} name="ios-chatboxes" size={SizePX} color="#00000" />
                             </TouchableOpacity>
+                                :
+                                <View><Text></Text></View>
+                            }
+                            
+                                
                         </View>
                     </View>
                 </View>
@@ -429,7 +473,8 @@ EventInformationCard.propTypes = {
 }
 function mapStateToProps(state){
     return {
-        _id : state.AuthenticateReducer._id
+        _id : state.AuthenticateReducer._id,
+        myJoinEvent : state.AuthenticateReducer.myJoinEvent
     }
 }
-export default connect(mapStateToProps)(EventInformationCard)
+export default connect(mapStateToProps , {joinSuccess , unjoinSuccess})(EventInformationCard)

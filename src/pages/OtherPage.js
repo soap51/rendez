@@ -6,7 +6,9 @@ class NotificationPage extends React.Component{
     render(){
         return(
             <View style={styles.container}>
-                <OptionCard />
+                <OptionCard 
+                    {...this.props}
+                />
                
                     
             </View>
