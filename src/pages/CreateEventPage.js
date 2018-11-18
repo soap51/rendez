@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Space, Circle, Font , SizePX } from '../styles/global';
-import {View , Text ,StyleSheet,TextInput,Image,Alert,ImageBackgrond,Modal,TouchableHighlight,} from 'react-native'
+import {KeyboardAvoidingView,ActivityIndicator,View , Text ,StyleSheet,TextInput,Image,Alert,ImageBackgrond,Modal,TouchableHighlight,} from 'react-native'
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import DatePicker from 'react-native-datepicker'
 import {TouchableOpacity} from 'react-native'
@@ -43,6 +43,7 @@ class CreateEventPage extends React.Component{
             Limitedseat:"",
             nameac:"",
             key:0,
+            loading : false,
         //   imageSrc : -1,
             
         // data: {
@@ -53,16 +54,16 @@ class CreateEventPage extends React.Component{
     }
     onCreate() {
         // axios.post(DOMAIN + "/user/"+this.props._id+"/event/",
-      
+        this.setState({loading:true})
         const time = this.state.time.split(":")
         const timeend = this.state.timeend.split(":")
         
         startTime = moment(time[0] + ":" + time[1], 'HH:mm')._d
         endTime = moment(timeend[0] + ":" + timeend[1] , 'HH:mm')._d
-        console.log( {   userID : this.props._id, author : this.props._id, eventDate : new Date(this.state.date),startTime : startTime,
-            endTime : endTime,place : this.state.location,
-            detail : this.state.detail
-            ,currentSeat : this.state.currentseat,totalSeat : this.state.Limitedseat, /*author : this.state.createby,*/iconType : this.state.key , eventName : this.state.nameac})
+        // console.log( {   userID : this.props._id, author : this.props._id, eventDate : new Date(this.state.date),startTime : startTime,
+        //     endTime : endTime,place : this.state.location,
+        //     detail : this.state.detail
+        //     ,currentSeat : this.state.currentseat,totalSeat : this.state.Limitedseat, /*author : this.state.createby,*/iconType : this.state.key , eventName : this.state.nameac})
         axios.post(DOMAIN + "api/event",
         {   userID : this.props._id, author : this.props._id, eventDate : new Date(this.state.date),startTime : startTime,
             endTime : endTime,place : this.state.location,
@@ -71,17 +72,18 @@ class CreateEventPage extends React.Component{
 
             .then(response=>{
                 console.log(response);
+                this.setState({loading:false})
                 this.props.history.push('/event')
             })
             .catch(err=>{
                 const {date,time,endtime,location,detail,currentseat,Limitedseat,nameac,key} = this.state;
                 console.log(err.response)
                 console.log(this.state)
-                // if(date == "" || time == "" || endtime == "" || location == "" || detail == "" || currentseat == "" || Limitedseat == "" || key == "" || nameac == ""){
-                //     this.setState({Error: 'กรอกให้ครบด้วย'})
-                //     setAlert(this.props.history , 403 , "ERROR" , "ควย")
-                // }
-                 if (timeend < time){
+                if(date == "" || time == "" || endtime == "" || location == "" || detail == "" || currentseat == "" || Limitedseat == "" || key == "" || nameac == ""){
+                    this.setState({Error: 'กรอกให้ครบด้วย'})
+                    // setAlert(this.props.history , 403 , "ERROR" , "ควย")
+                }
+                else if (timeend < time){
                     this.setState({Error: 'โปรดตั้งค่าเวลาให้เหมาะสม'})
                 }
                 else if (Limitedseat < currentseat){
@@ -164,6 +166,7 @@ class CreateEventPage extends React.Component{
         }
     
     render(){
+        if(this.state.loading) return <ActivityIndicator style={{justifyContent : "center" , alignItems : "center",backgroundColor:"#7F0887",width:'100%',height:"100%"}} size="large" color="#FFFFFF" />
         // console.warn(this.state.time) 
         return(
             
@@ -323,6 +326,7 @@ class CreateEventPage extends React.Component{
                 <Text style={{ marginLeft:14*vw,marginTop:-7*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",}}>
                          Detail:
                 </Text>
+                <KeyboardAvoidingView behavior="position" enabled>
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
                 autoCorrect={false} multiline={true}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
@@ -331,6 +335,7 @@ class CreateEventPage extends React.Component{
                 autoCorrect={false}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
+                </KeyboardAvoidingView>
                 
                 </View>
 
@@ -460,7 +465,7 @@ const styles = StyleSheet.create({
         marginLeft : Circle.sizeOfCircle*0.4,
         marginRight : Circle.sizeOfCircle*0.4,
         marginTop : Circle.sizeOfCircle*0.3,
-        height: "100%"
+        
            
     },
     background2 : {

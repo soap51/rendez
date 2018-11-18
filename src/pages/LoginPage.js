@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text,StyleSheet,Button,AsyncStorage,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView} from 'react-native'
+import {ActivityIndicator,View , Text,StyleSheet,Button,AsyncStorage,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView} from 'react-native'
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { loginRequest , loginSuccess} from '../actions/authenticateAction'
@@ -12,7 +12,7 @@ class LoginPage extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            loading: true,
+            loading: false,
             email : "59050254@kmitl.ac.th" , password : "123456",
         }
     }
@@ -28,6 +28,7 @@ class LoginPage extends React.Component{
     }
      onLogin() {
          console.log('Test')
+         this.setState({loading : true})
          const {email,password} = this.state;
          if(email == "" || password == ""){
             this.setState({ Error: 'Please fill email or password' });
@@ -47,6 +48,7 @@ class LoginPage extends React.Component{
                 })
                 
                 this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken })
+                this.setState({loading : false})
                 this.props.history.push('/event')
             })
             .catch(err=>{
@@ -65,7 +67,7 @@ class LoginPage extends React.Component{
     }
 
     render(){
-        
+        if(this.state.loading) return <ActivityIndicator style={{justifyContent : "center" , alignItems : "center",backgroundColor:"#7F0887",width:'100%',height:"100%"}} size="large" color="#FFFFFF" />
         return(
         
         // <ImageBackground source={require('../../assets/imgs/dpho4.png' )} style={styles.background}>

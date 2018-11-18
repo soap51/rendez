@@ -1,5 +1,5 @@
 import React from 'react'
-import {View ,Modal, Text,StyleSheet,Button,TextInput,TouchableOpacity,TouchableHighlight,ImageBackground,KeyboardAvoidingView,Image } from 'react-native'
+import {ActivityIndicator,View ,Modal, Text,StyleSheet,Button,TextInput,TouchableOpacity,TouchableHighlight,ImageBackground,KeyboardAvoidingView,Image } from 'react-native'
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { LinearGradient } from 'expo';
 import { Space, Circle, Font , SizePX } from '../styles/global';
@@ -10,9 +10,10 @@ class ForgotPage extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            loading: true,
+            
             email : "" ,
             modalVisible: false,
+            loading: false,
         }
     }
 
@@ -22,14 +23,14 @@ class ForgotPage extends React.Component{
 
     Onrequest(){
         const {email} = this.state;
-        
+        this.setState({loading:true})
         if(email==""){
             this.setState({ Error: 'Please fill email' })
         }
         else{
             console.log(this.state)
             axios.post(DOMAIN + "api/user/forgot" , {email : this.state.email}).then(response=>{
-                this.setState({modalVisible: true});
+                this.setState({modalVisible: true ,loading:false});
             })
             .catch(err=>{
                 console.log(err)
@@ -44,6 +45,7 @@ class ForgotPage extends React.Component{
         }
     }
     render(){
+        if(this.state.loading) return <ActivityIndicator style={{justifyContent : "center" , alignItems : "center",backgroundColor:"#7F0887",width:'100%',height:"100%"}} size="large" color="#FFFFFF" />
         return(
 
             <ImageBackground source={require('../../assets/imgs/dpho4.png' )} style={styles.background}>
