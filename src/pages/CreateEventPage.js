@@ -324,7 +324,7 @@ class CreateEventPage extends React.Component{
                          Detail:
                 </Text>
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
-                autoCorrect={false} multiline={true}
+                autoCorrect={false}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
