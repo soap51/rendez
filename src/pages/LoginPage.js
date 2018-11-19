@@ -34,6 +34,7 @@ class LoginPage extends React.Component{
             this.setState({ Error: 'Please fill email or password' });
          }
          else{
+            this.setState({loading : false})
             axios.post(DOMAIN + "api/user/login" , {email : this.state.email , password : this.state.password }).then(response=>{
                 const data = response.data
                 const token = data.token 

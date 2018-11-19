@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text , StyleSheet , Dimensions ,Image} from 'react-native'
+import {View , Text , StyleSheet , Dimensions ,Image,ActivityIndicator} from 'react-native'
 import { Space, Circle, Font , SizePX } from '../styles/global';
 import Ball from '../../assets/imgs/football.jpg'
 import Icon from "react-native-vector-icons/Ionicons";
@@ -17,10 +17,10 @@ class HomePage extends React.Component{
             author : '',
             email : '',
             typeActivity : 0,
+            loading : true
         }
     }
     _onChangeActivity(typeActivity){
-        
         axios.post(DOMAIN + "api/user" , {userId : this.props._id , typeEvent : typeActivity})
         .then(response=>{
             const data = response.data
@@ -41,6 +41,7 @@ class HomePage extends React.Component{
     componentDidMount(){
         axios.post(DOMAIN + "api/user" , {userId : this.props._id , typeEvent : this.state.typeActivity})
             .then(response=>{
+                this.setState({loading:false})
                 const data = response.data
                 const result = data.result
                 if(this.state.typeActivity == 0){
@@ -56,6 +57,7 @@ class HomePage extends React.Component{
             })
     }
     render(){
+        if(this.state.loading) return <ActivityIndicator style={{justifyContent : "center" , alignItems : "center",width:'100%',height:"100%"}} size="large" color="#0000ff" />
         const {age , author , email , typeActivity,typeActivity2 , historys} = this.state 
         const {width , height} = Dimensions.get('window')
     
