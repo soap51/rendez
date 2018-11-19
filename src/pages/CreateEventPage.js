@@ -258,11 +258,11 @@ class CreateEventPage extends React.Component{
                     showIcon={false}
                     customStyles={{
                        dateInput: {
-                           
+                           color:"white",
                            backgroundColor:"rgb(51,9,64)",
                            borderRadius:20,
                            height:6*vw,
-                           color:"white"
+                         
                        }
                        }}
                     onDateChange={(time => {this.setState({time: time})})}
@@ -322,13 +322,13 @@ class CreateEventPage extends React.Component{
                 </View>
 
                 <View style={styles.backDetail}>
+                <KeyboardAvoidingView behavior="position" enabled>
                 <Iconja style={{marginLeft:2*vw,marginTop:1*vw}} name="pencil" size={10*vw} color="#00FF00" />
                 <Text style={{ marginLeft:14*vw,marginTop:-7*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",}}>
                          Detail:
                 </Text>
-                <KeyboardAvoidingView behavior="position" enabled>
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
-                autoCorrect={false} multiline={true}
+                autoCorrect={false}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
