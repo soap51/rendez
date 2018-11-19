@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text , StyleSheet , TextInput , Image , TouchableOpacity} from 'react-native'
+import {View , Text , StyleSheet , TextInput , Image , TouchableOpacity , ActivityIndicator} from 'react-native'
 import {Font, SizePX , Circle, Space} from '../../styles/global'
 import EventImage from '../../../assets/imgs/football.jpg'
 import Icon from "react-native-vector-icons/Ionicons";
@@ -9,6 +9,17 @@ import axios from 'axios'
 import { DOMAIN } from '../../constant/environment';
 import setAlert from '../../utils/setAlert'
 import www from '../../../assets/imgs/www.jpg'
+import bad from '../../../assets/imgs/bad.jpg'
+import ball from '../../../assets/imgs/football.jpg'
+import pingpong from '../../../assets/imgs/pingpong.jpg'
+import luxby from '../../../assets/imgs/luxby.jpg'
+import bas from '../../../assets/imgs/bas.jpg'
+import art from '../../../assets/imgs/art.png'
+import ball2 from '../../../assets/imgs/ball2.jpg'
+import dic from '../../../assets/imgs/dic.jpg'
+import movie from '../../../assets/imgs/movie.png'
+import shoes from '../../../assets/imgs/shoes.jpg'
+import boling from '../../../assets/imgs/boling.jpg'
 import { vw, vh } from 'react-native-viewport-units';
 import moment from 'moment'
 import {connect} from 'react-redux'
@@ -64,8 +75,7 @@ class EventInformationCard extends React.Component {
                 this.props._fetchAPI()
             })
             .catch(err=>{
-                console.log(err.response)
-                setAlert()
+                setAlert(this.props.history,400,"Error" ,err.response.data.message)
             })
      
     }
@@ -80,8 +90,8 @@ class EventInformationCard extends React.Component {
                 this.props._fetchAPI()
             })
             .catch(err=>{
-                console.log(err.response)
-                setAlert()
+              
+                setAlert(this.props.history,400,"Error" ,err.response.data.message)
             })
     }
     render(){
@@ -93,26 +103,55 @@ class EventInformationCard extends React.Component {
                 <View style={styles.subContainer}>
                     <View style={styles.titleContainer}>
                         <View>
-                            <Image style={styles.imageContainer} source={icon} /> 
+                            <Image style={styles.imageContainer} source={
+                                icon == 1 ? ball : (
+                                    icon == 2 ? bad : (
+                                        icon == 3 ? luxby : (
+                                            icon == 4 ? bas : (
+                                                icon == 5 ? art : (
+                                                    icon == 6 ? ball2 : (
+                                                        icon == 7 ? dic : (
+                                                            icon == 8 ? pingpong : (
+                                                                icon == 9 ? movie : (
+                                                                    icon == 10 ? shoes : (
+                                                                        icon == 11 ? boling : ""
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+
+                            } /> 
                         </View>
-                        <View>
-                            <Text style={styles.titleHeader}>
-                                {title.substring(0 , 20)}
-                            </Text>
-                            
-                            <View style={styles.column}>
-                             <Image style={styles.Circle} source={www}/>
-                            
-                            <Text style={{
-                                 fontSize : Font.fontSecondary,
-                                 marginLeft : Circle.sizeOfCircle*(-0.1),
-                                 marginTop : Circle.sizeOfCircle*(-1.3),
-                                 color : "white",
-                                 textAlign : "right"
-                            }}>
-                                By {author ? author.fullName.substring(0 , 25) : ""}
-                            </Text>
+                        <View style={{
+                            display : "flex",
+                            flexDirection :"column",
+                            justifyContent : "space-around"
+                        }}>
+                            <View>
+                                <Text style={styles.titleHeader}>
+                                    {title.substring(0 , 20)}
+                                </Text>
                             </View>
+                            <View style={{
+
+                            }}>
+                                <Text style={{
+                                    fontSize : Font.fontSecondary,
+                                  
+                                    color : "white",
+                                    textAlign : "right"
+                                }}>
+                                    By {author ? author.fullName.substring(0 , 25) : ""}
+                                </Text>
+                            
+                            </View>
+                           
                             
                         </View>
                     </View>
@@ -269,8 +308,12 @@ class EventInformationCard extends React.Component {
                         </View>
                    
                         <View>
-                             <Image style={styles.Circle} source={www}/>
-                             </View>
+                            {loading ? 
+                                <ActivityIndicator size="large" color="#ffffff" />
+                                    : 
+                                <Text></Text>
+                            }
+                        </View>
                             
                         <View style={{
                             display : "flex",

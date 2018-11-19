@@ -13,7 +13,7 @@ class LoginPage extends React.Component{
         super(props)
         this.state = {
             loading: false,
-            email : "59050241@kmitl.ac.th" , password : "123456",
+            email : "" , password : "",
         }
     }
     onChangeText(text, field) {
@@ -28,12 +28,13 @@ class LoginPage extends React.Component{
     }
      onLogin() {
          console.log('Test')
-         this.setState({loading : true})
+      
          const {email,password} = this.state;
          if(email == "" || password == ""){
             this.setState({ Error: 'Please fill email or password' });
          }
          else{
+            this.setState({loading : true})
             axios.post(DOMAIN + "api/user/login" , {email : this.state.email , password : this.state.password }).then(response=>{
                 const data = response.data
                 const token = data.token 
@@ -41,6 +42,7 @@ class LoginPage extends React.Component{
                 const confirmationToken = data.confirmationToken
                 const myCreateEvent = data.myCreateEvent
                 const myJoinEvent = data.myJoinEvent
+                const fullName = data.fullName
                 console.log(response.data)
                 AsyncStorage.setItem('token' , token).then(result=>{
                     console.log(result)
@@ -55,6 +57,7 @@ class LoginPage extends React.Component{
                 this.props.history.push('/event')
             })
             .catch(err=>{
+                 this.setState({loading : false})
                 console.log(err.response)
                 if(err.response.status == 401){
                     this.setState({ Error: 'Invalid email or password' });
@@ -63,6 +66,7 @@ class LoginPage extends React.Component{
                     this.setState({ Error: 'Something went wrong( Error:500 )' });
                 }
                 else(this.setState({ Error: 'Something went wrong' }));
+               
             })
          }
 
@@ -114,10 +118,10 @@ class LoginPage extends React.Component{
             </View>
             </KeyboardAvoidingView>
             <View style={{flex: 1, flexDirection: 'row',marginLeft:'auto',marginRight:'auto'}}>
-                <TouchableOpacity onPress={() => this.onForgot()} style={{marginBottom:'5%',marginTop:'auto'}}>
+                {/* <TouchableOpacity onPress={() => this.onForgot()} style={{marginBottom:'5%',marginTop:'auto'}}>
                     <Text  style={{color:'white',textDecorationLine: 'underline',}}>Forgot Password?</Text>
-                </TouchableOpacity>
-                     <Text style={{marginLeft:'5%'}}></Text>  
+                </TouchableOpacity> */}
+                     <Text style={{}}></Text>  
                 <TouchableOpacity onPress={() =>this.Onregister()} style={{marginBottom:'5%',marginTop:'auto'}}>
                     <Text style={{color:'white',textDecorationLine: 'underline',}}>Register?</Text>
                 </TouchableOpacity>

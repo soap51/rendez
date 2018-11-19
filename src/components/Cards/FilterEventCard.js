@@ -53,7 +53,7 @@ class FilterEventCard extends React.Component {
                     borderColor : 'red',
                     backgroundColor : "#FFE4E4",
                     borderWidth : 0.5*vw,
-                    height : 10*vw,
+                    
                 } : {
                     flex : 1,
                     justifyContent : "center",
@@ -71,7 +71,7 @@ class FilterEventCard extends React.Component {
                     borderColor : 'red',
                     backgroundColor : "#FFE4E4",
                     borderWidth : 0.5*vw,
-                    height : 10*vw,
+                    
                 } : {
                     flex : 1,
                     justifyContent : "center",

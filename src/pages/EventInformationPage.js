@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text , ScrollView,StyleSheet,Image , ActivityIndicator } from 'react-native'
+import {View , Text , ScrollView,StyleSheet,Image , ActivityIndicator , Dimensions } from 'react-native'
 import EventInformationCard from '../components/Cards/EventInformationCard'
 import axios from 'axios'
 import {Font, SizePX , Circle, Space} from '../styles/global'
@@ -38,8 +38,9 @@ class EventInformationPage extends React.Component{
         })
     }
     render(){
+        const {height} = Dimensions.get('window')
         const {event , loading} = this.state
-        if(this.state.loading) return <ActivityIndicator style={{justifyContent : "center" , alignItems : "center"}} size="large" color="#0000ff" />
+        if(this.state.loading) return <ActivityIndicator style={{marginTop : height / 3,justifyContent : "center" , alignItems : "center"}} size="large" color="#0000ff" />
         const Information = event  ?
             
             <EventInformationCard

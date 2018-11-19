@@ -3,7 +3,7 @@ import { Space, Circle, Font , SizePX } from '../styles/global';
 import {KeyboardAvoidingView,ActivityIndicator,View , Text ,StyleSheet,TextInput,Image,Alert,ImageBackgrond,Modal,TouchableHighlight,} from 'react-native'
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import DatePicker from 'react-native-datepicker'
-import {TouchableOpacity} from 'react-native'
+import {TouchableOpacity , Dimensions} from 'react-native'
 import icon from '../../assets/imgs/icon.jpg'
 import Icon from "react-native-vector-icons/Ionicons";
 import Iconja from "react-native-vector-icons/EvilIcons";
@@ -57,7 +57,11 @@ class CreateEventPage extends React.Component{
         this.setState({loading:true})
         const time = this.state.time.split(":")
         const timeend = this.state.timeend.split(":")
-        
+        if(this.state.currentseat > this.state.Limitedseat){
+            setAlert(this.props.history , 400 , "Error" , "Currentseat must be less than Limited Seat")
+            return ;
+            this.setState({loading : false})
+        }
         startTime = moment(time[0] + ":" + time[1], 'HH:mm')._d
         endTime = moment(timeend[0] + ":" + timeend[1] , 'HH:mm')._d
         // console.log( {   userID : this.props._id, author : this.props._id, eventDate : new Date(this.state.date),startTime : startTime,
@@ -91,6 +95,7 @@ class CreateEventPage extends React.Component{
                 }
                 else {this.setState({Error: 'Something went wrong'})}
                 // setAlert(this.props.history , 403 , "ERROR" , "ควย")
+                this.setState({loading : false})
             })
         }
 
@@ -166,7 +171,8 @@ class CreateEventPage extends React.Component{
         }
     
     render(){
-        if(this.state.loading) return <ActivityIndicator style={{justifyContent : "center" , alignItems : "center",backgroundColor:"#7F0887",width:'100%',height:"100%"}} size="large" color="#FFFFFF" />
+        const {height} = Dimensions.get("window")
+        if(this.state.loading) return <ActivityIndicator style={{marginTop : height / 3,justifyContent : "center" , alignItems : "center",}} size="large" color="#FFFFFF" />
         // console.warn(this.state.time) 
         return(
             
