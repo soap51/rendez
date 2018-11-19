@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS  , LOGIN_FAIL ,LOGOUT_SUCCESS} from '../constant/actionTypes'
+import {LOGIN_SUCCESS  , LOGIN_FAIL ,LOGOUT_SUCCESS , VERIFY_SUCCESS , JOIN_SUCCESS , UNJOIN_SUCCESS} from '../constant/actionTypes'
 import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
 import { AsyncStorage } from "react-native"
@@ -39,7 +39,7 @@ export function loginSuccess(payload){
     setAuthorizationHeader(payload.token)
     return (dispatch) => dispatch({
         type : LOGIN_SUCCESS,
-        payload : {token : payload.token , _id : payload._id , confirmationToken : payload.confirmationToken}
+        payload : {token : payload.token , _id : payload._id , confirmationToken : payload.confirmationToken , myJoinEvent : payload.myJoinEvent , myCreateEvent : payload.myCreateEvent}
     })
 }
 
@@ -47,5 +47,26 @@ export function logout(token){
     setAuthorizationHeader(token)
     return (dispatch) => dispatch({
         type : LOGOUT_SUCCESS,
+    })
+}
+
+export function verifySuccess(confirmationToken){
+    return (dispatch)=>dispatch({
+        type : VERIFY_SUCCESS,
+        payload : confirmationToken
+    })    
+}
+
+export function joinSuccess(payload){
+    return (dispatch)=>dispatch({
+        type : JOIN_SUCCESS,
+        payload
+    })
+}
+
+export function unjoinSuccess(payload){
+    return (dispatch)=>dispatch({
+        type: UNJOIN_SUCCESS,
+        payload
     })
 }

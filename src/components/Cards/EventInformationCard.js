@@ -10,7 +10,9 @@ import { DOMAIN } from '../../constant/environment';
 import setAlert from '../../utils/setAlert'
 import www from '../../../assets/imgs/www.jpg'
 import { vw, vh } from 'react-native-viewport-units';
-
+import moment from 'moment'
+import {connect} from 'react-redux'
+import {joinSuccess , unjoinSuccess} from '../../actions/authenticateAction'
 class EventInformationCard extends React.Component {
     constructor(props){
         super(props)
@@ -26,10 +28,14 @@ class EventInformationCard extends React.Component {
             currentSeat : props.currentSeat ? props.currentSeat : 0,
             limitedSeat : props.limitedSeat ? props.limitedSeat  : 0,
             detail : props.detail ? props.detail : "",
-            joined : props.joined ? true : false
+            joined : props.myJoinEvent.includes(this.props.id) ? true : false,
+            loading : false
+            
         }
     }
+    
     componentWillReceiveProps(nextProps){
+        console.log(nextProps)
         this.setState({
             id : nextProps.id,
             author : nextProps.author,
@@ -38,23 +44,49 @@ class EventInformationCard extends React.Component {
             icon : nextProps.icon,
             eventDate : nextProps.eventDate,
             eventStartTime : nextProps.eventStartTime,
-            eventEndTime : nextProps.eventEndTime
-
+            eventEndTime : nextProps.eventEndTime,
+            currentSeat : nextProps.currentSeat,
+            limitedSeat : nextProps.limitedSeat,
+            detail : nextProps.detail,
+        
         })
     }
     handleJoinEvent(){
-        // axios.put(DOMAIN + "" , {id : this.state.id})
-        //     .then(result=>{
-        //         this.setState({joined : !this.state.joined})
-        //     })
-        //     .catch(err=>{
-        //         setAlert()
-        //     })
+        this.setState({loading : true})
+        axios.patch(DOMAIN + "api/event/" + this.props.id , {userID : this.props._id})
+            .then(result=>{
+                this.setState({joined : !this.state.joined })
+                
+                const data = result.data
+                const myJoinEvent = data.user.myJoinEvent
+                this.props.joinSuccess(myJoinEvent)
+                this.setState({loading :false})
+                this.props._fetchAPI()
+            })
+            .catch(err=>{
+                console.log(err.response)
+                setAlert()
+            })
      
     }
+    unJoinEvent(){
+        this.setState({loading : true})
+        axios.post(DOMAIN+ "api/event/unjoin" , {eventID : this.props.id , userID : this.props._id})
+            .then(result=>{
+                this.setState({joined : !this.state.joined , currentSeat : this.state.currentSeat - 1})
+               
+                this.props.unjoinSuccess(this.props.id)
+                this.setState({loading :false})
+                this.props._fetchAPI()
+            })
+            .catch(err=>{
+                console.log(err.response)
+                setAlert()
+            })
+    }
     render(){
-        const {icon,title , author , location , eventDate,eventEndTime,eventStartTime , joined} = this.state 
-        
+        const {loading, icon,title , author , location , eventDate,eventEndTime,eventStartTime , detail, joined , currentSeat , limitedSeat} = this.state 
+      
         return (
            
             <View style={styles.container}>
@@ -71,8 +103,14 @@ class EventInformationCard extends React.Component {
                             <View style={styles.column}>
                              <Image style={styles.Circle} source={www}/>
                             
-                            <Text style={styles.titleSecondary}>
-                                By {author.substring(0 , 25)}
+                            <Text style={{
+                                 fontSize : Font.fontSecondary,
+                                 marginLeft : Circle.sizeOfCircle*(-0.1),
+                                 marginTop : Circle.sizeOfCircle*(-1.3),
+                                 color : "white",
+                                 textAlign : "right"
+                            }}>
+                                By {author ? author.fullName.substring(0 , 25) : ""}
                             </Text>
                             </View>
                             
@@ -101,14 +139,14 @@ class EventInformationCard extends React.Component {
                                     style={styles.formContainer}
                                     autoCorrect={false}
                                     editable={false}
-                                    value={eventDate}
+                                    value={moment(eventDate).format('Do MMMM')}
                                 />
                                 <View>
                                     <View style={styles.timeContainer}>
                                         <View>
                                             <View style={styles.timeForm}>
                                                 <Text style={styles.timeText}>
-                                                    {/* {eventStartTime} */}
+                                                {moment(eventStartTime).format('LT')}
                                                 </Text>
                                             </View>
                                             <Text style={styles.timeText}>Start</Text>
@@ -116,7 +154,7 @@ class EventInformationCard extends React.Component {
                                         <View>
                                             <View style={styles.timeForm}>
                                                 <Text style={styles.timeText}>
-                                                    {/* {eventEndTime} */}
+                                                {moment(eventEndTime).format('LT')}
                                                 </Text>
                                             </View>
                                             <Text style={styles.timeText}>End</Text>
@@ -146,7 +184,7 @@ class EventInformationCard extends React.Component {
                                         style={styles.textInput}
                                         autoCorrect={false}
                                         editable={false}
-                                        value={"5"}
+                                        value={""+currentSeat}
                                     />
                                 </View>
                                
@@ -159,7 +197,7 @@ class EventInformationCard extends React.Component {
                                         style={styles.textInput}
                                         autoCorrect={false}
                                         editable={false}
-                                        value={"100"}
+                                        value={""+limitedSeat}
                                     />
                                 </View>
                                
@@ -222,16 +260,18 @@ class EventInformationCard extends React.Component {
                                     <Text style={{
                                         color : "white"
                                     }}>
-                                        SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG
+                                        {detail}
                                     </Text>
                                 </View>
 
                             </View>
                            
                         </View>
+                   
                         <View>
                              <Image style={styles.Circle} source={www}/>
                              </View>
+                            
                         <View style={{
                             display : "flex",
                             flexDirection : "row",
@@ -239,23 +279,39 @@ class EventInformationCard extends React.Component {
                             alignItems : "center",
                             marginTop : 20
                         }}>
-                            <JoinOption 
-                                joined={joined}
-                                handleJoinEvent={()=>this.handleJoinEvent()}
-                            />
-                            <TouchableOpacity onPress={()=>this.props.history.push('/event/'+this.props.id+'/comment')} style={{
-                                paddingTop :  Space.paddingSize/5,
-                                paddingLeft :  Space.paddingSize/1.8,
-                                paddingRight :  Space.paddingSize/1.8,
-                                paddingBottom :  Space.paddingSize/5,
-                                borderWidth : 2,
-                                backgroundColor : '#4FF554',
-                                borderColor :"white",
-                                borderRadius : 17,
-                            
-                            }}>
+                            {
+                                joined ?
+                                <JoinOption 
+                                    joined={joined}
+                                    handleJoinEvent={()=> this.unJoinEvent()}
+                                />
+                                :
+                                <JoinOption 
+                                    joined={joined}
+                                    handleJoinEvent={()=> this.handleJoinEvent()}
+                                />
+                            }
+                           
+                            {
+                                joined ? 
+                                <TouchableOpacity onPress={()=>this.props.history.push('/event/'+this.props.id+'/comment')} style={{
+                                    paddingTop :  Space.paddingSize/5,
+                                    paddingLeft :  Space.paddingSize/1.8,
+                                    paddingRight :  Space.paddingSize/1.8,
+                                    paddingBottom :  Space.paddingSize/5,
+                                    borderWidth : 2,
+                                    backgroundColor : '#4FF554',
+                                    borderColor :"white",
+                                    borderRadius : 17,
+                                
+                                }}>
                                 <Icon style={styles.iconText} name="ios-chatboxes" size={SizePX} color="#00000" />
                             </TouchableOpacity>
+                                :
+                                <View><Text></Text></View>
+                            }
+                            
+                                
                         </View>
                     </View>
                 </View>
@@ -415,4 +471,10 @@ EventInformationCard.propTypes = {
     limitedSeat : Proptypes.number.isRequired,
     detail : Proptypes.string
 }
-export default EventInformationCard
+function mapStateToProps(state){
+    return {
+        _id : state.AuthenticateReducer._id,
+        myJoinEvent : state.AuthenticateReducer.myJoinEvent
+    }
+}
+export default connect(mapStateToProps , {joinSuccess , unjoinSuccess})(EventInformationCard)

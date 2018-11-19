@@ -22,7 +22,7 @@ class OptionButton extends React.Component {
     render(){
         const {title , isHaveSwitch , icon , option} = this.state
         return(
-            <TouchableOpacity style={styles.container} disabled={isHaveSwitch ? true : false}>
+            <TouchableOpacity style={styles.container} disabled={isHaveSwitch ? true : false} onPress={()=>this.props.onPress()}>
 
                 <View style={styles.iconContainer}>
                     <Icon style={styles.iconText} name={icon} size={SizePX} color="#000000" />

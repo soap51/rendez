@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView,Image,Picker, } from 'react-native'
+import {View, AsyncStorage , Text,StyleSheet,Button,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView,Image,Picker, } from 'react-native'
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { LinearGradient } from 'expo';
@@ -15,9 +15,10 @@ class RegisterPage extends React.Component{
             email: "",
             pass: "",
             re_password: "",
-            language: "M",
+            language: "",
             studentCode: "",
-            Age:""
+            Age:"",
+            Error : ""
         };
     }
     onChangeText(text,key,){
@@ -30,11 +31,37 @@ class RegisterPage extends React.Component{
         
         .then(response=>{
             console.log('Test')
-            this.props.history.push('/')
+            axios.post(DOMAIN + "api/user/login" , {email : this.state.email+"@kmitl.ac.th" , password : this.state.pass }).then(response=>{
+                const data = response.data
+                const token = data.token 
+                const _id = data._id
+                const confirmationToken = data.confirmationToken
+                console.log(response.data)
+                AsyncStorage.setItem('token' , token).then(result=>{
+                    console.log(result)
+                })
+                .catch(err=>{
+                    console.log(err.response)
+                })
+                
+                this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken })
+                console.log("Register Success")
+                this.props.history.push('/confirm')
             })
             .catch(err=>{
-                const { fullName,email,pass,re_password} = this.state;
                 console.log(err.response)
+                if(err.response.status == 401){
+                    this.setState({ Error: 'Invalid email or password' });
+                }
+                else if(err.response.status == 500){
+                    this.setState({ Error: 'Something went wrong( Error:500 )' });
+                }
+                else(this.setState({ Error: 'Something went wrong' }));
+            })
+            })
+            .catch(err=>{
+                const { fullName,email,pass,re_password,language} = this.state;
+                console.log(err.response )
                 console.log(this.state)
                 if (fullName == "" || email == "" || pass == "" || re_password == "") {
                     this.setState({ Error: 'Please fill in all required fields' });
@@ -45,13 +72,19 @@ class RegisterPage extends React.Component{
                 else if (err.response.status == 409) {
                     this.setState({ Error: 'Mail exist' });
                 }
+                else if (language == 0){
+                    this.setState({ Error: 'Please select sex' });
+                }
+                else if(err.response.status == 500){
+                    this.setState({ Error: 'Something went wrong( Error:500 )' });
+                }
 
                 // else if (pass.length < 8) {
                 //     this.setState({ Error: 'Password Must be more than 8 Characters' })
                 // }
 
 
-                else {this.setState({ Error: 'Something went wrong!' });}
+                else {this.setState({ Error: 'Something went wrong' });}
             })
         }
     
@@ -97,6 +130,7 @@ class RegisterPage extends React.Component{
                         selectedValue={this.state.language}
                         style={{ height: 10*vw, width: 30*vw ,marginTop:-2*vw,color:'white',backgroundColor: 'green'}}
                         onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}>
+                        <Picker.Item label="Select" value= {0} />
                         <Picker.Item label="Male" value="M" />
                         <Picker.Item label="Female" value="F" />
                     </Picker>
