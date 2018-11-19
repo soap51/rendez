@@ -3,8 +3,20 @@ import {View ,Text ,Image} from 'react-native'
 import { Font, Space, Circle , SizePX } from '../../styles/global';
 import Ball from '../../../assets/imgs/football.jpg'
 import Icon from "react-native-vector-icons/Ionicons";
+import moment from 'moment'
 class HistoryCard extends React.Component {
+    constructor(props){
+        super(props)
+        this.state ={
+            eventName : props.eventName ? props.eventName : "",
+            iconType : props.iconType ? props.iconType : -1,
+            startTime : props.startTime ? props.startTime : new Date(),
+            endTime : props.endTime ? props.endTime : new Date(),
+            place : props.place ? props.place : ""
+        }
+    }
     render(){
+        const {eventName , iconType , startTime , endTime , place} = this.state
         return(
             <View style={{
                 flexDirection : "row",
@@ -41,7 +53,7 @@ class HistoryCard extends React.Component {
                             fontWeight : "bold"
                         }}
                         >
-                        Football
+                            {eventName}
                         </Text>
                     </View>
                     <View style={{
@@ -65,7 +77,9 @@ class HistoryCard extends React.Component {
                                 color: "white",
                                 fontWeight : "bold",
                                 textAlign : "center"
-                            }}>ssssssss</Text>
+                            }}>
+                            {moment(startTime).format('LT')}
+                            </Text>
                         </View>
                         <View style={{
                             flex : 0.4,
@@ -78,7 +92,9 @@ class HistoryCard extends React.Component {
                                 color: "white",
                                 fontWeight : "bold",
                                 textAlign : "center"
-                            }}>Test</Text>
+                            }}>
+                            {moment(endTime).format('LT')}
+                            </Text>
                         </View>
                     </View> 
                     <View style={{
@@ -102,7 +118,7 @@ class HistoryCard extends React.Component {
                                 color: "white",
                                 fontWeight : "bold",
                                 textAlign : "center"
-                            }}>Faculty of Engineer Kmitl</Text>
+                            }}>{place}</Text>
                         </View>
                     </View>
                 </View>

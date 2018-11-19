@@ -6,22 +6,71 @@ import Icon from "react-native-vector-icons/Ionicons";
 import FilterEventCard from '../components/Cards/FilterEventCard'
 import axios from 'axios'
 import HistoryCard from '../components/Cards/HistoryCard'
+import { DOMAIN } from '../constant/environment';
+import {connect} from 'react-redux'
 class HomePage extends React.Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             age : 0,
+            historys : [],
             author : '',
             email : '',
             typeActivity : 0,
         }
     }
     _onChangeActivity(typeActivity){
-        this.setState({typeActivity})
+        
+        axios.post(DOMAIN + "api/user" , {userId : this.props._id , typeEvent : typeActivity})
+        .then(response=>{
+            const data = response.data
+            const result = data.result
+            if(typeActivity == 0){
+                const historys = result.myJoinEvent
+                this.setState({historys , typeActivity})
+            }else if(typeActivity == 1){
+                const historys = result.myCreateEvent
+                this.setState({historys , typeActivity})
+            }
+        })
+        .catch(err=>{
+            console.log(err.response)
+        })
+    }
+    
+    componentDidMount(){
+        axios.post(DOMAIN + "api/user" , {userId : this.props._id , typeEvent : this.state.typeActivity})
+            .then(response=>{
+                const data = response.data
+                const result = data.result
+                if(this.state.typeActivity == 0){
+                    const historys = result.myJoinEvent
+                    this.setState({historys})
+                }else if(this.state.typeActivity == 1){
+                    const historys = result.myCreateEvent
+                    this.setState({historys})
+                }
+            })
+            .catch(err=>{
+                console.log(err.response)
+            })
     }
     render(){
-        const {age , author , email , typeActivity,typeActivity2} = this.state 
+        const {age , author , email , typeActivity,typeActivity2 , historys} = this.state 
         const {width , height} = Dimensions.get('window')
+    
+        const history = historys && historys.length != 0 ? historys.map(data=>
+            <HistoryCard 
+                eventName={data.eventName}
+                iconType={data.iconType}
+                startTime={data.startTime}
+                endTime={data.endTime}
+                place={data.place}
+            />
+        )
+        :
+        <View><Text></Text></View>
+        console.log(history)
         return(
             <View style={styles.container}>
                 <View style={{
@@ -90,12 +139,7 @@ class HomePage extends React.Component{
                         
                     
                     <View>
-                        <HistoryCard 
-                        />
-                         <HistoryCard 
-                        />
-                         <HistoryCard 
-                        />
+                       {history}
                     </View>
                 </View>
             </View>
@@ -135,4 +179,9 @@ const styles= StyleSheet.create({
     }
    
 })
-export default HomePage
+function mapStateToProps(state){
+    return {
+        _id : state.AuthenticateReducer._id
+    }
+}
+export default connect(mapStateToProps)(HomePage)
