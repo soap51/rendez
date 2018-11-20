@@ -23,7 +23,7 @@ import www from '../../assets/imgs/www.jpg'
 import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
 import setAlert from '../utils/setAlert'
-import moment, { months } from 'moment'
+import moment, { months, parseTwoDigitYear } from 'moment'
 
 class CreateEventPage extends React.Component{
     setModalVisible(visible) { this.setState({ modalVisible: visible});
@@ -80,14 +80,19 @@ class CreateEventPage extends React.Component{
                 console.log(err.response)
                 console.log(this.state)
                 if(date == "" || time == "" || endtime == "" || location == "" || detail == "" || currentseat == "" || Limitedseat == "" || key == "" || nameac == ""){
-                    this.setState({Error: 'กรอกให้ครบด้วย'})
-                    // setAlert(this.props.history , 403 , "ERROR" , "ควย")
+                    this.setState({Error: 'กรอกให้ครบด้วย'})    
                 }
                 else if (timeend < time){
                     this.setState({Error: 'โปรดตั้งค่าเวลาให้เหมาะสม'})
                 }
                 else if (Limitedseat < currentseat){
                     this.setState({Error: 'โปรดใส่จำนวนคนให้เหมาะสม'})
+                }
+                else if (currentseat > Limitedseat){
+                    this.setState({Error: 'โปรดใส่จำนวนคนให้เหมาะสม'})
+                }
+                else if(date < ShowTime){
+                    this.setState({Error: 'โปรดตั้งค่าเวลาให้ถูกต้อง'})
                 }
                 else {this.setState({Error: 'Something went wrong'})}
                 // setAlert(this.props.history , 403 , "ERROR" , "ควย")
@@ -103,6 +108,13 @@ class CreateEventPage extends React.Component{
         //   })
         //  .catch(err=>{})
         
+    }
+    ShowTime() {
+        var year = new Date().getFullYear();
+        var month = new Date().getMonth()+1;
+        var date = new Date().getDate();
+
+        Alert.alert(year + '-' + month + '-' + 'date');
     }
     
       
@@ -176,7 +188,6 @@ class CreateEventPage extends React.Component{
           <Image style={styles.Circle} source={this.state.visible}/>
                 </TouchableHighlight> 
                 <View>
-                    
                 
                 <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: -3 * vw, fontSize: 3.5 * vw, fontWeight: 'bold' }}>{this.state.Error}</Text> 
                 <View  style={{marginLeft:19*vw,marginTop:-15*vw,marginRight: 7*vw,color : 'white',fontSize: 3*vw}}>
@@ -220,7 +231,7 @@ class CreateEventPage extends React.Component{
                     mode="date"
                     placeholder="select date"
                     format="YYYY-MM-DD"
-                    minDate="2016-05-01"
+                    minDate = "2018-11-20"
                     maxDate="2020-01-01"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
@@ -235,7 +246,9 @@ class CreateEventPage extends React.Component{
                     dateInput: {
                         marginLeft: 10*vw,
                         backgroundColor:"white",
-                        borderRadius:15
+                        borderRadius:15,
+                        
+                        
                     }
                     // ... You can check the source to find the other keys.
                     }}
@@ -345,7 +358,6 @@ class CreateEventPage extends React.Component{
                 Create
                 </Text>
                 </TouchableOpacity>
-               
                   
             
         <Modal 
