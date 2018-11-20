@@ -40,7 +40,7 @@ class Header extends React.Component {
                     }
                     </View>
                         :  <ClickButton 
-                              
+                                iconType="plus"
                                 onPress={()=> this.props.history.push('/CreateEventPage')}
                             />
                     }

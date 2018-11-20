@@ -61,7 +61,7 @@ class RegisterPage extends React.Component{
             })
             .catch(err=>{
                 const { fullName,email,pass,re_password,language} = this.state;
-                console.log(err)
+                console.log(err.response )
                 console.log(this.state)
                 if (fullName == "" || email == "" || pass == "" || re_password == "") {
                     this.setState({ Error: 'Please fill in all required fields' });
@@ -133,11 +133,7 @@ class RegisterPage extends React.Component{
                         selectedValue={this.state.language}
                         style={{ height: 10*vw, width: 30*vw ,marginTop:-2*vw,color:'white',backgroundColor: 'green'}}
                         onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}>
-<<<<<<< HEAD
                         <Picker.Item label="Select" value={0} />
-=======
-                        <Picker.Item label="Select" value= {0} />
->>>>>>> 514fb12f83219300a9488e13fd20288b3372b617
                         <Picker.Item label="Male" value="M" />
                         <Picker.Item label="Female" value="F" />
                     </Picker>

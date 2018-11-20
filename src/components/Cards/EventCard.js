@@ -91,9 +91,17 @@ class EventCard extends React.Component {
                             <Text style={styles.titleHeader}>
                                 {title.substring(0 , 15)}
                             </Text>
-                            <Text style={styles.titleSecondary}>
-                                By {author ? author.fullName.substring(0 , 25) : ""}
+                            <Text style={{
+                                 fontSize : Font.fontSecondary,
+                                 color : "white",
+                                 textAlign :"right",
+                                 
+                            }}>
+                                By  <Text style={{color : "#fcf4a3" , borderBottomColor : "#fcf4a3" , borderWidth : 2 }}>
+                                {author ? author.fullName.substring(0 , 25) : ""}
                             </Text>
+                            </Text>
+                           
                         </View>
                     </View>
                     <View>
@@ -201,7 +209,8 @@ const styles = StyleSheet.create({
     titleSecondary : {
         fontSize : Font.fontSecondary,
         color : "white",
-        textAlign :"right"
+        textAlign :"right",
+        
     },
     subContainer : {
         padding : 20

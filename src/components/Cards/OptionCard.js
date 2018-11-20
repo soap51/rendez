@@ -3,9 +3,10 @@ import {View , Text , StyleSheet , TextInput , Image , Switch , Button } from 'r
 import {Font, SizePX , Circle , Space} from '../../styles/global'
 import OptionButton from '../Button/OptionButton'
 import { vw, vh } from 'react-native-viewport-units';
-
+import {logout} from '../../actions/authenticateAction'
+import {connect} from 'react-redux'
 import Icon from "react-native-vector-icons/Ionicons";
-class EventCard extends React.Component {
+class OptionCard extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -19,12 +20,26 @@ class EventCard extends React.Component {
     onFeedChange(){
         this.setState({feedOption : !this.state.notiOption})
     }
+    _onPress(){
+        this.props.logout()
+        this.props.history.push('/')
+    }
     render(){
         const {notiOption , feedOption} = this.state 
         return (
             <View style={styles.container}>
                 <View style={styles.subContainer}>
-                    <OptionButton
+                <OptionButton
+                        icon="log-out"
+                        title="Logout"
+                        isHaveSwitch={false}
+                        onPress={()=>this._onPress()}
+                    />
+                {/* <View style={styles.logout}>
+                   
+                  
+                </View> */}
+                    {/* <OptionButton
                         icon="ios-notifications-outline"
                         title="Notifications"
                         isHaveSwitch={true}
@@ -39,16 +54,9 @@ class EventCard extends React.Component {
                         
                         onValueChange={()=>this.onFeedChange()}
                         option={feedOption}
-                    />
+                    /> */}
                 </View>
-                <View style={styles.logout}>
-                    <OptionButton
-                        icon="ios-log-out"
-                        title="Logout"
-                        isHaveSwitch={false}
-                    />
-                  
-                </View>
+                
                 
                 
             </View>
@@ -80,4 +88,4 @@ const styles = StyleSheet.create({
    
 
 })
-export default EventCard
+export default connect(null , {logout})(OptionCard)

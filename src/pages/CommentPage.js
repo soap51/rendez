@@ -8,6 +8,7 @@ import { Space , Circle , Font , SizePX} from '../styles/global';
 import CommentCard from '../components/Cards/CommentCard'
 import Icon from "react-native-vector-icons/Ionicons";
 import _ from 'lodash'
+import axios from 'axios'
 class CommentPage extends React.Component{
     constructor(props){
         super(props)
@@ -15,7 +16,8 @@ class CommentPage extends React.Component{
             commentList : [],
             comment : "",
             title : " ",
-            author : " "
+            author : " ",
+            loading : false
             
         }
     }
@@ -23,32 +25,55 @@ class CommentPage extends React.Component{
         this.setState({comment : text })
     }
     onSubmit(){
-        this.setState({comment : ""})
+        this.setState({loading : true})
         
-        console.log("hit")
-        // axios.post(DOMAIN + "" , {comment : this.state.comment})
-        //     .then(result=>{
+     
+        axios.post(DOMAIN + "api/event/" + this.props.match.params.eventId + "/comment" , {eventID : this.props.match.params.eventId , detail : this.state.comment})
+            .then(result=>{
                 
-        //     })
-        //     .catch(error=>{
-                
-        //     })
+                axios.post(DOMAIN + "api/event/" + this.props.match.params.eventId + "/comment/" +  this.props.match.params.eventId , {eventID : this.props.match.params.eventId})
+                    .then( newComment =>{
+                       
+                        const data = newComment.data
+                        const commentList = data.comment.reverse()
+                      
+                        this.setState({commentList  , comment : "" , loading : false})
+                    })
+                    .catch(err=>{
+                        setAlert(this.props.history , 400 , "Error" , "network error")
+                    })
+            })
+            .catch(error=>{
+                console.log(error)
+            })
         
     }
     componentDidMount(){
-        // axios.get(DOMAIN + "" + this.props.match.params.eventId)
-        //     .then(result=>{
-        //         const commentList = result.commentList
-        //         this.setState({commentList : commentList})
-        //     })
-        //     .catch(err=>{
-        //         setAlert()
-        //     })
+       
+        axios.post(DOMAIN + "api/event/" + this.props.match.params.eventId + "/comment/" +  this.props.match.params.eventId , {eventID : this.props.match.params.eventId})
+            .then(result=>{
+                
+                const data = result.data
+                const commentList = data.comment.reverse()
+                this.setState({commentList })
+            })
+            .catch(err=>{
+                setAlert(this.props.history , 400 , "Error" , "network error")
+                
+            })
     }
     render(){
-        const {comment ,title , author} = this.state
+        const {comment ,title,loading , author , commentList} = this.state
         const {height , width} = Dimensions.get("window")
        
+        const comments = !loading && commentList && commentList.length != 0 ? commentList.map((data , key )=>
+            <CommentCard 
+                position={key % 2}
+                comment={data.detail}
+            />
+        ) :
+        <View><Text></Text></View>
+     
         return(
             <View style={styles.container} >
                 <View style={{
@@ -57,29 +82,7 @@ class CommentPage extends React.Component{
                     padding : Space.paddingSize,
                     minHeight : height/1.3,
                 }}>
-                    <View style={styles.subContainer}>
-                        <Image style={styles.imageContainer} source={EventImage} />
-                        <View >
-                            <Text
-                                style={{
-                                    fontSize : Font.fontHeader,
-                                    color : "white",
-                                    fontWeight : "bold",
-                                    textAlign : "right"
-                                }}
-                            >
-                            {title}
-                            </Text>
-                            <Text 
-                                style={{
-                                    fontSize : Font.fontSecondary,
-                                    color : "white"
-                                }}    
-                            >
-                                By {" "+ author}
-                            </Text>
-                        </View>
-                    </View>
+                    
                     <View  style={styles.addCommentContainer} >
                     <TextInput 
                         underlineColorAndroid="transparent"
@@ -98,27 +101,7 @@ class CommentPage extends React.Component{
                     </View>
                    
                     
-                    <CommentCard 
-                        position={1}
-                        comment={"Tessstsdssgodsjgodsjgosdjgosjgsodjgsdogjsdogjsdo"}
-                    />
-                    <CommentCard 
-                        position={0}
-                        comment={"Tessstsdssgodsjgodsjgosdjgosjgsodjgsdogjsdogjsdo"}
-                    />
-                     <CommentCard 
-                        position={0}
-                        comment={"Tessstsdssgodsjgodsjgosdjgosjgsodjgsdogjsdogjsdo"}
-                    />
-                     <CommentCard 
-                        position={0}
-                        comment={"Tessstsdssgodsjgodsjgosdjgosjgsodjgsdogjsdogjsdo"}
-                    />
-                     <CommentCard 
-                        position={0}
-                        comment={"Tessstsdssgodsjgodsjgosdjgosjgsodjgsdogjsdogjsdo"}
-                    />
-                    
+                    {comments}
                     
                     
                 </View>    

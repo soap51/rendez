@@ -7,7 +7,7 @@ class FilterEventCard extends React.Component {
     constructor(props){
         super(props)
         this.state ={
-            typeActivity : 0,
+            typeActivity : 1,
         }
     }
     componentWillReceiveProps(nextProps){
@@ -31,53 +31,54 @@ class FilterEventCard extends React.Component {
                 borderWidth : 1.8*vw,
                 borderColor : "#F59191",
                 width : 70*vw,
+                height : 16*vw,
                 display : "flex",
                 flexDirection : "row",
                 marginLeft : 0.7*vw,
                 justifyContent : "space-around",
                 backgroundColor : "white",
                 marginBottom :2*vw,
-                marginTop : 1*vw
+                marginTop : 5*vw
             }}>
-            <View style = {{flexDirection : "column", width : 70*vw}}>
-              <Text style = {{textAlign : "center",width : 68*vw,fontWeight :"bold",
-            backgroundColor :"#F59191",fontSize : 6*vw,marginTop : -1*vw,marginLeft :1*vw}}>
-            CURRENT
+            <View style = {{flexDirection : "column", width : 70*vw,borderWidth : 1*vw,borderColor : "#F59191",}}>
+              <Text style = {{textAlign : "center",width : 68*vw,fontWeight :"bold",marginTop : -2*vw,
+            backgroundColor :"#F59191",fontSize : 5*vw}}>
+            Activity
         </Text>  
         <View style = {{ flexDirection : "row",  flex : 1,height : 5*vw}}>
-                <TouchableOpacity onPress={()=>this.props._onChangeActivity(0)} style={typeActivity == 0? {
-                    flex : 1,
-                    justifyContent : "center",
-                    alignItems :"center",
-                    borderColor : "#F59191",
-                    backgroundColor : "#FFE4E4",
-                    borderWidth : 2*vw,
-                    width : 5*vw
-                } : {
-                    flex : 1,
-                    justifyContent : "center",
-                    alignItems :"center"
-                }}>
-                    <Text style={{
-                        fontSize : Font.fontParagraph / 4*vw,
-                        fontWeight : "bold"
-                    }}>My Activity</Text>
-                </TouchableOpacity>
                 <TouchableOpacity onPress={()=>this.props._onChangeActivity(1)} style={typeActivity == 1? {
                     flex : 1,
                     justifyContent : "center",
                     alignItems :"center",
-                    borderColor : "#F59191",
+                    borderColor : 'red',
                     backgroundColor : "#FFE4E4",
-                    borderWidth : 2*vw,
-                    height : 10*vw,
+                    borderWidth : 0.5*vw,
+                    
                 } : {
                     flex : 1,
                     justifyContent : "center",
                     alignItems :"center"
                 }}>
-                    <Text style={{
-                        fontSize : Font.fontParagraph / 4*vw,
+                    <Text style={{  flex : 1,
+                        fontSize : Font.fontParagraph*0.2*vw,
+                        fontWeight : "bold"
+                    }}>My Activity</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.props._onChangeActivity(0)} style={typeActivity == 0? {
+                    flex : 1,
+                    justifyContent : "center",
+                    alignItems :"center",
+                    borderColor : 'red',
+                    backgroundColor : "#FFE4E4",
+                    borderWidth : 0.5*vw,
+                    
+                } : {
+                    flex : 1,
+                    justifyContent : "center",
+                    alignItems :"center"
+                }}>
+                    <Text style={{  flex : 1,
+                        fontSize : Font.fontParagraph*0.2*vw,
                         fontWeight : "bold"
                     }}>Joined</Text>
                 </TouchableOpacity>

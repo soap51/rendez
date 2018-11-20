@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text , StyleSheet , TextInput , Image , TouchableOpacity} from 'react-native'
+import {View , Text , StyleSheet , TextInput , Image , TouchableOpacity , ActivityIndicator} from 'react-native'
 import {Font, SizePX , Circle, Space} from '../../styles/global'
 import EventImage from '../../../assets/imgs/football.jpg'
 import Icon from "react-native-vector-icons/Ionicons";
@@ -9,8 +9,21 @@ import axios from 'axios'
 import { DOMAIN } from '../../constant/environment';
 import setAlert from '../../utils/setAlert'
 import www from '../../../assets/imgs/www.jpg'
+import bad from '../../../assets/imgs/bad.jpg'
+import ball from '../../../assets/imgs/football.jpg'
+import pingpong from '../../../assets/imgs/pingpong.jpg'
+import luxby from '../../../assets/imgs/luxby.jpg'
+import bas from '../../../assets/imgs/bas.jpg'
+import art from '../../../assets/imgs/art.png'
+import ball2 from '../../../assets/imgs/ball2.jpg'
+import dic from '../../../assets/imgs/dic.jpg'
+import movie from '../../../assets/imgs/movie.png'
+import shoes from '../../../assets/imgs/shoes.jpg'
+import boling from '../../../assets/imgs/boling.jpg'
 import { vw, vh } from 'react-native-viewport-units';
-
+import moment from 'moment'
+import {connect} from 'react-redux'
+import {joinSuccess , unjoinSuccess} from '../../actions/authenticateAction'
 class EventInformationCard extends React.Component {
     constructor(props){
         super(props)
@@ -26,10 +39,14 @@ class EventInformationCard extends React.Component {
             currentSeat : props.currentSeat ? props.currentSeat : 0,
             limitedSeat : props.limitedSeat ? props.limitedSeat  : 0,
             detail : props.detail ? props.detail : "",
-            joined : props.joined ? true : false
+            joined : props.myJoinEvent.includes(this.props.id) ? true : false,
+            loading : false
+            
         }
     }
+    
     componentWillReceiveProps(nextProps){
+        console.log(nextProps)
         this.setState({
             id : nextProps.id,
             author : nextProps.author,
@@ -38,43 +55,106 @@ class EventInformationCard extends React.Component {
             icon : nextProps.icon,
             eventDate : nextProps.eventDate,
             eventStartTime : nextProps.eventStartTime,
-            eventEndTime : nextProps.eventEndTime
-
+            eventEndTime : nextProps.eventEndTime,
+            currentSeat : nextProps.currentSeat,
+            limitedSeat : nextProps.limitedSeat,
+            detail : nextProps.detail,
+        
         })
     }
     handleJoinEvent(){
-        // axios.put(DOMAIN + "" , {id : this.state.id})
-        //     .then(result=>{
-        //         this.setState({joined : !this.state.joined})
-        //     })
-        //     .catch(err=>{
-        //         setAlert()
-        //     })
+        this.setState({loading : true})
+        axios.patch(DOMAIN + "api/event/" + this.props.id , {userID : this.props._id})
+            .then(result=>{
+                this.setState({joined : !this.state.joined })
+                
+                const data = result.data
+                const myJoinEvent = data.user.myJoinEvent
+                this.props.joinSuccess(myJoinEvent)
+                this.setState({loading :false})
+                this.props._fetchAPI()
+            })
+            .catch(err=>{
+                this.setState({loading :false})
+                setAlert(this.props.history,400,"Error" ,err.response.data.message)
+            })
      
     }
+    unJoinEvent(){
+        this.setState({loading : true})
+        axios.post(DOMAIN+ "api/event/unjoin" , {eventID : this.props.id , userID : this.props._id})
+            .then(result=>{
+                this.setState({joined : !this.state.joined , currentSeat : this.state.currentSeat - 1})
+               
+                this.props.unjoinSuccess(this.props.id)
+                this.setState({loading :false})
+                this.props._fetchAPI()
+            })
+            .catch(err=>{
+                this.setState({loading :false})
+                setAlert(this.props.history,400,"Error" ,err.response.data.message)
+            })
+    }
     render(){
-        const {icon,title , author , location , eventDate,eventEndTime,eventStartTime , joined} = this.state 
-        
+        const {loading, icon,title , author , location , eventDate,eventEndTime,eventStartTime , detail, joined , currentSeat , limitedSeat} = this.state 
+      
         return (
            
             <View style={styles.container}>
                 <View style={styles.subContainer}>
                     <View style={styles.titleContainer}>
                         <View>
-                            <Image style={styles.imageContainer} source={icon} /> 
+                            <Image style={styles.imageContainer} source={
+                                icon == 1 ? ball : (
+                                    icon == 2 ? bad : (
+                                        icon == 3 ? luxby : (
+                                            icon == 4 ? bas : (
+                                                icon == 5 ? art : (
+                                                    icon == 6 ? ball2 : (
+                                                        icon == 7 ? dic : (
+                                                            icon == 8 ? pingpong : (
+                                                                icon == 9 ? movie : (
+                                                                    icon == 10 ? shoes : (
+                                                                        icon == 11 ? boling : ""
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+
+                            } /> 
                         </View>
-                        <View>
-                            <Text style={styles.titleHeader}>
-                                {title.substring(0 , 20)}
-                            </Text>
-                            
-                            <View style={styles.column}>
-                             <Image style={styles.Circle} source={www}/>
-                            
-                            <Text style={styles.titleSecondary}>
-                                By {author.substring(0 , 25)}
-                            </Text>
+                        <View style={{
+                            display : "flex",
+                            flexDirection :"column",
+                            justifyContent : "space-around"
+                        }}>
+                            <View>
+                                <Text style={styles.titleHeader}>
+                                    {title.substring(0 , 20)}
+                                </Text>
                             </View>
+                            <View style={{
+
+                            }}>
+                                <Text style={{
+                                    fontSize : Font.fontSecondary,
+                                  
+                                    color : "white",
+                                    textAlign : "right"
+                                }}>
+                                    By <Text style={{color : "#fcf4a3" , borderBottomColor : "#fcf4a3" , borderWidth : 2 }}>
+                                        {author ? author.fullName.substring(0 , 25) : ""}
+                                    </Text>
+                                </Text>
+                            
+                            </View>
+                           
                             
                         </View>
                     </View>
@@ -101,14 +181,14 @@ class EventInformationCard extends React.Component {
                                     style={styles.formContainer}
                                     autoCorrect={false}
                                     editable={false}
-                                    value={eventDate}
+                                    value={moment(eventDate).format('Do MMMM')}
                                 />
                                 <View>
                                     <View style={styles.timeContainer}>
                                         <View>
                                             <View style={styles.timeForm}>
                                                 <Text style={styles.timeText}>
-                                                    {/* {eventStartTime} */}
+                                                {moment(eventStartTime).format('LT')}
                                                 </Text>
                                             </View>
                                             <Text style={styles.timeText}>Start</Text>
@@ -116,7 +196,7 @@ class EventInformationCard extends React.Component {
                                         <View>
                                             <View style={styles.timeForm}>
                                                 <Text style={styles.timeText}>
-                                                    {/* {eventEndTime} */}
+                                                {moment(eventEndTime).format('LT')}
                                                 </Text>
                                             </View>
                                             <Text style={styles.timeText}>End</Text>
@@ -146,7 +226,7 @@ class EventInformationCard extends React.Component {
                                         style={styles.textInput}
                                         autoCorrect={false}
                                         editable={false}
-                                        value={"5"}
+                                        value={""+currentSeat}
                                     />
                                 </View>
                                
@@ -159,7 +239,7 @@ class EventInformationCard extends React.Component {
                                         style={styles.textInput}
                                         autoCorrect={false}
                                         editable={false}
-                                        value={"100"}
+                                        value={""+limitedSeat}
                                     />
                                 </View>
                                
@@ -222,16 +302,22 @@ class EventInformationCard extends React.Component {
                                     <Text style={{
                                         color : "white"
                                     }}>
-                                        SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG  SDGJDSOgjdsoJG
+                                        {detail}
                                     </Text>
                                 </View>
 
                             </View>
                            
                         </View>
+                   
                         <View>
-                             <Image style={styles.Circle} source={www}/>
-                             </View>
+                            {loading ? 
+                                <ActivityIndicator size="large" color="#ffffff" />
+                                    : 
+                                <Text></Text>
+                            }
+                        </View>
+                            
                         <View style={{
                             display : "flex",
                             flexDirection : "row",
@@ -239,23 +325,47 @@ class EventInformationCard extends React.Component {
                             alignItems : "center",
                             marginTop : 20
                         }}>
-                            <JoinOption 
-                                joined={joined}
-                                handleJoinEvent={()=>this.handleJoinEvent()}
-                            />
-                            <TouchableOpacity onPress={()=>this.props.history.push('/event/'+this.props.id+'/comment')} style={{
-                                paddingTop :  Space.paddingSize/5,
-                                paddingLeft :  Space.paddingSize/1.8,
-                                paddingRight :  Space.paddingSize/1.8,
-                                paddingBottom :  Space.paddingSize/5,
-                                borderWidth : 2,
-                                backgroundColor : '#4FF554',
-                                borderColor :"white",
-                                borderRadius : 17,
+                        {
+                            this.props.author._id == this.props._id ?
+                            <View><Text></Text></View>
+                            :
+                            <View>
+                            {
+                                joined ?
+                                <JoinOption 
+                                    joined={joined}
+                                    handleJoinEvent={()=> this.unJoinEvent()}
+                                />
+                                :
+                                <JoinOption 
+                                    joined={joined}
+                                    handleJoinEvent={()=> this.handleJoinEvent()}
+                                />
+                            }
+                            </View>
+                        }
                             
-                            }}>
+                           
+                            {
+                                joined || this.props.author._id == this.props._id ? 
+                                <TouchableOpacity onPress={()=>this.props.history.push('/event/'+this.props.id+'/comment')} style={{
+                                    paddingTop :  Space.paddingSize/5,
+                                    paddingLeft :  Space.paddingSize/1.8,
+                                    paddingRight :  Space.paddingSize/1.8,
+                                    paddingBottom :  Space.paddingSize/5,
+                                    borderWidth : 2,
+                                    backgroundColor : '#4FF554',
+                                    borderColor :"white",
+                                    borderRadius : 17,
+                                
+                                }}>
                                 <Icon style={styles.iconText} name="ios-chatboxes" size={SizePX} color="#00000" />
                             </TouchableOpacity>
+                                :
+                                <View><Text></Text></View>
+                            }
+                            
+                                
                         </View>
                     </View>
                 </View>
@@ -303,7 +413,7 @@ const styles = StyleSheet.create({
 
     },
     titleHeader : {
-        fontSize : Font.fontHeader,
+        fontSize : 6* vw ,
         color : 'white',
         textAlign : 'right',
         
@@ -415,4 +525,10 @@ EventInformationCard.propTypes = {
     limitedSeat : Proptypes.number.isRequired,
     detail : Proptypes.string
 }
-export default EventInformationCard
+function mapStateToProps(state){
+    return {
+        _id : state.AuthenticateReducer._id,
+        myJoinEvent : state.AuthenticateReducer.myJoinEvent
+    }
+}
+export default connect(mapStateToProps , {joinSuccess , unjoinSuccess})(EventInformationCard)

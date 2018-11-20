@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text ,StyleSheet,TouchableOpacity,Image,ImageBackground,TextInput,KeyboardAvoidingView } from 'react-native'
+import {View , Text ,StyleSheet,TouchableOpacity,Image,ImageBackground,TextInput,KeyboardAvoidingView,ActivityIndicator } from 'react-native'
 import DFD from '../../assets/icon/DSD.png'
 import smile from '../../assets/imgs/smile.png'
 import { Circle, SizePX, Font} from '../styles/global';
@@ -15,7 +15,8 @@ class ConfirmPage extends React.Component{
         super(props)
         this.state= {
             password :"",
-            Error : ""
+            Error : "",
+            loading : false
          }
         }
     onChangeText(text,field){
@@ -24,6 +25,7 @@ class ConfirmPage extends React.Component{
      }
     }
     onPass(){
+        this.setState({loading:true})
         if(this.state.password == ""){
             this.setState({Error: 'please enter your password'});
         }
@@ -35,7 +37,9 @@ class ConfirmPage extends React.Component{
                 const confirmationToken = data.confirmationToken
                 console.log(response)
                 this.props.verifySuccess(confirmationToken)
+                this.setState({ loading : false})
                 this.props.history.push('/LetgoPage')
+                
             })
             .catch(err=>{
                 const {password} = this.state
@@ -63,7 +67,7 @@ class ConfirmPage extends React.Component{
      
          
     render(){
-       
+        if(this.state.loading) return <ActivityIndicator style={{justifyContent : "center" , alignItems : "center",backgroundColor:"#7F0887",width:'100%',height:"100%"}} size="large" color="#FFFFFF" />
         if(this.props.confirmationToken == true) return <Redirect to="/event" />
         return(
             <ImageBackground source={DFD} style={{width:'100%',height:"100%"}}>

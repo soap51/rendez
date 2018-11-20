@@ -1,7 +1,7 @@
 import React from 'react'
 import {View , Text , TouchableOpacity  , StyleSheet} from 'react-native'
 import {Font, SizePX , Circle , Space} from '../../styles/global'
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/Entypo";
 import SwitchOption from '../Switch/SwitchOption'
 import PropTypes from 'prop-types'
 class OptionButton extends React.Component {
@@ -22,7 +22,7 @@ class OptionButton extends React.Component {
     render(){
         const {title , isHaveSwitch , icon , option} = this.state
         return(
-            <TouchableOpacity style={styles.container} disabled={isHaveSwitch ? true : false}>
+            <TouchableOpacity style={styles.container} disabled={isHaveSwitch ? true : false} onPress={()=>this.props.onPress()}>
 
                 <View style={styles.iconContainer}>
                     <Icon style={styles.iconText} name={icon} size={SizePX} color="#000000" />

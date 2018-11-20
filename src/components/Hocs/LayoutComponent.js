@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text , StyleSheet , ScrollView} from 'react-native'
+import {View , Text , StyleSheet , ScrollView , ActivityIndicator} from 'react-native'
 import {withRouter} from 'react-router-native'
 
 import Header from '../utils/Header'
@@ -21,13 +21,14 @@ export default function Layout(WrappedComponent ){
         }
     }
     return connect(mapStateToProps)(withRouter(class LayoutComponent extends React.Component{
+        
         render(){
-            console.log(this.props.history)
+        
             return(
                 <View style={style.container}>
                    <Header {...this.props} style={{flex : 0.01}}/> 
                     <ScrollView style={{flex : 5 , backgroundColor : "rgb(255,174,201)"}}>
-                        <WrappedComponent {...this.props}  />
+                          <WrappedComponent {...this.props}  /> 
                     </ScrollView>
                     
                     <Footer {...this.props} style={{flex : 0.1}}/>

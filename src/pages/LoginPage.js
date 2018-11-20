@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , Text,StyleSheet,Button,AsyncStorage,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView} from 'react-native'
+import {ActivityIndicator,View , Text,StyleSheet,Button,AsyncStorage,TextInput,TouchableOpacity,ImageBackground,KeyboardAvoidingView} from 'react-native'
 import { Space  ,Font} from '../styles/global';
 import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import { loginRequest , loginSuccess} from '../actions/authenticateAction'
@@ -12,8 +12,8 @@ class LoginPage extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            loading: true,
-            email : "59050254@kmitl.ac.th" , password : "123456",
+            loading: false,
+            email : "" , password : "",
         }
     }
     onChangeText(text, field) {
@@ -28,16 +28,21 @@ class LoginPage extends React.Component{
     }
      onLogin() {
          console.log('Test')
+      
          const {email,password} = this.state;
          if(email == "" || password == ""){
             this.setState({ Error: 'Please fill email or password' });
          }
          else{
+            this.setState({loading : true})
             axios.post(DOMAIN + "api/user/login" , {email : this.state.email , password : this.state.password }).then(response=>{
                 const data = response.data
                 const token = data.token 
                 const _id = data._id
                 const confirmationToken = data.confirmationToken
+                const myCreateEvent = data.myCreateEvent
+                const myJoinEvent = data.myJoinEvent
+                const fullName = data.fullName
                 console.log(response.data)
                 AsyncStorage.setItem('token' , token).then(result=>{
                     console.log(result)
@@ -46,10 +51,13 @@ class LoginPage extends React.Component{
                     console.log(err.response)
                 })
                 
-                this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken })
+                this.props.loginSuccess({token:token , _id : _id , confirmationToken :confirmationToken , myCreateEvent , myJoinEvent })
+
+                this.setState({loading : false})
                 this.props.history.push('/event')
             })
             .catch(err=>{
+                 this.setState({loading : false})
                 console.log(err.response)
                 if(err.response.status == 401){
                     this.setState({ Error: 'Invalid email or password' });
@@ -58,6 +66,7 @@ class LoginPage extends React.Component{
                     this.setState({ Error: 'Something went wrong( Error:500 )' });
                 }
                 else(this.setState({ Error: 'Something went wrong' }));
+               
             })
          }
 
@@ -65,7 +74,7 @@ class LoginPage extends React.Component{
     }
 
     render(){
-        
+        if(this.state.loading) return <ActivityIndicator style={{justifyContent : "center" , alignItems : "center",backgroundColor:"#7F0887",width:'100%',height:"100%"}} size="large" color="#FFFFFF" />
         return(
         
         // <ImageBackground source={require('../../assets/imgs/dpho4.png' )} style={styles.background}>
@@ -109,10 +118,10 @@ class LoginPage extends React.Component{
             </View>
             </KeyboardAvoidingView>
             <View style={{flex: 1, flexDirection: 'row',marginLeft:'auto',marginRight:'auto'}}>
-                <TouchableOpacity onPress={() => this.onForgot()} style={{marginBottom:'5%',marginTop:'auto'}}>
+                {/* <TouchableOpacity onPress={() => this.onForgot()} style={{marginBottom:'5%',marginTop:'auto'}}>
                     <Text  style={{color:'white',textDecorationLine: 'underline',}}>Forgot Password?</Text>
-                </TouchableOpacity>
-                     <Text style={{marginLeft:'5%'}}></Text>  
+                </TouchableOpacity> */}
+                     <Text style={{}}></Text>  
                 <TouchableOpacity onPress={() =>this.Onregister()} style={{marginBottom:'5%',marginTop:'auto'}}>
                     <Text style={{color:'white',textDecorationLine: 'underline',}}>Register?</Text>
                 </TouchableOpacity>

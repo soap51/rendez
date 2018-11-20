@@ -1,7 +1,7 @@
 import React from 'react'
 import {View , Text , StyleSheet , Image} from 'react-native'
 import { Space , Circle , Font } from '../../styles/global';
-import EventImage from '../../../assets/imgs/football.jpg'
+
 import Proptypes from 'prop-types'
 class CommentCard extends React.Component {
     constructor(props){
@@ -17,13 +17,10 @@ class CommentCard extends React.Component {
            <View >
                 {position == 0?
                     <View style={styles.container}>
-                        <View>
-                            <Image  style={styles.imageContainer} source={EventImage} />
-                        </View>
                         <View style={{
-                            flex : 0.8
+                            flex : 1
                         }}>
-                            <Text>
+                            <Text style={{textAlign : "left"}}>
                                 {comment}
                             </Text>
                         </View>
@@ -31,14 +28,11 @@ class CommentCard extends React.Component {
                     :
                     <View style={styles.container}>
                         <View style={{
-                            flex : 0.8
+                            flex : 1
                         }}>
-                            <Text>
+                            <Text style={{textAlign : "right"}}>
                                 {comment}
                             </Text>
-                        </View>
-                        <View>
-                            <Image  style={styles.imageContainer} source={EventImage} />
                         </View>
                     </View>
                 }
