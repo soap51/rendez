@@ -75,6 +75,7 @@ class EventInformationCard extends React.Component {
                 this.props._fetchAPI()
             })
             .catch(err=>{
+                this.setState({loading :false})
                 setAlert(this.props.history,400,"Error" ,err.response.data.message)
             })
      
@@ -90,7 +91,7 @@ class EventInformationCard extends React.Component {
                 this.props._fetchAPI()
             })
             .catch(err=>{
-              
+                this.setState({loading :false})
                 setAlert(this.props.history,400,"Error" ,err.response.data.message)
             })
     }
@@ -147,7 +148,9 @@ class EventInformationCard extends React.Component {
                                     color : "white",
                                     textAlign : "right"
                                 }}>
-                                    By {author ? author.fullName.substring(0 , 25) : ""}
+                                    By <Text style={{color : "#fcf4a3" , borderBottomColor : "#fcf4a3" , borderWidth : 2 }}>
+                                        {author ? author.fullName.substring(0 , 25) : ""}
+                                    </Text>
                                 </Text>
                             
                             </View>
@@ -322,6 +325,11 @@ class EventInformationCard extends React.Component {
                             alignItems : "center",
                             marginTop : 20
                         }}>
+                        {
+                            this.props.author._id == this.props._id ?
+                            <View><Text></Text></View>
+                            :
+                            <View>
                             {
                                 joined ?
                                 <JoinOption 
@@ -334,9 +342,12 @@ class EventInformationCard extends React.Component {
                                     handleJoinEvent={()=> this.handleJoinEvent()}
                                 />
                             }
+                            </View>
+                        }
+                            
                            
                             {
-                                joined ? 
+                                joined || this.props.author._id == this.props._id ? 
                                 <TouchableOpacity onPress={()=>this.props.history.push('/event/'+this.props.id+'/comment')} style={{
                                     paddingTop :  Space.paddingSize/5,
                                     paddingLeft :  Space.paddingSize/1.8,
@@ -402,7 +413,7 @@ const styles = StyleSheet.create({
 
     },
     titleHeader : {
-        fontSize : Font.fontHeader,
+        fontSize : 6* vw ,
         color : 'white',
         textAlign : 'right',
         

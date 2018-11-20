@@ -59,8 +59,15 @@ class CreateEventPage extends React.Component{
         const timeend = this.state.timeend.split(":")
         if(this.state.currentseat > this.state.Limitedseat){
             setAlert(this.props.history , 400 , "Error" , "Currentseat must be less than Limited Seat")
-            return ;
             this.setState({loading : false})
+            return ;
+           
+        }
+        if(this.state.currentseat < 0 || this.state.totalSeat < 0){
+            setAlert(this.props.history , 400 , "Error" , "Seat must be greater than zero")
+            this.setState({loading : false})
+            return ;
+          
         }
         startTime = moment(time[0] + ":" + time[1], 'HH:mm')._d
         endTime = moment(timeend[0] + ":" + timeend[1] , 'HH:mm')._d

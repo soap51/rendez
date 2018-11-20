@@ -21,7 +21,7 @@ class HomePage extends React.Component{
             author : '',
             email : '',
             sex : "",
-            typeActivity : 0,
+            typeActivity : 1,
             loading : true,
             loadingActivity : false
         }
@@ -34,11 +34,11 @@ class HomePage extends React.Component{
             const data = response.data
             const result = data.result
            
-            if(typeActivity == 0){
-                const historys = result.myJoinEvent
-                this.setState({historys , typeActivity})
-            }else if(typeActivity == 1){
+            if(typeActivity == 1){
                 const historys = result.myCreateEvent
+                this.setState({historys , typeActivity})
+            }else if(typeActivity == 0){
+                const historys = result.myJoinEvent
                 this.setState({historys , typeActivity})
             }
             this.setState({loadingActivity : false})
@@ -56,11 +56,11 @@ class HomePage extends React.Component{
                 console.log(response)
                 const data = response.data
                 const result = data.result
-                if(this.state.typeActivity == 0){
-                    const historys = result.myJoinEvent
-                    this.setState({historys})
-                }else if(this.state.typeActivity == 1){
+                if(this.state.typeActivity == 1){
                     const historys = result.myCreateEvent
+                    this.setState({historys})
+                }else if(this.state.typeActivity == 0){
+                    const historys = result.myJoinEvent
                     this.setState({historys , })
                 }
                 this.setState({sex : result.sex , age : result.age , fullName : result.fullName , loading : false})

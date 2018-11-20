@@ -24,6 +24,7 @@ class EventInformationPage extends React.Component{
                 this.setState({event : data , loading : false})
             })
             .catch(err=>{
+                this.setState({loading : false})
                 setAlert(this.props.history , 400 , "Network Error" , "Application can't fetch data")
             })
     }
@@ -34,6 +35,7 @@ class EventInformationPage extends React.Component{
             this.setState({event : data , loading : false})
         })
         .catch(err=>{
+            this.setState({loading : false})
             setAlert(this.props.history , 400 , "Network Error" , "Application can't fetch data")
         })
     }

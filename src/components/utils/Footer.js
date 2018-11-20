@@ -38,7 +38,7 @@ class Footer extends React.Component {
                     <FooterClickButton
                         iconType="home"
                         onPress={()=>this.props.history.push('/home')}
-                        titleButton="Home"
+                        titleButton="Profile"
                     />
                 </View>
             </View>
