@@ -20,10 +20,11 @@ import www from '../../../assets/imgs/www.jpg'
 import { vw, vh } from 'react-native-viewport-units';
 class EventCard extends React.Component {
     constructor(props){
+    
         super(props)
         this.state = {
             author : props.author ? props.author : "",
-            title : props.title ? props.title : "",
+            title : props.title ? (props.title.length > 15 ? props.title + "..." : props.title) : "",
             location : props.location ? props.location : "",
             icon : props.icon ? props.icon: "",
             eventDate : props.eventDate ? props.eventDate : new Date(),
@@ -46,6 +47,7 @@ class EventCard extends React.Component {
    
     render(){
         const {icon,title , author , location , eventDate,eventEndTime,eventStartTime} = this.state 
+        console.log("eventcard " , this.props)
         let iconType = 0
         if(icon == 1){
             iconType = Ball
@@ -91,9 +93,17 @@ class EventCard extends React.Component {
                             <Text style={styles.titleHeader}>
                                 {title.substring(0 , 15)}
                             </Text>
-                            <Text style={styles.titleSecondary}>
-                                By {author ? author.fullName.substring(0 , 25) : ""}
+                            <Text style={{
+                                 fontSize : Font.fontSecondary,
+                                 color : "white",
+                                 textAlign :"right",
+                                 
+                            }}>
+                                By  <Text style={{color : "#fcf4a3" , borderBottomColor : "#fcf4a3" , borderWidth : 2 }}>
+                                {author ? author.fullName.substring(0 , 25) : ""}
                             </Text>
+                            </Text>
+                           
                         </View>
                     </View>
                     <View>
@@ -201,7 +211,8 @@ const styles = StyleSheet.create({
     titleSecondary : {
         fontSize : Font.fontSecondary,
         color : "white",
-        textAlign :"right"
+        textAlign :"right",
+        
     },
     subContainer : {
         padding : 20

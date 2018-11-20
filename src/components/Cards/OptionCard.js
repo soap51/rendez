@@ -30,7 +30,7 @@ class OptionCard extends React.Component {
             <View style={styles.container}>
                 <View style={styles.subContainer}>
                 <OptionButton
-                        icon="ios-log-out"
+                        icon="log-out"
                         title="Logout"
                         isHaveSwitch={false}
                         onPress={()=>this._onPress()}

@@ -1,10 +1,11 @@
 import React from 'react'
-import {View , Text , StyleSheet , Alert , ActivityIndicator} from 'react-native'
+import {View , Text , StyleSheet , Alert , ActivityIndicator , Dimensions} from 'react-native'
 import EventCard from '../components/Cards/EventCard'
 import axios from 'axios'
 import setAlert from '../utils/setAlert'
 import {DOMAIN} from '../constant/environment'
 import { Space  ,Font} from '../styles/global';
+
 import _ from 'lodash'
 import {Redirect} from 'react-router-native'
 import {connect} from 'react-redux'
@@ -34,7 +35,8 @@ class EventPage extends React.Component{
     }
     
     render(){
-        if(this.state.loading) return <ActivityIndicator style={{justifyContent : "center" , alignItems : "center"}} size="large" color="#0000ff" />
+        const {height} = Dimensions.get('screen')
+        if(this.state.loading) return <ActivityIndicator style={{marginTop : height / 3 ,justifyContent : "center" , alignItems : "center"}} size="large" color="#0000ff" />
         if(this.props.confirmationToken == false) return <Redirect to="/confirm" />
         const {eventList} = this.state
        
@@ -56,7 +58,7 @@ class EventPage extends React.Component{
         <View style={{display : "flex" , alignItems : "center" , padding : 20}}>  
             <Text style={{fontSize : Font.fontSecondary }}>You doesn't have any event</Text>
         </View>
-        console.log(Events)
+        
         return(
             <View style={styles.container}>
                 {Events}
