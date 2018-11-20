@@ -329,20 +329,14 @@ class EventInformationCard extends React.Component {
                             this.props.author._id == this.props._id ?
                             <View><Text></Text></View>
                             :
-                            <View>
-                            {
-                                joined ?
+                         
+                            
+                                
                                 <JoinOption 
                                     joined={joined}
-                                    handleJoinEvent={()=> this.unJoinEvent()}
+                                    handleJoinEvent={()=> (joined ? this.unJoinEvent() : this.handleJoinEvent())}
                                 />
-                                :
-                                <JoinOption 
-                                    joined={joined}
-                                    handleJoinEvent={()=> this.handleJoinEvent()}
-                                />
-                            }
-                            </View>
+                          
                         }
                             
                            

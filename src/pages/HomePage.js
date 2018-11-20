@@ -1,7 +1,7 @@
 import React from 'react'
 import {View , Text , StyleSheet , Dimensions ,Image ,ActivityIndicator} from 'react-native'
 import { Space, Circle, Font , SizePX } from '../styles/global';
-
+import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import female from '../../assets/imgs/woman.png'
 import male from '../../assets/imgs/man.png'
 import Icon from "react-native-vector-icons/Ionicons";
@@ -95,16 +95,16 @@ class HomePage extends React.Component{
                     borderRadius : 17,
                     backgroundColor : "rgb(51,9,64)",
                     minHeight : height /1.4,
-                    padding : Space.paddingSize 
+                    padding : Space.paddingSize,
                 }}>
-                   
                     <View style={styles.infoBoard}>
                         <View style={{
                             flexDirection : "row",
                             justifyContent : "flex-end",
-                            alignItems : "center"
-                          
+                            alignItems : "center",
+                            
                         }}>
+                    
                             <Image style={styles.imageContainer} source={sex == "M" ? male : female} />
                         </View>
                         <View style={styles.textInfoContainer}>
@@ -112,13 +112,15 @@ class HomePage extends React.Component{
                                 fontSize : Font.fontHeader / 2,
                                 color : 'white',
                                 fontWeight : "bold",
-                                textAlign : "right"
+                                textAlign : "right",
+
                             }}>{fullName}</Text>
                          
                             <View style={{
                                 flexDirection : "row",
                                 flexWrap :"nowrap",
-                                justifyContent : "flex-end"
+                                justifyContent : "flex-end",
+                                
                             }}> 
                                 <View style={{
                                     padding : Space.paddingSize/3
@@ -130,6 +132,7 @@ class HomePage extends React.Component{
                                     alignItems : "center"
                                 }}>
                                     <Text style={{
+                                        
                                            fontSize : Font.fontSecondary / 1.5,
                                            color : 'white',
                                            fontWeight : "bold",
@@ -168,7 +171,8 @@ class HomePage extends React.Component{
 }
 const styles= StyleSheet.create({
     container : {
-        padding : Space.paddingSize
+        padding : Space.paddingSize,
+        
         
     },
     join : {
@@ -182,6 +186,7 @@ const styles= StyleSheet.create({
     infoBoard : {
         flexDirection : 'row',
         justifyContent : "space-around",
+        
        
     },
     imageContainer: {

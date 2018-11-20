@@ -13,7 +13,7 @@ class LoginPage extends React.Component{
         super(props)
         this.state = {
             loading: false,
-            email : "" , password : "",
+            email : "59050230@kmitl.ac.th" , password : "123",
         }
     }
     onChangeText(text, field) {
@@ -81,7 +81,7 @@ class LoginPage extends React.Component{
             <View  style={styles.background}>
             <KeyboardAvoidingView behavior="position" enabled>
             <View style={{ alignItems : "center" ,}}>  
-                <Text style={{fontSize : 13*vw,color:'white',marginTop:'30%'}}>Welcom to{"\n"}   Rendez</Text>
+                <Text style={{fontSize : 13*vw,color:'white',marginTop:'30%'}}>Welcome to{"\n"}   Rendez</Text>
                 <Text style={{fontSize : 3.7*vw,color:'white'}}>The best way to do activity with anyone{"\n"} 
                     and discover new friends.{"\n"}
                     Let's get start!
