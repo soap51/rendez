@@ -13,6 +13,7 @@ import movie from '../../../assets/imgs/movie.png'
 import shoes from '../../../assets/imgs/shoes.jpg'
 import boling from '../../../assets/imgs/boling.jpg'
 import Icon from "react-native-vector-icons/Ionicons";
+import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import moment from 'moment'
 class HistoryCard extends React.Component {
     constructor(props){
@@ -31,13 +32,15 @@ class HistoryCard extends React.Component {
             <View style={{
                 flexDirection : "row",
                 backgroundColor : "rgba(255,255,255,0.3)",
-                marginLeft : Space.marginSize*(0),
-                marginRight : Space.marginSize,
+                marginLeft : 'auto',
+                marginRight : 'auto',
                 borderRadius : 8,
                 marginBottom : Space.marginSize,
-                padding : Space.paddingSize/4,
+                padding : 5*vw,
                 display : "flex",
-                width : Circle.sizeOfCircle*4.7,
+                justifyContent : 'center',
+                width : 70*vw,
+                height : 25*vw,
             }}>
                 <View style={{  
                     flex : 0.3,
@@ -48,9 +51,9 @@ class HistoryCard extends React.Component {
                         borderWidth : 3,
                         borderColor : "white",
                         
-                        borderRadius :Circle.borderRadius,
-                        width : Circle.sizeOfCircle,
-                        height : Circle.sizeOfCircle
+                        borderRadius :Circle.borderRadius*vw,
+                        width : 13*vw,
+                        height : 13*vw
                     }} source={
                         iconType == 1 ? ball : (
                             iconType == 2 ? bad : (
@@ -80,7 +83,7 @@ class HistoryCard extends React.Component {
                 }}>
                     <View>
                         <Text style={{
-                            fontSize : Font.fontParagraph,
+                            fontSize : Font.fontParagraph/5*vw,
                             color : "white",
                             fontWeight : "bold"
                         }}
@@ -95,7 +98,7 @@ class HistoryCard extends React.Component {
                         <View style={{
                             flex : 0.15
                         }}>
-                            <Icon  name="md-time" size={SizePX} color="#F7E365" />
+                            <Icon  name="md-time" size={SizePX/6*vw} color="#F7E365" />
                         </View>
                         <View style={{
                             flex : 0.4,
@@ -103,7 +106,7 @@ class HistoryCard extends React.Component {
                             borderRadius : 10,
                             justifyContent : "center",
                             alignItems : "center",
-                            marginRight : 2,
+                            marginRight : 1*vw,
                         }}>
                             <Text style={{
                                 color: "white",
@@ -131,7 +134,7 @@ class HistoryCard extends React.Component {
                     </View> 
                     <View style={{
                         flexDirection : "row",
-                        marginTop : 3
+                        marginTop : 1*vw
                     }}>
                         <View style={{
                             flex : 0.15,

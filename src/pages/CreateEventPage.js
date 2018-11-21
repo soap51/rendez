@@ -201,6 +201,8 @@ class CreateEventPage extends React.Component{
         const {height} = Dimensions.get("window")
         if(this.state.loading) return <ActivityIndicator style={{marginTop : height / 3,justifyContent : "center" , alignItems : "center",}} size="large" color="#FFFFFF" />
         // console.warn(this.state.time) 
+        const minDate = moment().format('L').split('/')
+        console.log(minDate[2]+"-"+minDate[1]+"-" + minDate[0])
         return(
             
             <View style={styles.background}>
@@ -223,26 +225,27 @@ class CreateEventPage extends React.Component{
                 <View style={{borderBottomWidth:0.5*vw,borderBottomColor:'white',marginLeft:24*vw,marginRight:7*vw,marginTop:-9.5*vw}}></View>
                 </View>
                 
-
                 <View style={styles.back}>
                 <Image style={styles.icon1} source={icon} />
-                <Text style={{marginLeft:13*vw,marginTop:-6*vw,marginRight: 6*vw,color:'white',fontWeight:"bold",fontSize:4*vw}}>
+                <Text style={{marginLeft:13*vw,marginTop:-7*vw,marginRight: 6*vw,color:'white',fontWeight:"bold",fontSize:4*vw}}>
                 
                     By
                 </Text>
-                 <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:19*vw,marginTop:-6*vw,marginRight: 5*vw,color:"white"}}
+                 <TextInput style={{marginLeft:20*vw,marginTop:-6*vw,marginRight: 5*vw,color:"white",fontSize:3.5*vw}}
                  autoCorrect={false}
+                 underlineColorAndroid="transparent" 
                  onChangeText={(text) => this.onChangeText(text ,'createby')}> 
                 </TextInput>
+                <View style={{borderBottomWidth:0.5*vw,borderBottomColor:'white',marginLeft:20*vw,marginRight:5*vw}}></View>
                 </View>
 
                 <View style={styles.backCurrent }>
                 <Icon style={styles.iconlo} name="ios-pin" size={SizePX} color="#F59F9F" /> 
-                <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:-7*vw,marginRight: 5*vw,color:"white"}}
+                <TextInput underlineColorAndroid="transparent" style={{marginLeft:14*vw,marginTop:-11*vw,marginRight: 5*vw,color:"white",fontSize:3.5*vw}}
                 autoCorrect={false}
                 onChangeText={(text) => this.onChangeText(text ,'location')}>
-                
                 </TextInput>
+                <View style={{borderBottomWidth:0.5*vw,borderBottomColor:'white',marginLeft:14*vw,marginRight:5*vw}}></View>
                 </View>
                 <View style={styles.backtime}>
                 
@@ -252,7 +255,7 @@ class CreateEventPage extends React.Component{
                     mode="date"
                     placeholder="select date"
                     format="YYYY-MM-DD"
-                    minDate = "2018-11-5"
+                    minDate={minDate[2]+"-"+minDate[0]+"-" + minDate[1]}
                     maxDate="2020-01-01"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
@@ -277,9 +280,9 @@ class CreateEventPage extends React.Component{
                 />
                     <Icon style={styles.icontime } name="md-time" size={8*vw} color="#F7E365" />
                     <View style={{borderBottomWidth:0.5*vw,borderBottomColor:'white',marginTop:-5*vw,marginLeft:15*vw,marginRight:5*vw}}></View>
-                
+                <View style = {{marginTop: 1.5*vw,marginLeft : 'auto', marginRight : 'auto',width : 70*vw,height:7*vw,flexDirection :"row"}}>
                 <DatePicker
-                    style={{width: 18*vw,marginLeft:17*vw,marginTop:0*vw,}}
+                    style={{width: 18*vw,marginLeft:12*vw,marginTop:-0.5*vw,flex :1.8}}
                     date={this.state.time}
                     mode="time"
                     color="white"
@@ -302,7 +305,7 @@ class CreateEventPage extends React.Component{
                     onDateChange={(time => {this.setState({time: time})})}
                 />
                 <DatePicker
-                    style={{width: 18*vw,marginLeft:45*vw,marginTop:-9.5*vw,color:"white"}}
+                    style={{width: 18*vw,marginLeft:8*vw,marginTop:-0.5*vw,color:"white",flex:1.8}}
                     date={this.state.timeend}
                     mode="time"
                     color="white"
@@ -324,20 +327,23 @@ class CreateEventPage extends React.Component{
                        }}
                     onDateChange={(timeend => {this.setState({timeend: timeend})})}
                 />
-                <Text style={{marginLeft:22*vw,marginTop:-3*vw,color:"white",fontWeight:"bold"}}>
+                 </View>
+                 <View style = {{marginLeft : 'auto', marginRight : 'auto',width : 70*vw,height:20*vw,flexDirection :"row",marginTop :-3*vw}}>
+                <Text style={{marginLeft:21*vw,marginTop:2.3*vw,color:"white",fontWeight:"bold"}}>
                     Start
                 </Text>
-                <Text style={{marginLeft:51*vw,marginTop:-4.7*vw,color:"white",fontWeight:"bold"}}>
+                <Text style={{marginLeft:26*vw,marginTop:2.3*vw,color:"white",fontWeight:"bold"}}>
                     End
                 </Text>
+               </View>
                 </View>
 
-                <View style={styles.backCurrent}>
-                <Icon style={styles.iconlo} name="md-people" size={8*vw} color="#00FFF" />
-                <Text style={{marginLeft:14*vw,marginTop:-7*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",} }>
+                <View style={styles.backCurrent1}>
+                <Icon style={styles.iconcur} name="md-people" size={8*vw} color="#00FFF" />
+                <Text style={{marginLeft:14*vw,marginTop:-10*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",} }>
                 Current:
                 </Text>
-                <TextInput  keyboardType = 'numeric' maxLength={1} underlineColorAndroid="transparent" style=
+                <TextInput  keyboardType = 'numeric' maxLength={2} underlineColorAndroid="transparent" style=
                     {{marginLeft:30*vw,marginTop:-5*vw,marginRight: 20*vw,color:"white",textAlign:"center",backgroundColor : "rgb(51,9,64)",
                       borderRadius:20,width:7*vw,height:5*vw}}
                       onChangeText={(text) => this.onChangeText(text ,'currentseat')}
@@ -356,21 +362,23 @@ class CreateEventPage extends React.Component{
                 </View>
 
                 <View style={styles.backDetail}>
-                <KeyboardAvoidingView behavior="position" enabled>
+                
                 <Iconja style={{marginLeft:2*vw,marginTop:1*vw}} name="pencil" size={10*vw} color="#00FF00" />
                 <Text style={{ marginLeft:14*vw,marginTop:-7*vw,marginRight: 5*vw,fontSize: 4*vw,color: 'white',fontWeight : "bold",}}>
                          Detail:
                 </Text>
-                <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
+                <KeyboardAvoidingView behavior="position" enabled>
+                <TextInput underlineColorAndroid="transparent" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
                 autoCorrect={false}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
-                <TextInput underlineColorAndroid="rgba(255,255,255,1)" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
+                <View style={{borderBottomWidth:0.5*vw,borderBottomColor:'white',marginLeft:12*vw,marginRight:5*vw}}></View>
+                <TextInput underlineColorAndroid="transparent" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
                 autoCorrect={false}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
+                <View style={{borderBottomWidth:0.5*vw,borderBottomColor:'white',marginLeft:12*vw,marginRight:5*vw}}></View>
                 </KeyboardAvoidingView>
-                
                 </View>
 
                 <View style={styles.create}>
@@ -510,7 +518,7 @@ const styles = StyleSheet.create({
         marginLeft : Circle.sizeOfCircle*0.3,
         marginRight : Circle.sizeOfCircle*0.3,
         borderRadius : 20,
-        height: 10*vw
+        height: 13*vw
         
     },
     backCurrent : {
@@ -519,7 +527,17 @@ const styles = StyleSheet.create({
         marginLeft : Circle.sizeOfCircle*0.3,
         marginRight : Circle.sizeOfCircle*0.3,
         borderRadius : 20,
-        height: 10*vw
+        height: 13*vw
+
+        
+    },
+    backCurrent1 : {
+        backgroundColor : "rgba(223,188,216,0.3)",
+        marginTop : Circle.sizeOfCircle*0.2,
+        marginLeft : Circle.sizeOfCircle*0.3,
+        marginRight : Circle.sizeOfCircle*0.3,
+        borderRadius : 20,
+       height: 10*vw
 
         
     },
@@ -529,6 +547,7 @@ const styles = StyleSheet.create({
         marginLeft : Circle.sizeOfCircle*0.3,
         marginRight : Circle.sizeOfCircle*0.3,
         borderRadius : 20,
+        height: 25*vw
     },
     
     borderInputtext : {
@@ -564,7 +583,7 @@ const styles = StyleSheet.create({
         marginLeft : Circle.sizeOfCircle*0.3,
         marginRight : Circle.sizeOfCircle*0.3,
         borderRadius : 20,
-        height: 24.5*vw,
+        height: 26*vw,
         
     },
     create : {
@@ -579,8 +598,8 @@ const styles = StyleSheet.create({
         
     },
     icon1 : {
-        width :  Circle.sizeOfCircle*0.5,
-        height :  Circle.sizeOfCircle*0.5,
+        width :  Circle.sizeOfCircle*0.6,
+        height :  Circle.sizeOfCircle*0.6,
         borderRadius : Circle.sizeOfCircle*1.8,
         marginLeft : Circle.sizeOfCircle*0.1,
         marginTop : Circle.sizeOfCircle*0.1,
@@ -588,8 +607,16 @@ const styles = StyleSheet.create({
         
     },
     iconlo : {
-        width :  Circle.sizeOfCircle*0.5,
-        height :  Circle.sizeOfCircle*0.5,
+        width :  Circle.sizeOfCircle*0.8,
+        height :  Circle.sizeOfCircle*0.8,
+        borderRadius : Circle.sizeOfCircle*1.8,
+        marginLeft : Circle.sizeOfCircle*0.3,
+        marginTop : Circle.sizeOfCircle*0.1,
+       
+    },
+    iconcur : {
+        width :  Circle.sizeOfCircle*0.8,
+        height :  Circle.sizeOfCircle*0.8,
         borderRadius : Circle.sizeOfCircle*1.8,
         marginLeft : Circle.sizeOfCircle*0.3,
         marginTop : Circle.sizeOfCircle*0.1,
