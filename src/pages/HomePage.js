@@ -53,6 +53,7 @@ class HomePage extends React.Component{
     componentDidMount(){
         axios.post(DOMAIN + "api/user" , {userId : this.props._id , typeEvent : this.state.typeActivity})
             .then(response=>{
+                this.setState({loading:false})
                 console.log(response)
                 const data = response.data
                 const result = data.result
