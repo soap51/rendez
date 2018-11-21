@@ -53,7 +53,11 @@ class CreateEventPage extends React.Component{
         
     }
     onCreate() {
+        if(this.state.key == 0){
+            this.setState({Error: 'โปรดระบุรูปภาพของคุณ'})
+        }
         // axios.post(DOMAIN + "/user/"+this.props._id+"/event/",
+        else{
         this.setState({loading:true})
         const time = this.state.time.split(":")
         const timeend = this.state.timeend.split(":")
@@ -104,6 +108,7 @@ class CreateEventPage extends React.Component{
                 // setAlert(this.props.history , 403 , "ERROR" , "ควย")
                 this.setState({loading : false})
             })
+            }
         }
 
     componentDidMount() {
@@ -195,7 +200,7 @@ class CreateEventPage extends React.Component{
                 
                 <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: -3 * vw, fontSize: 3.5 * vw, fontWeight: 'bold' }}>{this.state.Error}</Text> 
                 <View  style={{marginLeft:19*vw,marginTop:-15*vw,marginRight: 7*vw,color : 'white',fontSize: 3*vw}}>
-                    <TextInput style={{color:"white",marginLeft:5*vw,textAlign:"right",marginTop:'-%'}}
+                    <TextInput style={{color:"white",marginLeft:5*vw,textAlign:"right"}}
                         autoCorrect={false}
                         underlineColorAndroid="transparent" 
                         onChangeText={(text) => this.onChangeText(text ,'nameac')}

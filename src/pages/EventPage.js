@@ -14,7 +14,8 @@ class EventPage extends React.Component{
         super(props)
         this.state={
             eventList : [],
-            loading : true
+            loading : true,
+            deleteAct: false
         }
       
     }
@@ -30,10 +31,52 @@ class EventPage extends React.Component{
             })
             .catch(err=>{
                 console.log(err.response)
+                this.setState({loading : false})
                 setAlert(this.props.history,400,"Error" , "Something went wrong")
             })
     }
+    _fetchData(){
+        axios.get(DOMAIN + "api/event")
+        .then(result=>{
+            const data = result.data
+            const eventList = data.event
+            this.setState({eventList : eventList , loading : false})
+            
+        })
+        .catch(err=>{
+            console.log(err.response)
+            this.setState({loading : false})
+            setAlert(this.props.history,400,"Error" , "Something went wrong")
+        })
+    }
+    removeEventCard(id){
+      
     
+            Alert.alert(
+                'Warning',
+                'Do you want to delete Activity ?',
+                [
+                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                  {text: 'OK', onPress: () => {
+                    this.setState({loading : true})
+                    axios.delete(DOMAIN + "api/event/" +id ).then(response=>{
+                        // const index = this.state.eventList.findIndex(data=> data._id == id)
+                        // this.setState({eventList : [...this.state.eventList.slice(0 , index) ,...this.state.eventList.slice(index+1)]})
+                        setAlert(this.props.history , 400 , "Success" , "Delete Event Success")
+                        this._fetchData()
+                    }).catch(err=>{
+                        this.setState({loading : false})
+                        setAlert(this.props.history,400,"Error" , "Something went wrong")
+                    })
+
+                  }},
+                ],
+                { cancelable: false }
+              )
+          
+     
+     
+    }
     render(){
         const {height} = Dimensions.get('screen')
         if(this.state.loading) return <ActivityIndicator style={{marginTop : height / 3 ,justifyContent : "center" , alignItems : "center"}} size="large" color="#0000ff" />
@@ -46,6 +89,7 @@ class EventPage extends React.Component{
                 id={data._id}
                 title={data.eventName}
                 enterEventInformation={()=>this.props.history.push("/event/" + data._id)}
+                removeEventCard={()=>this.removeEventCard(data._id)}
                 author={data.author}
                 location={data.place}
                 icon={data.iconType}
