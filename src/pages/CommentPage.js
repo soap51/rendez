@@ -33,15 +33,14 @@ class CommentPage extends React.Component{
                 
                 axios.post(DOMAIN + "api/event/" + this.props.match.params.eventId + "/comment/" +  this.props.match.params.eventId , {eventID : this.props.match.params.eventId})
                     .then( newComment =>{
-                      
+                       
                         const data = newComment.data
                         const commentList = data.comment.reverse()
                       
                         this.setState({commentList  , comment : "" , loading : false})
                     })
                     .catch(err=>{
-                        setAlert()
-                        console.log(err.response)
+                        setAlert(this.props.history , 400 , "Error" , "network error")
                     })
             })
             .catch(error=>{
@@ -53,13 +52,14 @@ class CommentPage extends React.Component{
        
         axios.post(DOMAIN + "api/event/" + this.props.match.params.eventId + "/comment/" +  this.props.match.params.eventId , {eventID : this.props.match.params.eventId})
             .then(result=>{
+                
                 const data = result.data
                 const commentList = data.comment.reverse()
                 this.setState({commentList })
             })
             .catch(err=>{
-                setAlert()
-                console.log(err.response)
+                setAlert(this.props.history , 400 , "Error" , "network error")
+                
             })
     }
     render(){
@@ -82,29 +82,7 @@ class CommentPage extends React.Component{
                     padding : Space.paddingSize,
                     minHeight : height/1.3,
                 }}>
-                    <View style={styles.subContainer}>
-                        <Image style={styles.imageContainer} source={EventImage} />
-                        <View >
-                            <Text
-                                style={{
-                                    fontSize : Font.fontHeader,
-                                    color : "white",
-                                    fontWeight : "bold",
-                                    textAlign : "right"
-                                }}
-                            >
-                            {title}
-                            </Text>
-                            <Text 
-                                style={{
-                                    fontSize : Font.fontSecondary,
-                                    color : "white"
-                                }}    
-                            >
-                                By {" "+ author}
-                            </Text>
-                        </View>
-                    </View>
+                    
                     <View  style={styles.addCommentContainer} >
                     <TextInput 
                         underlineColorAndroid="transparent"

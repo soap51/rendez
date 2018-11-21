@@ -7,7 +7,7 @@ class FilterEventCard extends React.Component {
     constructor(props){
         super(props)
         this.state ={
-            typeActivity : 0,
+            typeActivity : 1,
         }
     }
     componentWillReceiveProps(nextProps){
@@ -43,17 +43,17 @@ class FilterEventCard extends React.Component {
             <View style = {{flexDirection : "column", width : 70*vw,borderWidth : 1*vw,borderColor : "#F59191",}}>
               <Text style = {{textAlign : "center",width : 68*vw,fontWeight :"bold",marginTop : -2*vw,
             backgroundColor :"#F59191",fontSize : 5*vw}}>
-            CURRENT
+            Activity
         </Text>  
         <View style = {{ flexDirection : "row",  flex : 1,height : 5*vw}}>
-                <TouchableOpacity onPress={()=>this.props._onChangeActivity(0)} style={typeActivity == 0? {
+                <TouchableOpacity onPress={()=>this.props._onChangeActivity(1)} style={typeActivity == 1? {
                     flex : 1,
                     justifyContent : "center",
                     alignItems :"center",
                     borderColor : 'red',
                     backgroundColor : "#FFE4E4",
                     borderWidth : 0.5*vw,
-                    height : 10*vw,
+                    
                 } : {
                     flex : 1,
                     justifyContent : "center",
@@ -64,14 +64,14 @@ class FilterEventCard extends React.Component {
                         fontWeight : "bold"
                     }}>My Activity</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>this.props._onChangeActivity(1)} style={typeActivity == 1? {
+                <TouchableOpacity onPress={()=>this.props._onChangeActivity(0)} style={typeActivity == 0? {
                     flex : 1,
                     justifyContent : "center",
                     alignItems :"center",
                     borderColor : 'red',
                     backgroundColor : "#FFE4E4",
                     borderWidth : 0.5*vw,
-                    height : 10*vw,
+                    
                 } : {
                     flex : 1,
                     justifyContent : "center",

@@ -20,25 +20,25 @@ class Footer extends React.Component {
        
         return (
             <View style={style.container}>
-                <View style={{flex : 0.7 }}>
+                <View style={{flex : 0.7 , paddingRight : 5}}>
                     <FooterClickButton
                         iconType="feed"
                         onPress={()=>this.props.history.push('/')}
                         titleButton="Feed"
                     />
                 </View>
-                <View style={{flex : 0.7 , paddingLeft : 5 , paddingRight : 5}}>
+                {/* <View style={{flex : 0.7 , paddingLeft : 5 , paddingRight : 5}}>
                     <FooterClickButton
                         iconType="noti"
                         onPress={()=>this.props.history.push('/Notifications')}
                         titleButton="Notifications"
                     />
-                </View>
-                <View style={{flex : 0.7}}>
+                </View> */}
+                <View style={{flex : 0.7 , paddingLeft : 5}}>
                     <FooterClickButton
                         iconType="home"
                         onPress={()=>this.props.history.push('/home')}
-                        titleButton="Home"
+                        titleButton="Profile"
                     />
                 </View>
             </View>
