@@ -5,6 +5,7 @@ import EventImage from '../../../assets/imgs/football.jpg'
 import Icon from "react-native-vector-icons/Ionicons";
 import Proptypes from 'prop-types'
 import moment from 'moment'
+import deleted1 from '../../../assets/icon/delete.png'
 import bad from '../../../assets/imgs/bad.jpg'
 import Ball from '../../../assets/imgs/football.jpg'
 import pingpong from '../../../assets/imgs/pingpong.jpg'
@@ -17,6 +18,7 @@ import movie from '../../../assets/imgs/movie.png'
 import shoes from '../../../assets/imgs/shoes.jpg'
 import boling from '../../../assets/imgs/boling.jpg'
 import www from '../../../assets/imgs/www.jpg'
+import {connect} from 'react-redux'
 import { vw, vh } from 'react-native-viewport-units';
 class EventCard extends React.Component {
     constructor(props){
@@ -83,6 +85,18 @@ class EventCard extends React.Component {
             iconType = boling
         }
         return (
+            <View>
+                {this.props.author._id == this.props._id ?
+                <View style={{position:'absolute',right:0 , zIndex : 100 , marginTop:-5*vw , marginRight:-3*vw}}>
+                   <TouchableOpacity onPress={()=>this.props.removeEventCard()}>
+                    <Image source={deleted1}  style={{height:10*vw,width:10*vw,marginLeft:'auto',}}
+                        >
+                    </Image>
+                    </TouchableOpacity> 
+                </View> 
+                
+                    : <View></View>}
+            
             <TouchableOpacity onPress={()=>this.props.enterEventInformation()} style={styles.container}>
                 <View style={styles.subContainer}>
                     <View style={styles.titleContainer}>
@@ -180,6 +194,7 @@ class EventCard extends React.Component {
                 </View>
                 
             </TouchableOpacity>
+            </View>
         )
     }
 }
@@ -290,4 +305,9 @@ EventCard.propTypes = {
     eventEndTime : Proptypes.string.isRequired  ,
     enterEventInformation : Proptypes.func.isRequired
 }
-export default EventCard
+function mapStateToProps(state){
+    return {
+        _id : state.AuthenticateReducer._id
+    }
+}
+export default connect(mapStateToProps)(EventCard)
