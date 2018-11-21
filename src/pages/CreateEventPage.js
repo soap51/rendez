@@ -180,6 +180,8 @@ class CreateEventPage extends React.Component{
         const {height} = Dimensions.get("window")
         if(this.state.loading) return <ActivityIndicator style={{marginTop : height / 3,justifyContent : "center" , alignItems : "center",}} size="large" color="#FFFFFF" />
         // console.warn(this.state.time) 
+        const minDate = moment().format('L').split('/')
+        console.log(minDate[2]+"-"+minDate[1]+"-" + minDate[0])
         return(
             
             <View style={styles.background}>
@@ -192,7 +194,7 @@ class CreateEventPage extends React.Component{
                 
                 <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto', marginTop: -3 * vw, fontSize: 3.5 * vw, fontWeight: 'bold' }}>{this.state.Error}</Text> 
                 <View  style={{marginLeft:19*vw,marginTop:-15*vw,marginRight: 7*vw,color : 'white',fontSize: 3*vw}}>
-                    <TextInput style={{color:"white",marginLeft:5*vw,textAlign:"right"}}
+                    <TextInput style={{color:"white",marginLeft:5*vw,textAlign:"right",marginTop:'-%'}}
                         autoCorrect={false}
                         underlineColorAndroid="transparent" 
                         onChangeText={(text) => this.onChangeText(text ,'nameac')}
@@ -232,7 +234,7 @@ class CreateEventPage extends React.Component{
                     mode="date"
                     placeholder="select date"
                     format="YYYY-MM-DD"
-                    minDate="2016-05-01"
+                    minDate={minDate[2]+"-"+minDate[0]+"-" + minDate[1]}
                     maxDate="2020-01-01"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
