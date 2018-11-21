@@ -20,8 +20,10 @@ class FilterEventCard extends React.Component {
               
            <View style = {{ 
            
-            width : 120*vw,
-            marginLeft : -1*vw,
+            width : 70*vw,
+            justifyContent : "center",
+            marginLeft :'auto',
+            marginRight : 'auto',
             marginTop : -6*vw,
        
            }}> 
@@ -34,8 +36,10 @@ class FilterEventCard extends React.Component {
                 height : 16*vw,
                 display : "flex",
                 flexDirection : "row",
-                marginLeft : 0.7*vw,
-                justifyContent : "space-around",
+                justifyContent : "center",
+                alignItems :"center",
+                marginLeft :'auto',
+                marginRight : 'auto',
                 backgroundColor : "white",
                 marginBottom :2*vw,
                 marginTop : 5*vw
