@@ -1,7 +1,7 @@
 import React from 'react'
 import {View , Text , StyleSheet , PixelRatio} from 'react-native'
 import {withRouter} from 'react-router-native'
-
+import { vw } from 'react-native-viewport-units';
 import ClickButton from '../Button/ClickButton'
 import {Font} from '../../styles/global'
 const style = StyleSheet.create({
@@ -24,9 +24,15 @@ class Header extends React.Component {
     render(){
         const {title} = this.state
         console.log(this.props.history)
+        console.log('title ' , title)
+        console.log( title == 'event' ? ("Feed") : (
+            title == 'event/:eventId' ? "More Detail" : (
+                title == "event/:eventId/comment" ? "Comment" : title
+                )
+            ))
         return (
             <View style={style.container}>
-                <View>
+                <View >
                     {this.props.history.location.pathname != "/event" ?
                     <View>
                    
@@ -45,10 +51,16 @@ class Header extends React.Component {
                             />
                     }
                 </View>
-                {/* <View style={{display : "flex" , justifyContent : "center" , alignItems : "center"}}>
-                    <Text style={{fontSize : Font.fontHeader , fontWeight : "bold"}}>{title}</Text>
-                </View> */}
-                <View>
+                <View style={{  display : "flex" , justifyContent : "center" , alignItems : "center" , flexDirection :"row"}}>
+                    <Text style={{fontSize :  5*vw , fontWeight : "bold"}}>{
+                       title == 'event' ? ("Feed") : (
+                        title == 'event/:eventId' ? "More Detail" : (
+                            title == "event/:eventId/comment" ? "Comment" : title
+                        )
+                       )
+                    }</Text>
+                </View>
+                <View >
                     {
                         title != "Others" ?
                         <ClickButton 

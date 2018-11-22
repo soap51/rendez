@@ -8,6 +8,7 @@ import LayoutComponent from './src/components/Hocs/LayoutComponent'
 import { Permissions, Notifications , Expo } from 'expo';
 import GuestComponent from './src/components/Hocs/GuestComponent'
 import AuthComponent from './src/components/Hocs/AuthComponent'
+console.disableYellowBox = true;
 export default class App extends React.Component {
  
   render() {

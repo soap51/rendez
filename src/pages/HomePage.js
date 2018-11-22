@@ -64,7 +64,7 @@ class HomePage extends React.Component{
                     const historys = result.myJoinEvent
                     this.setState({historys , })
                 }
-                this.setState({sex : result.sex , age : result.age , fullName : result.fullName , loading : false})
+                this.setState({sex : result.sex , age : result.age , email : result.email, fullName : result.fullName , loading : false})
             })
             .catch(err=>{
                 console.log(err.response)
@@ -74,7 +74,7 @@ class HomePage extends React.Component{
     }
     render(){
         const {width , height} = Dimensions.get('window')
-       
+     
         if(this.state.loading) return <ActivityIndicator style={{marginTop : height / 3,justifyContent : "center" , alignItems : "center"}} size="large" color="#ffffff" />
         const {age ,fullName, author , email ,sex, typeActivity,typeActivity2 , historys} = this.state 
         
@@ -116,6 +116,13 @@ class HomePage extends React.Component{
                                 textAlign : "right",
 
                             }}>{fullName}</Text>
+                              <Text style={{
+                                fontSize : Font.fontHeader / 2,
+                                color : 'white',
+                                fontWeight : "bold",
+                                textAlign : "right",
+
+                            }}>{email}</Text>
                          
                             <View style={{
                                 flexDirection : "row",

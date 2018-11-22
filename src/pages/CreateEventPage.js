@@ -375,13 +375,11 @@ class CreateEventPage extends React.Component{
                 <KeyboardAvoidingView behavior="position" enabled>
                 <TextInput underlineColorAndroid="transparent" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
                 autoCorrect={false}
+                multiline={true}
                 onChangeText={(text) => this.onChangeText(text ,'detail')}>
                 </TextInput>
-                <View style={{borderBottomWidth:0.5*vw,borderBottomColor:'white',marginLeft:12*vw,marginRight:5*vw}}></View>
-                <TextInput underlineColorAndroid="transparent" style={{marginLeft:12*vw,marginTop:0.5*vw,marginRight: 5*vw,color:"white"}}
-                autoCorrect={false}
-                onChangeText={(text) => this.onChangeText(text ,'detail')}>
-                </TextInput>
+               
+            
                 <View style={{borderBottomWidth:0.5*vw,borderBottomColor:'white',marginLeft:12*vw,marginRight:5*vw}}></View>
                 </KeyboardAvoidingView>
                 </View>

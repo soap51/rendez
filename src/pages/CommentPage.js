@@ -1,12 +1,24 @@
 import React from 'react'
-import {View , Text , StyleSheet  , Image , TextInput , Dimensions} from 'react-native'
+import {View , Text , StyleSheet  , Image , TextInput , Dimensions , ActivityIndicator} from 'react-native'
 
 import { DOMAIN } from '../constant/environment';
+import {vw , vh} from 'react-native-viewport-units'
 import setAlert from '../utils/setAlert'
 import EventImage from '../../assets/imgs/football.jpg'
 import { Space , Circle , Font , SizePX} from '../styles/global';
 import CommentCard from '../components/Cards/CommentCard'
 import Icon from "react-native-vector-icons/Ionicons";
+import bad from '../../assets/imgs/bad.jpg'
+import Ball from '../../assets/imgs/football.jpg'
+import pingpong from '../../assets/imgs/pingpong.jpg'
+import luxby from '../../assets/imgs/luxby.jpg'
+import bas from '../../assets/imgs/bas.jpg'
+import art from '../../assets/imgs/art.png'
+import ball2 from '../../assets/imgs/ball2.jpg'
+import dic from '../../assets/imgs/dic.jpg'
+import movie from '../../assets/imgs/movie.png'
+import shoes from '../../assets/imgs/shoes.jpg'
+import boling from '../../assets/imgs/boling.jpg'
 import _ from 'lodash'
 import axios from 'axios'
 class CommentPage extends React.Component{
@@ -16,8 +28,11 @@ class CommentPage extends React.Component{
             commentList : [],
             comment : "",
             title : " ",
+            fullName : "",
+            eventName : "",
+            iconType : "",
             author : " ",
-            loading : false
+            loading : true
             
         }
     }
@@ -35,9 +50,10 @@ class CommentPage extends React.Component{
                     .then( newComment =>{
                        
                         const data = newComment.data
+                       
                         const commentList = data.comment.reverse()
                       
-                        this.setState({commentList  , comment : "" , loading : false})
+                        this.setState({commentList , comment : "" , loading : false})
                     })
                     .catch(err=>{
                         setAlert(this.props.history , 400 , "Error" , "network error")
@@ -49,13 +65,17 @@ class CommentPage extends React.Component{
         
     }
     componentDidMount(){
-       
+ 
         axios.post(DOMAIN + "api/event/" + this.props.match.params.eventId + "/comment/" +  this.props.match.params.eventId , {eventID : this.props.match.params.eventId})
             .then(result=>{
                 
                 const data = result.data
+                console.log(data)
+                const fullName = data.fullName
+                const eventName = data.eventName
+                const iconType = data.iconType
                 const commentList = data.comment.reverse()
-                this.setState({commentList })
+                this.setState({commentList, fullName, eventName ,iconType  , loading : false })
             })
             .catch(err=>{
                 setAlert(this.props.history , 400 , "Error" , "network error")
@@ -63,9 +83,43 @@ class CommentPage extends React.Component{
             })
     }
     render(){
-        const {comment ,title,loading , author , commentList} = this.state
+        const {comment , iconType,title,loading , author,fullName , eventName , commentList} = this.state
         const {height , width} = Dimensions.get("window")
-       
+        if(this.state.loading) return <ActivityIndicator size="large" color="rgb(255,255,255)" style={{marginTop : height / 3}}/>
+        let icon = 0
+        if(iconType == 1){
+            icon = Ball
+        }
+        else if (iconType == 2){
+            icon = bad
+        }
+        else if (iconType == 3){
+            icon = luxby
+        }
+        else if (iconType == 4){
+            icon = bas
+        }
+        else if (iconType == 5){
+            icon = art
+        }
+        else if (iconType == 6){
+            icon = ball2
+        }
+        else if (iconType == 7){
+            icon = dic
+        }
+        else if (iconType == 8){
+            icon = pingpong
+        }
+        else if (iconType == 9){
+            icon = movie
+        }
+        else if (iconType == 10){
+            icon = shoes
+        }
+        else if (iconType == 11){
+            icon = boling
+        }
         const comments = !loading && commentList && commentList.length != 0 ? commentList.map((data , key )=>
             <CommentCard 
                 position={key % 2}
@@ -82,7 +136,34 @@ class CommentPage extends React.Component{
                     padding : Space.paddingSize,
                     minHeight : height/1.3,
                 }}>
-                    
+                    <View style={{
+                        display : "flex",
+                        flexDirection : "row",
+                        justifyContent :"space-around"
+                    }}>
+                        <View>
+                            <Image style={{
+                                width : vw*15,
+                                height : vw*15,
+                                borderRadius : 15*vw/2
+                            }} source={iconType} />
+                        </View>
+                        <View>
+                            <Text style={{
+                                fontSize : 6 * vw,
+                                color :"white"
+                            }}>
+                                {eventName}
+                            </Text>
+                            <Text style={{
+                                fontSize : 4 *vw,
+                                textAlign :"right",
+                                color :"white"
+                            }}>
+                                {!loading ? "By "+fullName : ""}
+                            </Text>
+                        </View>
+                    </View>
                     <View  style={styles.addCommentContainer} >
                     <TextInput 
                         underlineColorAndroid="transparent"
