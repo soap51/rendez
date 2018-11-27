@@ -1,5 +1,5 @@
 import React from 'react'
-import {View ,Text ,Image} from 'react-native'
+import {View ,Text ,Image , TouchableOpacity} from 'react-native'
 import { Font, Space, Circle , SizePX } from '../../styles/global';
 import bad from '../../../assets/imgs/bad.jpg'
 import ball from '../../../assets/imgs/football.jpg'
@@ -21,15 +21,18 @@ class HistoryCard extends React.Component {
         this.state ={
             eventName : props.eventName ? props.eventName : "",
             iconType : props.iconType ? props.iconType : -1,
+            eventDate : props.eventDate ? props.eventDate : new Date(),
             startTime : props.startTime ? props.startTime : new Date(),
             endTime : props.endTime ? props.endTime : new Date(),
             place : props.place ? props.place : ""
         }
     }
     render(){
-        const {eventName , iconType , startTime , endTime , place} = this.state
+        const {eventName , iconType , startTime , endTime , place , eventDate} = this.state
         return(
-            <View style={{
+            <TouchableOpacity
+                onPress={()=>this.props.goToEventPage()}
+                style={{
                 flexDirection : "row",
                 backgroundColor : "rgba(255,255,255,0.3)",
                 marginLeft : 'auto',
@@ -40,7 +43,7 @@ class HistoryCard extends React.Component {
                 display : "flex",
                 justifyContent : 'center',
                 width : 70*vw,
-                height : 25*vw,
+                height : 28*vw,
             }}>
                 <View style={{  
                     flex : 0.3,
@@ -83,7 +86,7 @@ class HistoryCard extends React.Component {
                 }}>
                     <View>
                         <Text style={{
-                            fontSize : Font.fontParagraph/5*vw,
+                            fontSize : Font.fontParagraph,
                             color : "white",
                             fontWeight : "bold"
                         }}
@@ -113,7 +116,7 @@ class HistoryCard extends React.Component {
                                 fontWeight : "bold",
                                 textAlign : "center"
                             }}>
-                            {moment(startTime).format('LT')}
+                            {moment(eventDate).format('dddd MMM ')}
                             </Text>
                         </View>
                         <View style={{
@@ -128,7 +131,7 @@ class HistoryCard extends React.Component {
                                 fontWeight : "bold",
                                 textAlign : "center"
                             }}>
-                            {moment(endTime).format('LT')}
+                            {moment(startTime).format("LT")+" "+moment(endTime).format('LT')}
                             </Text>
                         </View>
                     </View> 
@@ -157,7 +160,7 @@ class HistoryCard extends React.Component {
                         </View>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 }

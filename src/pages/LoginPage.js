@@ -27,7 +27,7 @@ class LoginPage extends React.Component{
         this.props.history.push("/register")
     }
      onLogin() {
-         console.log('Test')
+         console.log(DOMAIN + "api/user/login")
       
          const {email,password} = this.state;
          if(email == "" || password == ""){
@@ -58,7 +58,7 @@ class LoginPage extends React.Component{
             })
             .catch(err=>{
                  this.setState({loading : false})
-                console.log(err.response)
+                console.log(err)
                 if(err.response.status == 401){
                     this.setState({ Error: 'Invalid email or password' });
                 }

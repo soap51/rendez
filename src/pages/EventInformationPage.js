@@ -17,7 +17,7 @@ class EventInformationPage extends React.Component{
         }
     }
     componentDidMount(){
-        
+        console.log(DOMAIN)
         axios.get(DOMAIN + "api/event/" + this.props.match.params.eventId)
             .then(result=>{
                 const data = result.data
@@ -28,8 +28,8 @@ class EventInformationPage extends React.Component{
                 setAlert(this.props.history , 400 , "Network Error" , "Application can't fetch data")
             })
     }
-    _fetchAPI(){
-        axios.get(DOMAIN + "api/event/" + this.props.match.params.eventId)
+    _fetchAPI(_id){
+        axios.get(DOMAIN + "api/event/" + _id)
         .then(result=>{
             const data = result.data
             this.setState({event : data , loading : false})
@@ -58,7 +58,7 @@ class EventInformationPage extends React.Component{
                 currentSeat={event.currentSeat}
                 limitedSeat={event.totalSeat}
                 detail={event.detail}
-                _fetchAPI={()=>this._fetchAPI()}
+                _fetchAPI={()=>this._fetchAPI(event._id)}
             />
             :
             <View style={{display : "flex" , alignItems : "center" , padding : 20}}>  

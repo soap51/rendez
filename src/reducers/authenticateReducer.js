@@ -29,7 +29,7 @@ export default function reducer(state=initialState , action){
             return initialState
         }
         case JOIN_SUCCESS : 
-          
+            
             return {
                 ...state,
                 myJoinEvent : action.payload

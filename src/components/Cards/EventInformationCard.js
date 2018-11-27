@@ -64,7 +64,11 @@ class EventInformationCard extends React.Component {
     }
     handleJoinEvent(){
         this.setState({loading : true})
-        axios.patch(DOMAIN + "api/event/" + this.props.id , {userID : this.props._id})
+        axios.patch(DOMAIN + "api/event/" + this.props.id , {userID : this.props._id} , {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
             .then(result=>{
                 this.setState({joined : !this.state.joined })
                 

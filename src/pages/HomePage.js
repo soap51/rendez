@@ -77,11 +77,13 @@ class HomePage extends React.Component{
      
         if(this.state.loading) return <ActivityIndicator style={{marginTop : height / 3,justifyContent : "center" , alignItems : "center"}} size="large" color="#ffffff" />
         const {age ,fullName, author , email ,sex, typeActivity,typeActivity2 , historys} = this.state 
-        
+        console.log(historys)
         const history = historys && historys.length != 0 ? historys.map(data=>
             <HistoryCard 
                 eventName={data.eventName}
                 iconType={data.iconType}
+                eventDate={data.eventDate}
+                goToEventPage={()=> this.props.history.push("/event/" + data._id)}
                 startTime={data.startTime}
                 endTime={data.endTime}
                 place={data.place}

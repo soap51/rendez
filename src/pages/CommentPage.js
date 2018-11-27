@@ -87,38 +87,39 @@ class CommentPage extends React.Component{
         const {height , width} = Dimensions.get("window")
         if(this.state.loading) return <ActivityIndicator size="large" color="rgb(255,255,255)" style={{marginTop : height / 3}}/>
         let icon = 0
+        let iconImage = "";
         if(iconType == 1){
-            icon = Ball
+            iconImage = Ball
         }
         else if (iconType == 2){
-            icon = bad
+            iconImage = bad
         }
         else if (iconType == 3){
-            icon = luxby
+            iconImage = luxby
         }
         else if (iconType == 4){
-            icon = bas
+            iconImage = bas
         }
         else if (iconType == 5){
-            icon = art
+            iconImage = art
         }
         else if (iconType == 6){
-            icon = ball2
+            iconImage = ball2
         }
         else if (iconType == 7){
-            icon = dic
+            iconImage = dic
         }
         else if (iconType == 8){
-            icon = pingpong
+            iconImage = pingpong
         }
         else if (iconType == 9){
-            icon = movie
+            iconImage = movie
         }
         else if (iconType == 10){
-            icon = shoes
+            iconImage = shoes
         }
         else if (iconType == 11){
-            icon = boling
+            iconImage = boling
         }
         const comments = !loading && commentList && commentList.length != 0 ? commentList.map((data , key )=>
             <CommentCard 
@@ -127,7 +128,8 @@ class CommentPage extends React.Component{
             />
         ) :
         <View><Text></Text></View>
-     
+        console.log("iconType : " , iconType)
+        console.log("icon : ",icon)
         return(
             <View style={styles.container} >
                 <View style={{
@@ -146,7 +148,7 @@ class CommentPage extends React.Component{
                                 width : vw*15,
                                 height : vw*15,
                                 borderRadius : 15*vw/2
-                            }} source={iconType} />
+                            }} source={iconImage} />
                         </View>
                         <View>
                             <Text style={{

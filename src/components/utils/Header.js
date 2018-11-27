@@ -55,7 +55,7 @@ class Header extends React.Component {
                     <Text style={{fontSize :  5*vw , fontWeight : "bold"}}>{
                        title == 'event' ? ("Feed") : (
                         title == 'event/:eventId' ? "More Detail" : (
-                            title == "event/:eventId/comment" ? "Comment" : (title == 'Home'? "Profile" :title)
+                            title == "event/:eventId/comment" ? "Comment" : (title == 'Home'? "Profile" :(title== "CreateEventPage" ? "Create" : title))
                         )
                        )
                     }</Text>

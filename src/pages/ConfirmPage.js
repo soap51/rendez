@@ -43,6 +43,7 @@ class ConfirmPage extends React.Component{
             })
             .catch(err=>{
                 const {password} = this.state
+                this.setState({ loading : false})
                 console.log(err)
                 console.log(this.state)
                 if(err.response.status == 404) {
