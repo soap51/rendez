@@ -116,7 +116,7 @@ class HistoryCard extends React.Component {
                                 fontWeight : "bold",
                                 textAlign : "center"
                             }}>
-                            {moment(eventDate).format('dddd MMM ')}
+                            {moment(eventDate).format('Do MMM YYYY')}
                             </Text>
                         </View>
                         <View style={{
