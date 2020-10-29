@@ -1,22 +1,22 @@
-import React from 'react'
-import {withRouter , Redirect} from 'react-router-native'
-import {connect} from 'react-redux'
 import _ from 'lodash'
-export default function WrappedComponent(ChildComponent){
-    class GuestComponent extends React.Component{
-        constructor(props){
-             
+import React from 'react'
+import { connect } from 'react-redux'
+import { Redirect, withRouter } from 'react-router-native'
+export default function WrappedComponent(ChildComponent) {
+    class GuestComponent extends React.Component {
+        constructor(props) {
+
         }
-        render(){
-            if(!_.isEmpty(this.props.token) )    return <Redirect to="/event" />
+        render() {
+            if (!_.isEmpty(this.props.token)) return <Redirect to="/event" />
             else return <ChildComponent />
         }
-    } 
-    function mapStateToProps(state){
+    }
+    function mapStateToProps(state) {
         console.log(state)
         return {
-            token : state.AuthenticateReducer.token,
-            confirmationToken : state.AuthenticateReducer.confirmationToken
+            token: state.AuthenticateReducer.token,
+            confirmationToken: state.AuthenticateReducer.confirmationToken
         }
     }
     return (connect(mapStateToProps)(withRouter(GuestComponent)))

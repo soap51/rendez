@@ -1,25 +1,25 @@
 import React from 'react'
-import {View , Text , StyleSheet} from 'react-native'
-import {Space} from '../styles/global'
+import { StyleSheet, View } from 'react-native'
 import OptionCard from '../components/Cards/OptionCard'
-class NotificationPage extends React.Component{
-    render(){
-        return(
+import { Space } from '../styles/global'
+class NotificationPage extends React.Component {
+    render() {
+        return (
             <View style={styles.container}>
-                <OptionCard 
+                <OptionCard
                     {...this.props}
                 />
-               
-                    
+
+
             </View>
         )
     }
 }
 const styles = StyleSheet.create({
-    container : {
-        padding :Space.paddingSize,
-        
-       
+    container: {
+        padding: Space.paddingSize,
+
+
     }
 })
 export default NotificationPage

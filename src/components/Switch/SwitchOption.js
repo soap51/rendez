@@ -1,39 +1,39 @@
-import React from 'react'
-import {Switch} from 'react-native'
 import PropTypes from 'prop-types'
+import React from 'react'
+import { Switch } from 'react-native'
 class SwitchOption extends React.Component {
-    constructor(props){
-         
+    constructor(props) {
+
         this.state = {
-            thumbTintColor : "#E7E7E7",
-            value : false,
+            thumbTintColor: "#E7E7E7",
+            value: false,
             trackColor: {}
         }
     }
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            value : nextProps.value,
-            thumbTintColor : nextProps.thumbTintColor,
-            trackColor : nextProps.trackColor
+            value: nextProps.value,
+            thumbTintColor: nextProps.thumbTintColor,
+            trackColor: nextProps.trackColor
         })
     }
-    render(){
-        const {value , thumbTintColor , trackColor} = this.state
-        return(
+    render() {
+        const { value, thumbTintColor, trackColor } = this.state
+        return (
             <Switch
                 value={value}
                 thumbTintColor={thumbTintColor}
-                
+
                 trackColor={trackColor}
-                onValueChange={()=>this.props.onValueChange()}
+                onValueChange={() => this.props.onValueChange()}
             />
         )
     }
 }
 SwitchOption.propTypes = {
-    value : PropTypes.bool.isRequired,
-    thumbTintColor : PropTypes.string.isRequired,
-    onValueChange : PropTypes.func.isRequired,
-    trackColor : PropTypes.object.isRequired
+    value: PropTypes.bool.isRequired,
+    thumbTintColor: PropTypes.string.isRequired,
+    onValueChange: PropTypes.func.isRequired,
+    trackColor: PropTypes.object.isRequired
 }
 export default SwitchOption
