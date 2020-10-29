@@ -1,7 +1,7 @@
 import {LOGIN_SUCCESS  , LOGIN_FAIL ,LOGOUT_SUCCESS , VERIFY_SUCCESS , JOIN_SUCCESS , UNJOIN_SUCCESS} from '../constant/actionTypes'
 import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
-import { AsyncStorage } from "react-native"
+import { AsyncStorage } from "@react-native-community/async-storage"
 import SetAlert from '../utils/setAlert'
 import setAuthorizationHeader from '../utils/setAuthorizationHeader'
 export function loginRequest(payload){
