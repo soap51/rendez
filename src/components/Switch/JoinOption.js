@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 })
 class JoinOption extends React.Component {
     constructor(props){
-        super(props)
+         
         this.state = {
             joined : props.joined ? true : false,
             width : 0

@@ -5,7 +5,6 @@ import { Space , Circle , Font } from '../../styles/global';
 import Proptypes from 'prop-types'
 class CommentCard extends React.Component {
     constructor(props){
-        super(props)
         this.state ={
             position : props.position ? props.position : 0,
             comment : props.comment ? props.comment : ""

@@ -29,7 +29,7 @@ class CreateEventPage extends React.Component{
     setModalVisible(visible) { this.setState({ modalVisible: visible});
       }//imageSrc
     constructor(props){
-        super(props)
+         
         this.state = {
             visible:www,
             date:"",

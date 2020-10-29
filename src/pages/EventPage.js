@@ -11,7 +11,7 @@ import {Redirect} from 'react-router-native'
 import {connect} from 'react-redux'
 class EventPage extends React.Component{
     constructor(props){
-        super(props)
+         
         this.state={
             eventList : [],
             loading : true,

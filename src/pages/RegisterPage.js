@@ -9,7 +9,7 @@ import {DOMAIN} from '../constant/environment'
 import {connect} from 'react-redux'
 class RegisterPage extends React.Component{
     constructor(props) {
-        super(props)
+         
         this.state = {
             fullName: "",
             email: "",

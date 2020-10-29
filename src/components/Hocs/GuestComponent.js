@@ -5,7 +5,7 @@ import _ from 'lodash'
 export default function WrappedComponent(ChildComponent){
     class GuestComponent extends React.Component{
         constructor(props){
-           super(props) 
+             
         }
         render(){
             if(!_.isEmpty(this.props.token) )    return <Redirect to="/event" />

@@ -5,7 +5,7 @@ import Ball from '../../../assets/imgs/football.jpg'
 import PropTypes from 'prop-types'
 class NotificationCard extends React.Component{
     constructor(props){
-        super(props)
+         
         this.state = {
             author : props.author ? props.author : "",
             typeNotification : props.typeNotification ? props.typeNotification : "",

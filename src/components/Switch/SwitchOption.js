@@ -3,7 +3,7 @@ import {Switch} from 'react-native'
 import PropTypes from 'prop-types'
 class SwitchOption extends React.Component {
     constructor(props){
-        super(props)
+         
         this.state = {
             thumbTintColor : "#E7E7E7",
             value : false,

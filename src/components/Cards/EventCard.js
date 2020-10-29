@@ -23,7 +23,6 @@ import { vw, vh } from 'react-native-viewport-units';
 class EventCard extends React.Component {
     constructor(props){
     
-        super(props)
         this.state = {
             author : props.author ? props.author : "",
             title : props.title ? (props.title.length > 15 ? props.title + "..." : props.title) : "",

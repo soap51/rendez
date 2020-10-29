@@ -23,7 +23,7 @@ import _ from 'lodash'
 import axios from 'axios'
 class CommentPage extends React.Component{
     constructor(props){
-        super(props)
+         
         this.state ={
             commentList : [],
             comment : "",

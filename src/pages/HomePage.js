@@ -13,7 +13,7 @@ import setAlert from '../utils/setAlert'
 import {connect} from 'react-redux'
 class HomePage extends React.Component{
     constructor(props){
-        super(props)
+         
         this.state = {
             age : 0,
             fullName : "",

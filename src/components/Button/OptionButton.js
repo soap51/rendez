@@ -6,7 +6,7 @@ import SwitchOption from '../Switch/SwitchOption'
 import PropTypes from 'prop-types'
 class OptionButton extends React.Component {
     constructor(props){
-        super(props)
+         
         this.state={
             option : false,
             title : props.title,

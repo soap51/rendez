@@ -8,7 +8,7 @@ import {DOMAIN} from '../constant/environment'
 import axios from 'axios'
 class ForgotPage extends React.Component{
     constructor(props) {
-        super(props)
+         
         this.state = {
             
             email : "" ,

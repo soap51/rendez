@@ -16,7 +16,7 @@ const style = StyleSheet.create({
 })
 class Header extends React.Component {
     constructor(props){
-        super(props)
+         
         this.state = {
             title : props.match.path.slice(1 )
         }

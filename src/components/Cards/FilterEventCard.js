@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { vw, vh } from 'react-native-viewport-units';
 class FilterEventCard extends React.Component {
     constructor(props){
-        super(props)
+         
         this.state ={
             typeActivity : 1,
         }

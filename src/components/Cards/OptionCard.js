@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import Icon from "react-native-vector-icons/Ionicons";
 class OptionCard extends React.Component {
     constructor(props){
-        super(props)
+         
         this.state = {
             notiOption : false,
             feedOption : false

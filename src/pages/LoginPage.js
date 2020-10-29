@@ -10,7 +10,7 @@ import axios from 'axios'
 import setAuthorizationHeader from '../utils/setAuthorizationHeader'
 class LoginPage extends React.Component{
     constructor(props) {
-        super(props)
+         
         this.state = {
             loading: false,
             email : "" , password : "",

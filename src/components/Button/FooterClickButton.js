@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import Icon from "react-native-vector-icons/Ionicons";
 class ClickButton extends React.Component { 
     constructor(props){
-        super(props)
         this.state={
             ImageButton : props.iconType == "feed" ? "md-list-box" : (props.iconType == "noti" ? "md-notifications" : "md-home"),
         }

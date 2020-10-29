@@ -9,7 +9,7 @@ import { DOMAIN } from '../constant/environment';
 import setAlert from '../utils/setAlert'
 class EventInformationPage extends React.Component{
     constructor(props){
-        super(props)
+         
         this.state={
             event : {},
             error : "",

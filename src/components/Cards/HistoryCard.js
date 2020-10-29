@@ -17,7 +17,7 @@ import {vw, vh, vmin, vmax} from 'react-native-viewport-units';
 import moment from 'moment'
 class HistoryCard extends React.Component {
     constructor(props){
-        super(props)
+         
         this.state ={
             eventName : props.eventName ? props.eventName : "",
             iconType : props.iconType ? props.iconType : -1,

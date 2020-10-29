@@ -26,7 +26,7 @@ import {connect} from 'react-redux'
 import {joinSuccess , unjoinSuccess} from '../../actions/authenticateAction'
 class EventInformationCard extends React.Component {
     constructor(props){
-        super(props)
+         
         this.state = {
             id : props.id ? props.id : "",
             author : props.author ? props.author : "",
