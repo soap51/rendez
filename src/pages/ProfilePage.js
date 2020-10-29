@@ -1,8 +1,8 @@
 import React from 'react'
-import {View , Text } from 'react-native'
-class ProfilePage extends React.Component{
-    render(){
-        return(
+import { Text, View } from 'react-native'
+class ProfilePage extends React.Component {
+    render() {
+        return (
             <View>
                 <Text>
                     This is ProfilePage

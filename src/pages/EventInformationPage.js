@@ -1,50 +1,48 @@
-import React from 'react'
-import {View , Text , ScrollView,StyleSheet,Image , ActivityIndicator , Dimensions } from 'react-native'
-import EventInformationCard from '../components/Cards/EventInformationCard'
 import axios from 'axios'
-import {Font, SizePX , Circle, Space} from '../styles/global'
-import _ from 'lodash'
-import CreateEventPage from '../pages/CreateEventPage'
-import { DOMAIN } from '../constant/environment';
+import React from 'react'
+import { ActivityIndicator, Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native'
+import EventInformationCard from '../components/Cards/EventInformationCard'
+import { DOMAIN } from '../constant/environment'
+import { Space } from '../styles/global'
 import setAlert from '../utils/setAlert'
-class EventInformationPage extends React.Component{
-    constructor(props){
-        super(props)
-        this.state={
-            event : {},
-            error : "",
-            loading : true
+class EventInformationPage extends React.Component {
+    constructor(props) {
+
+        this.state = {
+            event: {},
+            error: "",
+            loading: true
         }
     }
-    componentDidMount(){
+    componentDidMount() {
         console.log(DOMAIN)
         axios.get(DOMAIN + "api/event/" + this.props.match.params.eventId)
-            .then(result=>{
+            .then(result => {
                 const data = result.data
-                this.setState({event : data , loading : false})
+                this.setState({ event: data, loading: false })
             })
-            .catch(err=>{
-                this.setState({loading : false})
-                setAlert(this.props.history , 400 , "Network Error" , "Application can't fetch data")
+            .catch(err => {
+                this.setState({ loading: false })
+                setAlert(this.props.history, 400, "Network Error", "Application can't fetch data")
             })
     }
-    _fetchAPI(_id){
+    _fetchAPI(_id) {
         axios.get(DOMAIN + "api/event/" + _id)
-        .then(result=>{
-            const data = result.data
-            this.setState({event : data , loading : false})
-        })
-        .catch(err=>{
-            this.setState({loading : false})
-            setAlert(this.props.history , 400 , "Network Error" , "Application can't fetch data")
-        })
+            .then(result => {
+                const data = result.data
+                this.setState({ event: data, loading: false })
+            })
+            .catch(err => {
+                this.setState({ loading: false })
+                setAlert(this.props.history, 400, "Network Error", "Application can't fetch data")
+            })
     }
-    render(){
-        const {height} = Dimensions.get('window')
-        const {event , loading} = this.state
-        if(this.state.loading) return <ActivityIndicator style={{marginTop : height / 3,justifyContent : "center" , alignItems : "center"}} size="large" color="#0000ff" />
-        const Information = event  ?
-            
+    render() {
+        const { height } = Dimensions.get('window')
+        const { event, loading } = this.state
+        if (this.state.loading) return <ActivityIndicator style={{ marginTop: height / 3, justifyContent: "center", alignItems: "center" }} size="large" color="#0000ff" />
+        const Information = event ?
+
             <EventInformationCard
                 {...this.props}
                 id={event._id}
@@ -58,24 +56,24 @@ class EventInformationPage extends React.Component{
                 currentSeat={event.currentSeat}
                 limitedSeat={event.totalSeat}
                 detail={event.detail}
-                _fetchAPI={()=>this._fetchAPI(event._id)}
+                _fetchAPI={() => this._fetchAPI(event._id)}
             />
             :
-            <View style={{display : "flex" , alignItems : "center" , padding : 20}}>  
+            <View style={{ display: "flex", alignItems: "center", padding: 20 }}>
                 <Text>Empty Event</Text>
             </View>
-            
-            console.log(Information)
-        return(
-            
-            <ScrollView style={{padding : Space.paddingSize}}>
+
+        console.log(Information)
+        return (
+
+            <ScrollView style={{ padding: Space.paddingSize }}>
                 {Information}
             </ScrollView>
         )
     }
 }
 const styles = StyleSheet.create({
-    
+
 })
 
 export default EventInformationPage
